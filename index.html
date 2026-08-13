@@ -416,52 +416,6 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
 ═══════════════════════════════════════════════════════ */
 #intervenants{background:var(--creme);color:var(--noir);
   border-top:3px solid var(--noir);border-bottom:3px solid var(--noir)}
-.int-list{display:block;margin-top:46px;border-top:2px solid var(--noir)}
-.int-row{border-bottom:2px solid var(--noir)}
-.int-row-head{display:flex;align-items:baseline;gap:18px;width:100%;padding:22px 4px;
-  background:none;border:none;cursor:pointer;text-align:left;font-family:inherit}
-.int-row-role{font-family:var(--S);font-weight:800;font-size:9.5px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--rose-e);flex-shrink:0;width:150px}
-.int-row-name{font-family:var(--F);font-style:italic;font-weight:300;font-size:24px;
-  color:var(--noir);flex:1}
-.int-row-plus{font-family:var(--S);font-weight:400;font-size:24px;color:var(--noir);
-  transition:transform .3s var(--ease);flex-shrink:0}
-.int-row-head[aria-expanded="true"] .int-row-plus{transform:rotate(45deg)}
-.int-row-body{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
-.int-row.open .int-row-body{max-height:420px}
-.int-row-body .int-desc{padding:0 4px 26px;max-width:62ch}
-.int-row-more .int-row-head{padding:20px 4px;opacity:.4}
-.int-row-name-more{font-family:var(--A);font-style:normal;font-size:14px;color:var(--noir)}
-.int-vid-btn{margin:0 4px 14px;cursor:pointer;border:1px solid rgba(255,212,0,.3);
-  background:rgba(255,212,0,.05);padding:12px 14px;display:flex;align-items:center;gap:12px;
-  transition:.25s;max-width:340px}
-.int-vid-btn:hover{border-color:var(--jaune-e)}
-.int-vid-play{width:38px;height:38px;border-radius:50%;background:var(--jaune-e);
-  display:grid;place-items:center;font-size:13px;color:var(--noir);flex-shrink:0}
-.int-vid-btn span{font-family:var(--S);font-weight:800;font-size:10.5px;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--jaune-e)}
-.int-ig-link{margin:0 4px;display:inline-flex;align-items:center;gap:6px;
-  font-family:var(--S);font-weight:700;font-size:10.5px;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--rose-e);transition:.2s}
-@media(max-width:640px){.int-row-head{flex-wrap:wrap;gap:6px}.int-row-role{width:100%}}
-.int-grid-old{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:46px;
-  border:3px solid var(--noir);counter-reset:ic}
-@media(max-width:880px){.int-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.int-grid{grid-template-columns:1fr}}
-.int-c{padding:28px 24px;border-right:3px solid var(--noir);border-bottom:3px solid var(--noir);
-  background:var(--creme);transition:.22s;position:relative;overflow:hidden;counter-increment:ic}
-.int-c:nth-child(3n){border-right:none}
-.int-c:hover{background:#f0e8d8}
-.int-c::before{content:counter(ic,decimal-leading-zero);position:absolute;top:16px;right:18px;
-  font-family:var(--S);font-weight:800;font-size:16px;color:var(--rose);opacity:.45}
-.int-c::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
-  background:var(--jaune);transform:scaleX(0);transform-origin:left;transition:.35s var(--ease)}
-.int-c:hover::after{transform:scaleX(1)}
-.int-role{font-family:var(--S);font-weight:800;font-size:9.5px;letter-spacing:.2em;
-  text-transform:uppercase;color:var(--rose);margin-bottom:11px;display:block}
-.int-name{font-family:var(--F);font-style:italic;font-weight:300;font-size:24px;
-  color:var(--noir);margin-bottom:10px;line-height:1.05}
-.int-desc{font-size:13.5px;color:rgba(12,11,10,.65);line-height:1.65}
 
 /* ═══════════════════════════════════════════════════════
    06 · TÉMOIGNAGES — fond noir ÉDITO, cards POP
@@ -1104,6 +1058,117 @@ footer a:hover{color:var(--bleu)}
   #mov-inner .po label:hover,#mov-inner .po input:checked+label,
   #mov-inner .fg input:focus,#mov-inner .fg textarea:focus{transform:none}
 }
+
+/* ===== INTERVENANTS ===== */
+.itv{
+  --itv-ink:var(--noir);
+  --itv-accent:var(--rose);
+  --itv-rule:var(--noir);
+  --itv-muted:#6a5e4a;
+  --itv-serif:var(--F);
+  padding:clamp(4rem,10vw,8rem) clamp(1.25rem,5vw,4rem);
+}
+.itv-head{max-width:65ch;margin:0 0 clamp(2.5rem,6vw,4.5rem)}
+.itv-eyebrow{
+  display:block;font-family:var(--S);font-size:.75rem;font-weight:800;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--itv-accent);margin-bottom:.9rem;
+}
+.itv-intro{font-size:1.0625rem;line-height:1.6;color:var(--itv-muted);margin:0}
+
+.itv-list{border-top:2px solid var(--itv-rule)}
+.itv-row{border-bottom:2px solid var(--itv-rule)}
+
+.itv-trigger{
+  width:100%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  gap:1.5rem;padding:clamp(1.1rem,2.6vw,2rem) 0;
+  background:none;border:0;cursor:pointer;text-align:center;
+  font:inherit;color:var(--itv-ink);
+}
+.itv-role{
+  grid-column:2;justify-self:center;min-width:0;
+  font-family:var(--itv-serif);font-style:italic;font-weight:500;
+  font-size:clamp(2.4rem,8.5vw,6.5rem);line-height:.95;letter-spacing:-.02em;
+  transition:color 220ms cubic-bezier(.16,1,.3,1);
+}
+.itv-trigger:hover .itv-role,
+.itv-trigger[aria-expanded="true"] .itv-role{color:var(--itv-accent)}
+
+.itv-plus{
+  grid-column:3;justify-self:end;
+  position:relative;width:clamp(20px,2.4vw,30px);height:clamp(20px,2.4vw,30px);
+  flex:none;
+}
+.itv-plus::before,.itv-plus::after{
+  content:'';position:absolute;inset:0;margin:auto;background:var(--itv-ink);
+  transition:transform 300ms cubic-bezier(.16,1,.3,1),background 220ms ease;
+}
+.itv-plus::before{width:100%;height:2px}
+.itv-plus::after{width:2px;height:100%}
+.itv-trigger[aria-expanded="true"] .itv-plus::before,
+.itv-trigger[aria-expanded="true"] .itv-plus::after{background:var(--itv-accent)}
+.itv-trigger[aria-expanded="true"] .itv-plus::after{transform:scaleY(0)}
+.itv-trigger[aria-expanded="true"] .itv-plus::before{transform:rotate(180deg)}
+
+.itv-panel{
+  display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows 380ms cubic-bezier(.16,1,.3,1);
+}
+.itv-panel>.itv-panel-in{overflow:hidden;min-height:0}
+.itv-row.is-open .itv-panel{grid-template-rows:1fr}
+
+.itv-panel-in>*{
+  opacity:0;transform:translateY(10px);
+  transition:opacity 320ms ease 120ms,transform 320ms cubic-bezier(.16,1,.3,1) 120ms;
+}
+.itv-row.is-open .itv-panel-in>*{opacity:1;transform:none}
+
+.itv-name{
+  font-family:var(--itv-serif);font-style:italic;font-weight:300;
+  font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.15;
+  margin:0 0 .75rem;padding-top:.5rem;color:var(--itv-ink);
+}
+.itv-bio{
+  font-size:1rem;line-height:1.7;color:var(--itv-muted);
+  max-width:62ch;margin:0 0 clamp(1.5rem,3.5vw,2.5rem);
+}
+.itv-extras{
+  display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;
+  margin:-.75rem 0 clamp(1.5rem,3.5vw,2.5rem);
+}
+.itv-vid-btn{
+  display:inline-flex;align-items:center;gap:12px;cursor:pointer;
+  background:none;border:1px solid rgba(12,11,10,.18);padding:10px 16px 10px 10px;
+  transition:border-color .25s,background .25s;
+}
+.itv-vid-btn:hover{border-color:var(--itv-accent);background:rgba(255,77,151,.06)}
+.itv-vid-play{
+  width:34px;height:34px;border-radius:50%;background:var(--itv-accent);
+  display:grid;place-items:center;font-size:12px;color:#fff;flex-shrink:0;
+}
+.itv-vid-btn span:last-child{
+  font-family:var(--S);font-weight:800;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--itv-ink);
+}
+.itv-ig-link{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--S);font-weight:700;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--itv-accent);transition:opacity .2s;
+}
+.itv-ig-link:hover{opacity:.7}
+.itv-more{
+  font-size:.875rem;line-height:1.6;color:var(--itv-muted);opacity:.75;
+  margin:clamp(1.25rem,3vw,2rem) 0 0;
+}
+
+@media (max-width:640px){
+  .itv-trigger{grid-template-columns:1fr auto;gap:.75rem}
+  .itv-role{grid-column:1;justify-self:center}
+  .itv-plus{grid-column:2}
+  .itv-role{font-size:clamp(1.9rem,10vw,3rem)}
+}
+@media (prefers-reduced-motion:reduce){
+  .itv *{transition-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
@@ -1424,76 +1489,109 @@ footer a:hover{color:var(--bleu)}
 </section>
 
 <!-- ═══ 05 · INTERVENANTS ═══ -->
-<section id="intervenants" class="pad" style="background:var(--creme);color:var(--noir);border-top:3px solid var(--noir);border-bottom:3px solid var(--noir)">
-  <span class="lbl lbl-bleu rv">Les intervenants</span>
-  <h2 class="h2-pop rv d1">Des pros qui<br>font le cinéma.</h2>
-  <p class="rv d2" style="font-size:15px;line-height:1.72;color:#6a5e4a;max-width:52ch;margin-top:10px">Ils interviennent aux côtés de Yasmina tout au long de la semaine.</p>
-  <div class="int-list">
-    <div class="int-row rv d1">
-      <button type="button" class="int-row-head" onclick="toggleInt(this)" aria-expanded="false">
-        <span class="int-row-role">Comédienne</span>
-        <span class="int-row-name">Claudia Tagbo</span>
-        <span class="int-row-plus" aria-hidden="true">+</span>
+<section class="itv" id="intervenants">
+  <div class="itv-head">
+    <span class="itv-eyebrow">L'équipe</span>
+    <p class="itv-intro">Ils interviennent aux côtés de Yasmina tout au long de la semaine.</p>
+  </div>
+
+  <div class="itv-list">
+
+    <article class="itv-row">
+      <button class="itv-trigger" type="button" aria-expanded="false">
+        <span class="itv-role">Comédienne</span>
+        <span class="itv-plus"></span>
       </button>
-      <div class="int-row-body"><p class="int-desc">Comédienne au sommet de sa carrière. Elle partage son parcours et joue avec le groupe le lundi, une rencontre qui ouvre le jeu dès le premier jour.</p></div>
-    </div>
-    <div class="int-row rv d2">
-      <button type="button" class="int-row-head" onclick="toggleInt(this)" aria-expanded="false">
-        <span class="int-row-role">Chant</span>
-        <span class="int-row-name">Feriel Issahnane</span>
-        <span class="int-row-plus" aria-hidden="true">+</span>
-      </button>
-      <div class="int-row-body"><p class="int-desc">Respiration, rythme, voix, ancrage corporel. Libérer le son, c'est libérer le jeu.</p></div>
-    </div>
-    <div class="int-row rv d3">
-      <button type="button" class="int-row-head" onclick="toggleInt(this)" aria-expanded="false">
-        <span class="int-row-role">Yoga</span>
-        <span class="int-row-name">Acey Farley</span>
-        <span class="int-row-plus" aria-hidden="true">+</span>
-      </button>
-      <div class="int-row-body"><p class="int-desc">Yoga le matin : ancrage, gestion du trac, maîtrise du souffle avant d'entrer sur le plateau.</p></div>
-    </div>
-    <div class="int-row rv d4">
-      <button type="button" class="int-row-head" onclick="toggleInt(this)" aria-expanded="false">
-        <span class="int-row-role">Photographe</span>
-        <span class="int-row-name">Thibault Duboucher</span>
-        <span class="int-row-plus" aria-hidden="true">+</span>
-      </button>
-      <div class="int-row-body"><p class="int-desc">Séance photo individuelle incluse dans le stage : portraits professionnels pour votre dossier artistique.</p></div>
-    </div>
-    <div class="int-row rv d5">
-      <button type="button" class="int-row-head" onclick="toggleInt(this)" aria-expanded="false">
-        <span class="int-row-role">Psychologue</span>
-        <span class="int-row-name">Sophie Brive</span>
-        <span class="int-row-plus" aria-hidden="true">+</span>
-      </button>
-      <div class="int-row-body"><p class="int-desc">Psychologue de tournage : décoder les blocages et préparer sereinement le casting du vendredi.</p></div>
-    </div>
-    <div class="int-row rv d6">
-      <button type="button" class="int-row-head" onclick="toggleInt(this)" aria-expanded="false">
-        <span class="int-row-role">Directrice de casting</span>
-        <span class="int-row-name">Julie Gandossi</span>
-        <span class="int-row-plus" aria-hidden="true">+</span>
-      </button>
-      <div class="int-row-body">
-        <p class="int-desc">Casting réel : retours concrets sur votre jeu, votre présence et votre singularité. Le vendredi qui change tout.</p>
-        <div onclick="openVid('julie-gandossi.mp4')" class="int-vid-btn">
-          <div class="int-vid-play">▶</div>
-          <span>Présentation vidéo</span>
+      <div class="itv-panel">
+        <div class="itv-panel-in">
+          <h3 class="itv-name">Claudia Tagbo</h3>
+          <p class="itv-bio">Comédienne au sommet de sa carrière. Elle partage son parcours et joue avec le groupe le lundi, une rencontre qui ouvre le jeu dès le premier jour.</p>
         </div>
-        <a href="https://www.instagram.com/juliegandossicasting?igsh=MXQ1cDB0OG1xM2g1bA==" target="_blank" rel="noopener" class="int-ig-link">
-          ◎ @juliegandossicasting
-        </a>
       </div>
-    </div>
-    <div class="int-row int-row-more" aria-hidden="true">
-      <div class="int-row-head" style="cursor:default">
-        <span class="int-row-role">À venir</span>
-        <span class="int-row-name int-row-name-more">D'autres intervenants seront ajoutés au fil des sessions</span>
+    </article>
+
+    <article class="itv-row">
+      <button class="itv-trigger" type="button" aria-expanded="false">
+        <span class="itv-role">Chant</span>
+        <span class="itv-plus"></span>
+      </button>
+      <div class="itv-panel">
+        <div class="itv-panel-in">
+          <h3 class="itv-name">Feriel Issahnane</h3>
+          <p class="itv-bio">Respiration, rythme, voix, ancrage corporel. Libérer le son, c'est libérer le jeu.</p>
+        </div>
       </div>
-    </div>
+    </article>
+
+    <article class="itv-row">
+      <button class="itv-trigger" type="button" aria-expanded="false">
+        <span class="itv-role">Yoga</span>
+        <span class="itv-plus"></span>
+      </button>
+      <div class="itv-panel">
+        <div class="itv-panel-in">
+          <h3 class="itv-name">Acey Farley</h3>
+          <p class="itv-bio">Yoga le matin : ancrage, gestion du trac, maîtrise du souffle avant d'entrer sur le plateau.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="itv-row">
+      <button class="itv-trigger" type="button" aria-expanded="false">
+        <span class="itv-role">Photographe</span>
+        <span class="itv-plus"></span>
+      </button>
+      <div class="itv-panel">
+        <div class="itv-panel-in">
+          <h3 class="itv-name">Thibault Duboucher</h3>
+          <p class="itv-bio">Séance photo individuelle incluse dans le stage : portraits professionnels pour votre dossier artistique.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="itv-row">
+      <button class="itv-trigger" type="button" aria-expanded="false">
+        <span class="itv-role">Psychologue</span>
+        <span class="itv-plus"></span>
+      </button>
+      <div class="itv-panel">
+        <div class="itv-panel-in">
+          <h3 class="itv-name">Sophie Brive</h3>
+          <p class="itv-bio">Psychologue de tournage : décoder les blocages et préparer sereinement le casting du vendredi.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="itv-row">
+      <button class="itv-trigger" type="button" aria-expanded="false">
+        <span class="itv-role">Directrice de casting</span>
+        <span class="itv-plus"></span>
+      </button>
+      <div class="itv-panel">
+        <div class="itv-panel-in">
+          <h3 class="itv-name">Julie Gandossi</h3>
+          <p class="itv-bio">Casting réel : retours concrets sur votre jeu, votre présence et votre singularité. Le vendredi qui change tout.</p>
+          <div class="itv-extras">
+            <button type="button" class="itv-vid-btn" onclick="openVid('julie-gandossi.mp4')">
+              <span class="itv-vid-play" aria-hidden="true">▶</span>
+              <span>Présentation vidéo</span>
+            </button>
+            <a href="https://www.instagram.com/juliegandossicasting?igsh=MXQ1cDB0OG1xM2g1bA==" target="_blank" rel="noopener" class="itv-ig-link">
+              ◎ @juliegandossicasting
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- POUR AJOUTER UN INTERVENANT : copie un bloc <article class="itv-row">…</article>
+         et change le rôle, le nom et la bio. Rien d'autre à toucher. -->
+
+    <p class="itv-more">D'autres intervenants seront ajoutés au fil des sessions.</p>
+
   </div>
 </section>
+
 
 <!-- ═══ 06 · TÉMOIGNAGES ═══ -->
 <section id="temoignages" class="pad" style="background:var(--noir);color:var(--creme);border-top:3px solid var(--jaune)">
@@ -1936,11 +2034,21 @@ const ENC_DATA={
   thibault:{role:"Photographe",desc:"Séance photo individuelle incluse dans le stage : portraits professionnels pour votre dossier artistique."},
   sophie:{role:"Psychologue",desc:"Psychologue de tournage : décoder les blocages et préparer sereinement le casting du vendredi."}
 };
-function toggleInt(btn){
-  const row=btn.closest('.int-row');
-  const open=row.classList.toggle('open');
-  btn.setAttribute('aria-expanded',open?'true':'false');
-}
+/* ===== INTERVENANTS — accordéon ===== */
+document.querySelectorAll('.itv-trigger').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var row = btn.closest('.itv-row');
+    var open = row.classList.contains('is-open');
+    document.querySelectorAll('.itv-row.is-open').forEach(function(r){
+      r.classList.remove('is-open');
+      r.querySelector('.itv-trigger').setAttribute('aria-expanded','false');
+    });
+    if(!open){
+      row.classList.add('is-open');
+      btn.setAttribute('aria-expanded','true');
+    }
+  });
+});
 function switchEnc(btn,key){
   document.querySelectorAll('.enc-pill[role="tab"]').forEach(b=>{b.classList.remove('star');b.setAttribute('aria-selected','false');});
   btn.classList.add('star');btn.setAttribute('aria-selected','true');
