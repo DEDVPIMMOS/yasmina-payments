@@ -69,7 +69,7 @@ module.exports = async (req, res) => {
   const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
   try {
     const session = await stripe.checkout.sessions.create(buildSession(['card', 'alma']));
-    return res.status(200).json({ url: session.url });
+    return res.status(200).json({ url: session.url, methods: session.payment_method_types });
   } catch (err) {
     const methodIndisponible = err?.type === 'StripeInvalidRequestError'
       && /payment_method_types|payment method type|alma/i.test(`${err?.param || ''} ${err?.message || ''}`);
@@ -80,7 +80,7 @@ module.exports = async (req, res) => {
     console.warn('[create-checkout] Alma indisponible sur ce compte, repli sur la carte seule');
     try {
       const session = await stripe.checkout.sessions.create(buildSession(['card']));
-      return res.status(200).json({ url: session.url });
+      return res.status(200).json({ url: session.url, methods: session.payment_method_types });
     } catch (err2) {
       console.error('[create-checkout] échec Stripe (repli carte) :', err2.code || '-', err2.message);
       return res.status(502).json({ error: 'Impossible de créer le paiement', code: err2.code || err2.type || null });
