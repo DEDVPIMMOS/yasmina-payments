@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidature — Yasmina Pastural Training</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #faf8f5;
+      color: #1a1410;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 640px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: #1a1410;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: #7a6e62;
+      margin-bottom: 28px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #7a6e62;
+      margin-bottom: 6px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e3ddd0;
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 15px;
+      color: #1a1410;
+      background: #faf8f5;
+      transition: border-color .2s;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="url"]:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #22c55e;
+      background: white;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .error {
+      font-size: 13px;
+      color: #dc2626;
+      margin-top: 4px;
+      display: none;
+    }
+    .error.show { display: block; }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .info-box {
+      background: #f0fce7;
+      border-left: 3px solid #22c55e;
+      padding: 14px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      color: #15803d;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #22c55e;
+      color: white;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .2s;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    button:hover { background: #16a34a; }
+    button:disabled {
+      background: #cbd5e1;
+      cursor: not-allowed;
+    }
+    .paiement-status {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .paiement-status.ok {
+      display: block;
+      background: #f0fce7;
+      color: #15803d;
+      border: 1px solid #22c55e;
+    }
+    .paiement-status.annule {
+      display: block;
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+    .lien-info {
+      font-size: 12px;
+      color: #7a6e62;
+      margin-top: 4px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Candidature</h1>
+    <div class="subtitle">Stage jeu cinéma · 7 au 11 septembre 2026</div>
+
+    <div id="paiement-ok" class="paiement-status ok">
+      ✓ Paiement confirmé. Vérifiez votre e-mail pour l'accusé de réception.
+    </div>
+    <div id="paiement-annule" class="paiement-status annule">
+      Paiement annulé. Vous pouvez réessayer à tout moment.
+    </div>
+
+    <div class="info-box">
+      💳 Candidature + paiement immédiat · 850 € (carte bancaire ou Alma)
+    </div>
+
+    <form id="candidateForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cd-prenom">Prénom *</label>
+          <input type="text" id="cd-prenom" name="prenom" required maxlength="100">
+          <div class="error" id="err-prenom"></div>
+        </div>
+        <div class="form-group">
+          <label for="cd-nom">Nom *</label>
+          <input type="text" id="cd-nom" name="nom" required maxlength="100">
+          <div class="error" id="err-nom"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cd-email">E-mail *</label>
+        <input type="email" id="cd-email" name="email" required maxlength="255">
+        <div class="error" id="err-email"></div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cd-telephone">Téléphone</label>
+          <input type="tel" id="cd-telephone" name="telephone" maxlength="20">
+        </div>
+        <div class="form-group">
+          <label for="cd-ville">Ville</label>
+          <input type="text" id="cd-ville" name="ville" maxlength="100">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cd-formation">Formation</label>
+        <textarea id="cd-formation" name="formation" maxlength="450"></textarea>
+        <div class="lien-info">Max 450 caractères</div>
+      </div>
+
+      <div class="form-group">
+        <label for="cd-experiences">Expériences / Réalisations</label>
+        <textarea id="cd-experiences" name="experiences" maxlength="450"></textarea>
+        <div class="lien-info">Max 450 caractères</div>
+      </div>
+
+      <div class="form-group">
+        <label for="cd-motivation">Motivation / Pourquoi ce stage ? *</label>
+        <textarea id="cd-motivation" name="motivation" required maxlength="450"></textarea>
+        <div class="lien-info">Max 450 caractères</div>
+        <div class="error" id="err-motivation"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="cd-cv-link">Lien vers CV (Google Drive, Dropbox…) *</label>
+        <input type="url" id="cd-cv-link" name="cvUrl" placeholder="https://..." required>
+        <div class="lien-info">Fichier accessible en lecture</div>
+        <div class="error" id="err-cvUrl"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="cd-photo-link">Lien vers Photo (Google Drive, Dropbox…) *</label>
+        <input type="url" id="cd-photo-link" name="photoUrl" placeholder="https://..." required>
+        <div class="lien-info">Photo portrait ou demi-corps</div>
+        <div class="error" id="err-photoUrl"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="cd-video-link">Lien vers Vidéo de présentation (YouTube, Drive, Dropbox…) *</label>
+        <input type="url" id="cd-video-link" name="videoUrl" placeholder="https://..." required>
+        <div class="lien-info">1-2 min · parlez de vous et du stage</div>
+        <div class="error" id="err-videoUrl"></div>
+      </div>
+
+      <button type="submit" id="submitBtn">Payer & Candidater · 850 €</button>
+    </form>
+  </div>
+
+  <script>
+    function showFieldError(fieldName, msg) {
+      const errorEl = document.getElementById(`err-${fieldName}`);
+      if (msg) {
+        errorEl.textContent = msg;
+        errorEl.classList.add('show');
+      } else {
+        errorEl.classList.remove('show');
+      }
+    }
+
+    function validateUrls() {
+      const urlRegex = /^https?:\/\//;
+      const cvUrl = document.getElementById('cd-cv-link').value.trim();
+      const photoUrl = document.getElementById('cd-photo-link').value.trim();
+      const videoUrl = document.getElementById('cd-video-link').value.trim();
+
+      let valid = true;
+      if (!cvUrl || !urlRegex.test(cvUrl)) {
+        showFieldError('cvUrl', 'Lien CV requis (https://...)');
+        valid = false;
+      } else {
+        showFieldError('cvUrl', '');
+      }
+
+      if (!photoUrl || !urlRegex.test(photoUrl)) {
+        showFieldError('photoUrl', 'Lien photo requis (https://...)');
+        valid = false;
+      } else {
+        showFieldError('photoUrl', '');
+      }
+
+      if (!videoUrl || !urlRegex.test(videoUrl)) {
+        showFieldError('videoUrl', 'Lien vidéo requis (https://...)');
+        valid = false;
+      } else {
+        showFieldError('videoUrl', '');
+      }
+
+      return valid;
+    }
+
+    document.getElementById('candidateForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!validateUrls()) return;
+
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Création du paiement...';
+
+      const formData = new FormData(e.target);
+      const payload = Object.fromEntries(formData);
+
+      try {
+        const res = await fetch('/api/create-checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+        if (res.ok && data.url) {
+          window.location.href = data.url;
+        } else {
+          alert(`Erreur : ${data.error || 'Impossible de créer le paiement'}`);
+          btn.disabled = false;
+          btn.textContent = 'Payer & Candidater · 850 €';
+        }
+      } catch (err) {
+        alert(`Erreur : ${err.message}`);
+        btn.disabled = false;
+        btn.textContent = 'Payer & Candidater · 850 €';
+      }
+    });
+
+    // Affiche le statut de paiement si le user revient de Stripe
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('paiement') === 'ok') {
+      document.getElementById('paiement-ok').style.display = 'block';
+      window.history.replaceState({}, document.title, '/candidater.html');
+    } else if (params.get('paiement') === 'annule') {
+      document.getElementById('paiement-annule').style.display = 'block';
+      window.history.replaceState({}, document.title, '/candidater.html');
+    }
+  </script>
+</body>
+</html>
