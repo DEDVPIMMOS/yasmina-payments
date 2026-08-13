@@ -150,9 +150,10 @@
     <div id="paiement-annule" class="paiement-status annule">
       Paiement annulé. Vous pouvez réessayer à tout moment.
     </div>
+    <div id="paiement-erreur" class="paiement-status annule"></div>
 
     <div class="info-box">
-      💳 Candidature + paiement immédiat · 850 € (carte bancaire ou Alma)
+      💳 Candidature + paiement immédiat · 850 € (carte bancaire)
     </div>
 
     <form id="candidateForm">
@@ -278,8 +279,18 @@
       if (!validateUrls()) return;
 
       const btn = document.getElementById('submitBtn');
+      const errBox = document.getElementById('paiement-erreur');
+      errBox.style.display = 'none';
       btn.disabled = true;
       btn.textContent = 'Création du paiement...';
+
+      const echec = (msg, code) => {
+        errBox.textContent = code ? `${msg} (code : ${code})` : msg;
+        errBox.style.display = 'block';
+        errBox.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        btn.disabled = false;
+        btn.textContent = 'Payer & Candidater · 850 €';
+      };
 
       const formData = new FormData(e.target);
       const payload = Object.fromEntries(formData);
@@ -291,18 +302,14 @@
           body: JSON.stringify(payload),
         });
 
-        const data = await res.json();
+        const data = await res.json().catch(() => ({}));
         if (res.ok && data.url) {
           window.location.href = data.url;
         } else {
-          alert(`Erreur : ${data.error || 'Impossible de créer le paiement'}`);
-          btn.disabled = false;
-          btn.textContent = 'Payer & Candidater · 850 €';
+          echec(data.error || `Impossible de créer le paiement (HTTP ${res.status})`, data.code);
         }
       } catch (err) {
-        alert(`Erreur : ${err.message}`);
-        btn.disabled = false;
-        btn.textContent = 'Payer & Candidater · 850 €';
+        echec(`Connexion au serveur de paiement impossible : ${err.message}`);
       }
     });
 
