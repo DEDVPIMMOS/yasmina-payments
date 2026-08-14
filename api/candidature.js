@@ -31,6 +31,26 @@ const extension = (mime) => ({
   'application/pdf': 'pdf', 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp',
 }[mime] || 'bin');
 
+const MAX_CORPS = 6 * 1024 * 1024;
+
+function lireCorps(req) {
+  return new Promise((resolve, reject) => {
+    let taille = 0;
+    const chunks = [];
+    req.on('data', (c) => {
+      taille += c.length;
+      if (taille > MAX_CORPS) {
+        reject(Object.assign(new Error('Dossier trop volumineux'), { tropGros: true }));
+        req.destroy();
+        return;
+      }
+      chunks.push(c);
+    });
+    req.on('end', () => resolve(Buffer.concat(chunks).toString('utf8')));
+    req.on('error', reject);
+  });
+}
+
 module.exports = async (req, res) => {
   const manquantes = ['STRIPE_SECRET_KEY', 'STRIPE_PUBLISHABLE_KEY', 'ZOHO_USER', 'ZOHO_PASS']
     .filter((k) => !process.env[k]);
@@ -49,9 +69,18 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Méthode non autorisée' });
   }
 
-  let d = req.body;
-  if (typeof d === 'string') {
-    try { d = JSON.parse(d); } catch { return res.status(400).json({ error: 'JSON invalide' }); }
+  let d;
+  try {
+    const brut = await lireCorps(req);
+    d = JSON.parse(brut);
+  } catch (e) {
+    if (e.tropGros) {
+      return res.status(413).json({
+        error: 'Dossier trop volumineux — réduisez la taille du CV ou de la photo',
+        champ: 'cvFile',
+      });
+    }
+    return res.status(400).json({ error: 'Requête illisible' });
   }
   if (!d || typeof d !== 'object') return res.status(400).json({ error: 'Corps de requête vide' });
 
@@ -172,3 +201,7 @@ module.exports = async (req, res) => {
     });
   }
 };
+
+// Corps lu a la main (pieces en base64) : doit etre declare APRES
+// l affectation du handler, sinon module.exports l ecrase.
+module.exports.config = { api: { bodyParser: false } };

@@ -1,8 +1,6 @@
 const Stripe = require('stripe');
 const nodemailer = require('nodemailer');
 
-module.exports.config = { api: { bodyParser: false } };
-
 function readRawBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = [];
@@ -155,3 +153,7 @@ module.exports = async (req, res) => {
     return res.status(200).json({ received: true, error: err.message });
   }
 };
+
+// Signature Stripe : le corps doit rester brut. A declarer APRES
+// l affectation du handler, sinon module.exports l ecrase.
+module.exports.config = { api: { bodyParser: false } };
