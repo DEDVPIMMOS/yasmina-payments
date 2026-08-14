@@ -103,12 +103,12 @@ module.exports = async (req, res) => {
         ${ligne('Ville', m.ville)}
         ${ligne('Motivation', m.motivation)}
         ${ligneLien('Vidéo', m.videoUrl)}
-        ${ligneLien('CV', m.cvUrl, 'Télécharger le CV')}
-        ${ligneLien('Photo', m.photoUrl, 'Voir la photo')}
+        ${ligne('Pièces archivées', [m.cvChemin, m.photoChemin].filter(Boolean).join('\n'))}
         ${ligneLien('Reçu de paiement', recuUrl, 'Ouvrir le reçu Stripe')}
       </table>
       <p style="margin:18px 0 0;font-size:13px;color:#7a6e62;line-height:1.6">
-        ${m.cvUrl ? '' : 'Le CV et la photo sont en pièces jointes du premier e-mail « Dossier reçu ».<br>'}
+        Le CV et la photo sont en pièces jointes du premier e-mail « Dossier reçu ».<br>
+        ${m.cvChemin ? 'Ils sont aussi archivés dans l\'espace privé de stockage (Paris), consultable depuis le tableau de bord Vercel.<br>' : ''}
         Répondre directement à cet e-mail écrit au candidat.<br>
         En cas de refus après coup : remboursement depuis le dashboard Stripe.
       </p>

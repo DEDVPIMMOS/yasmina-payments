@@ -120,33 +120,33 @@ module.exports = async (req, res) => {
 
   try {
     // ── 1. Stockage des pièces ──────────────────────────────────────────
-    let cvUrl = '';
-    let photoUrl = '';
+    // Archivage dans le store privé de Paris (cdg1) : les pièces d'un
+    // candidat ne quittent pas l'Union européenne. « private » signifie
+    // qu'aucune URL n'est ouvrable sans authentification — on conserve donc
+    // le chemin, pas un lien qui échouerait dans l'e-mail. Les pièces
+    // restent jointes au message, qui est le canal de lecture réel.
+    let cvChemin = '';
+    let photoChemin = '';
     if (process.env.BLOB_READ_WRITE_TOKEN) {
-      // Le store peut être public ou privé : on tente le public (lien
-      // ouvrable depuis l'e-mail), sinon on bascule en privé et on
-      // n'expose aucun lien inutilisable.
-      const deposer = async (chemin, buffer, contentType) => {
-        const base = { addRandomSuffix: true, token: process.env.BLOB_READ_WRITE_TOKEN, contentType };
-        try {
-          const r = await put(chemin, buffer, { ...base, access: 'public' });
-          return { url: r.url, ouvrable: true };
-        } catch (e) {
-          const r = await put(chemin, buffer, { ...base, access: 'private' });
-          return { url: r.url, ouvrable: false };
-        }
-      };
-      const [rCv, rPhoto] = await Promise.all([
-        deposer(`candidatures/${slug}-cv.${extension(cv.mime)}`, cv.buffer, cv.mime),
-        deposer(`candidatures/${slug}-photo.${extension(photo.mime)}`, photo.buffer, photo.mime),
-      ]);
-      if (rCv.ouvrable) cvUrl = rCv.url;
-      if (rPhoto.ouvrable) photoUrl = rPhoto.url;
-      if (!rCv.ouvrable) {
-        console.warn('[candidature] store Blob privé : liens omis, pièces jointes seules');
+      const deposer = (chemin, buffer, contentType) => put(chemin, buffer, {
+        access: 'private',
+        addRandomSuffix: true,
+        token: process.env.BLOB_READ_WRITE_TOKEN,
+        contentType,
+      });
+      try {
+        const [rCv, rPhoto] = await Promise.all([
+          deposer(`candidatures/${slug}-cv.${extension(cv.mime)}`, cv.buffer, cv.mime),
+          deposer(`candidatures/${slug}-photo.${extension(photo.mime)}`, photo.buffer, photo.mime),
+        ]);
+        cvChemin = rCv.pathname || '';
+        photoChemin = rPhoto.pathname || '';
+      } catch (e) {
+        // L'archivage ne doit jamais empêcher une candidature d'aboutir.
+        console.error('[candidature] archivage Blob impossible :', e.message);
       }
     } else {
-      console.warn('[candidature] BLOB_READ_WRITE_TOKEN absent : pièces envoyées par e-mail uniquement');
+      console.warn('[candidature] BLOB_READ_WRITE_TOKEN absent : pièces en e-mail uniquement');
     }
 
     // ── 2. Intention de paiement ────────────────────────────────────────
@@ -161,7 +161,7 @@ module.exports = async (req, res) => {
       description: `Stage jeu cinéma 7→11 sept. 2026 — ${intitule}`,
       metadata: {
         civilite, prenom, nom, email, telephone, ville,
-        motivation, videoUrl, cvUrl, photoUrl,
+        motivation, videoUrl, cvChemin, photoChemin,
       },
     });
 
