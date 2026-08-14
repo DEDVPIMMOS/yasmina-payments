@@ -1,5 +1,56 @@
-# Configuration du paiement Stripe
+# Configuration du paiement
 
-Webhook créé et actif sur https://yptraining.vercel.app/api/stripe-webhook
+## Parcours
 
-Tout est dans les métadonnées Stripe — aucun fichier n'est stocké en local.
+1. Le candidat remplit `candidater.html` (identité, motivation, lien vidéo, CV et photo).
+2. `POST /api/candidature` : stocke les pièces (Vercel Blob), envoie un premier
+   e-mail à Yasmina avec les pièces jointes, puis crée une intention de paiement
+   Stripe et renvoie son `client_secret`.
+3. Le Payment Element s'affiche dans la page. Les moyens proposés sont ceux
+   activés sur le compte Stripe (`automatic_payment_methods`).
+4. Paiement confirmé -> Stripe émet `payment_intent.succeeded`.
+5. `POST /api/stripe-webhook` envoie « Candidature et inscription de M./Mme X »
+   avec le reçu de paiement, plus un accusé de réception au candidat.
+
+## Variables d'environnement (Vercel, Production)
+
+| Variable | Rôle | Sans elle |
+|---|---|---|
+| `STRIPE_SECRET_KEY` | API Stripe | Rien ne fonctionne |
+| `STRIPE_PUBLISHABLE_KEY` | Affichage du Payment Element | Le paiement ne s'affiche pas |
+| `STRIPE_WEBHOOK_SECRET` | Vérification de signature | Aucun e-mail de confirmation |
+| `ZOHO_USER` / `ZOHO_PASS` | Envoi SMTP | Aucun e-mail |
+| `BLOB_READ_WRITE_TOKEN` | Stockage CV et photo | Pièces uniquement dans le 1er e-mail |
+| `NOTIFY_TO` | Destinataire (défaut : `ZOHO_USER`) | — |
+
+## Webhook Stripe
+
+Destination : `https://yptraining.vercel.app/api/stripe-webhook`
+Événement requis : **`payment_intent.succeeded`**
+(`checkout.session.completed` reste accepté pour l'ancien parcours.)
+
+## Vérifier que tout répond
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" -X POST https://yptraining.vercel.app/api/stripe-webhook -d '{}'
+# 400 = configuré · 500 = variable manquante
+
+curl -s https://yptraining.vercel.app/api/candidature
+# {"publishableKey":"pk_live_..."} = configuré
+```
+
+## Apple Pay
+
+Le bouton n'apparaît que si le domaine est enregistré :
+Stripe -> Settings -> Payment methods -> Apple Pay -> ajouter `yptraining.vercel.app`.
+Apple Pay n'est pas un moyen de paiement distinct : il s'appuie sur `card`.
+
+## Paiement fractionné
+
+Alma n'est pas activé sur le compte. Aucune modification de code ne sera
+nécessaire : `automatic_payment_methods` l'affichera dès son activation.
+
+## Vidéos de la page
+
+Dans `candidater.html`, renseigner `data-yt="IDENTIFIANT"` sur les blocs
+`.vid-frame`. Pour `youtube.com/watch?v=AbCdEf12345` -> `data-yt="AbCdEf12345"`.
