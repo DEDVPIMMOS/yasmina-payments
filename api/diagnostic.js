@@ -18,7 +18,14 @@ module.exports = async (req, res) => {
     BLOB_READ_WRITE_TOKEN: !!process.env.BLOB_READ_WRITE_TOKEN,
   };
 
-  const out = { env, mode: null, compte: null, moyens: null, webhooks: null, applePay: null, erreurs: [] };
+  // Noms seuls, jamais les valeurs : permet de repérer un jeton Blob créé
+  // sous un autre nom que celui attendu.
+  const varsBlob = Object.keys(process.env).filter((k) => /BLOB/i.test(k)).sort();
+
+  const out = { env, varsBlob, mode: null, compte: null, moyens: null, webhooks: null, applePay: null, erreurs: [] };
+  if (!varsBlob.length) {
+    out.erreurs.push('Aucune variable Blob dans ce déploiement : le store n\'est pas rattaché au projet');
+  }
 
   if (!process.env.STRIPE_SECRET_KEY) {
     out.erreurs.push('STRIPE_SECRET_KEY absente : aucun diagnostic Stripe possible');
