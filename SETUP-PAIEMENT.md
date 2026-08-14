@@ -32,12 +32,23 @@ Destination : `https://yptraining.vercel.app/api/stripe-webhook`
 ## Vérifier que tout répond
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}\n" -X POST https://yptraining.vercel.app/api/stripe-webhook -d '{}'
-# 400 = configuré · 500 = variable manquante
-
-curl -s https://yptraining.vercel.app/api/candidature
-# {"publishableKey":"pk_live_..."} = configuré
+curl -s https://yptraining.vercel.app/api/diagnostic | python3 -m json.tool
 ```
+
+Lecture seule, aucun secret exposé. Renvoie l'état des variables, du compte,
+des capacités, des moyens de paiement actifs, des événements de webhook et
+des domaines Apple Pay. `"pret": true` = chaîne complète.
+
+Ajouter `?intent=1` pour créer une intention de paiement puis l'annuler
+aussitôt, et lire les moyens réellement proposés au candidat.
+
+## Alma
+
+Cocher Alma dans la configuration des moyens de paiement ne suffit pas :
+il faut que la **capacité** `alma_payments` soit accordée au compte, ce qui
+passe par une souscription depuis le Dashboard (Paramètres → Moyens de
+paiement → Alma). Tant que `capacites.alma` vaut `absente` dans le
+diagnostic, Alma ne sera jamais proposé.
 
 ## Apple Pay
 
