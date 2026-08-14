@@ -15,6 +15,12 @@ function readRawBody(req) {
 const esc = (v) => String(v == null ? '' : v)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
+const CIVILITES = { M: 'M.', Mme: 'Mme', Autre: '' };
+
+// Le formulaire crée un PaymentIntent ; l'ancien parcours Checkout est conservé
+// le temps que les sessions déjà ouvertes se terminent.
+const EVENEMENTS = ['payment_intent.succeeded', 'checkout.session.completed'];
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -40,52 +46,73 @@ module.exports = async (req, res) => {
     return res.status(400).send('Signature invalide');
   }
 
-  if (event.type !== 'checkout.session.completed') {
+  if (!EVENEMENTS.includes(event.type)) {
     return res.status(200).json({ received: true, ignored: event.type });
   }
 
-  const session = event.data.object;
-  const m = session.metadata || {};
+  const objet = event.data.object;
+  const m = objet.metadata || {};
   if (!m.email || !m.nom) {
-    console.error('[stripe-webhook] session sans metadonnees candidat', session.id);
+    console.error('[stripe-webhook] paiement sans métadonnées candidat', objet.id);
     return res.status(200).json({ received: true, error: 'métadonnées manquantes' });
   }
 
+  const centimes = objet.amount_received || objet.amount || objet.amount_total || 0;
+  const montant = (centimes / 100).toFixed(2).replace('.', ',');
+
+  // Reçu Stripe : porté par la charge, qu'il faut demander explicitement.
+  let recuUrl = '';
+  let moyen = '';
   try {
-    const nomComplet = `${esc(m.prenom)} ${esc(m.nom)}`;
-    const montant = ((session.amount_total || 0) / 100).toFixed(2).replace('.', ',');
+    if (objet.object === 'payment_intent') {
+      const pi = await stripe.paymentIntents.retrieve(objet.id, { expand: ['latest_charge'] });
+      const charge = pi.latest_charge;
+      if (charge) {
+        recuUrl = charge.receipt_url || '';
+        moyen = charge.payment_method_details?.type || '';
+      }
+    }
+  } catch (e) {
+    console.error('[stripe-webhook] reçu indisponible :', e.message);
+  }
+
+  try {
+    const civiliteTxt = CIVILITES[m.civilite] || '';
+    const nomComplet = `${esc(m.prenom)} ${esc(m.nom)}`.trim();
+    const intitule = `${civiliteTxt ? civiliteTxt + ' ' : ''}${nomComplet}`.trim();
 
     const ligne = (t, v) => (String(v || '').trim()
       ? `<tr><td style="padding:9px 14px;background:#f6f2e9;font:600 12px system-ui;text-transform:uppercase;color:#7a6e62;white-space:nowrap;vertical-align:top">${t}</td>
            <td style="padding:9px 14px;font:400 15px/1.6 system-ui;color:#1a1410">${esc(v).replace(/\n/g, '<br>')}</td></tr>`
       : '');
-    const ligneLien = (t, url) => (String(url || '').trim()
+    const ligneLien = (t, url, libelle) => (String(url || '').trim()
       ? `<tr><td style="padding:9px 14px;background:#f6f2e9;font:600 12px system-ui;text-transform:uppercase;color:#7a6e62;white-space:nowrap;vertical-align:top">${t}</td>
-           <td style="padding:9px 14px;font:400 15px/1.6 system-ui"><a href="${esc(url)}" style="color:#a06800">${esc(url)}</a></td></tr>`
+           <td style="padding:9px 14px;font:400 15px/1.6 system-ui"><a href="${esc(url)}" style="color:#a06800">${esc(libelle || url)}</a></td></tr>`
       : '');
 
     const html = `
     <div style="max-width:640px;margin:0 auto;font-family:system-ui,-apple-system,sans-serif">
-      <div style="border-top:3px solid #22c55e;padding:22px 0 14px">
-        <div style="font:800 11px system-ui;letter-spacing:.28em;text-transform:uppercase;color:#15803d">Candidature payée</div>
-        <h1 style="font-size:25px;margin:10px 0 4px;color:#1a1410">${nomComplet}</h1>
-        <div style="font-size:14px;color:#15803d;font-weight:600">${montant} € réglés · paiement confirmé par Stripe</div>
+      <div style="border-top:3px solid #ff4d97;padding:22px 0 14px">
+        <div style="font:800 11px system-ui;letter-spacing:.28em;text-transform:uppercase;color:#ff4d97">Inscription payée</div>
+        <h1 style="font-size:25px;margin:10px 0 4px;color:#1a1410">${intitule}</h1>
+        <div style="font-size:14px;color:#1a1410;font-weight:600">
+          ${montant} € réglés${moyen ? ` · ${esc(moyen)}` : ''} · confirmé par Stripe
+        </div>
       </div>
       <table style="width:100%;border-collapse:collapse;border:1px solid #e3ddd0">
         ${ligne('E-mail', m.email)}
         ${ligne('Téléphone', m.telephone)}
         ${ligne('Ville', m.ville)}
-        ${ligne('Formation', m.formation)}
-        ${ligne('Expériences', m.experiences)}
-        ${ligne('Motivations', m.motivation)}
-        ${ligneLien('CV', m.cvUrl)}
-        ${ligneLien('Photo', m.photoUrl)}
-        ${ligneLien('Vidéo de présentation', m.videoUrl)}
+        ${ligne('Motivation', m.motivation)}
+        ${ligneLien('Vidéo', m.videoUrl)}
+        ${ligneLien('CV', m.cvUrl, 'Télécharger le CV')}
+        ${ligneLien('Photo', m.photoUrl, 'Voir la photo')}
+        ${ligneLien('Reçu de paiement', recuUrl, 'Ouvrir le reçu Stripe')}
       </table>
-      <p style="margin:18px 0 0;font-size:13px;color:#7a6e62">
-        Les liens ci-dessus sont ceux fournis par le candidat (Drive, Dropbox…) — leur disponibilité dépend de lui.<br>
+      <p style="margin:18px 0 0;font-size:13px;color:#7a6e62;line-height:1.6">
+        Le CV et la photo sont également en pièces jointes du premier e-mail « Dossier reçu ».<br>
         Répondre directement à cet e-mail écrit au candidat.<br>
-        En cas de refus après coup : remboursement manuel depuis le dashboard Stripe.
+        En cas de refus après coup : remboursement depuis le dashboard Stripe.
       </p>
     </div>`;
 
@@ -100,7 +127,7 @@ module.exports = async (req, res) => {
       from: `"Candidatures — site" <${process.env.ZOHO_USER}>`,
       to: process.env.NOTIFY_TO || process.env.ZOHO_USER,
       replyTo: `"${nomComplet}" <${m.email}>`,
-      subject: `✅ Candidature payée — ${nomComplet} (${montant} €)`,
+      subject: `Candidature et inscription de ${intitule}`,
       html,
     });
 
@@ -108,11 +135,15 @@ module.exports = async (req, res) => {
       await transport.sendMail({
         from: `"Yasmina Pastural Training" <${process.env.ZOHO_USER}>`,
         to: m.email,
-        subject: 'Paiement confirmé — candidature reçue',
+        subject: 'Inscription confirmée — stage du 7 au 11 septembre 2026',
         html: `<div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto">
-          <h1 style="font-size:22px">Merci ${esc(m.prenom)}.</h1>
-          <p>Votre paiement de ${montant} € a bien été confirmé et votre dossier transmis à Yasmina.
-          Elle revient vers vous sous 48h.</p></div>`,
+          <h1 style="font-size:22px;color:#1a1410">Merci ${esc(m.prenom)}.</h1>
+          <p style="font-size:15px;line-height:1.7;color:#1a1410">
+            Votre paiement de ${montant} € est confirmé et votre dossier est transmis à Yasmina.
+            Elle revient vers vous sous 48 h.
+          </p>
+          ${recuUrl ? `<p style="font-size:15px"><a href="${esc(recuUrl)}" style="color:#ff4d97">Consulter votre reçu</a></p>` : ''}
+        </div>`,
       });
     } catch (e) {
       console.error('[stripe-webhook] accusé candidat non envoyé :', e.message);

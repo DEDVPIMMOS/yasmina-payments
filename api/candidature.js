@@ -1,38 +1,52 @@
+const Stripe = require('stripe');
 const nodemailer = require('nodemailer');
+const { put } = require('@vercel/blob');
 
-/* ─────────────────────────────────────────────────────────────
-   Réception d'une candidature → e-mail à Yasmina + accusé au candidat.
+const MONTANT_CENTIMES = 85000;
+// 2 Mo par fichier : le base64 gonfle de ~33 % et Vercel plafonne le corps
+// de requete a 4,5 Mo. 2 + 2 Mo encodes tiennent sous la limite.
+const MAX_FICHIER = 2 * 1024 * 1024;
+const TYPES_CV = ['application/pdf', 'image/jpeg', 'image/png'];
+const TYPES_PHOTO = ['image/jpeg', 'image/png', 'image/webp'];
 
-   Variables d'environnement à définir dans Vercel
-   (Settings → Environment Variables) :
-     ZOHO_USER   contact@yasminapasturaltraining.com
-     ZOHO_PASS   mot de passe d'application Zoho (PAS le mot de passe du compte)
-     ZOHO_HOST   optionnel — smtp.zoho.eu par défaut
-     NOTIFY_TO   optionnel — destinataire des notifications, ZOHO_USER par défaut
-   ───────────────────────────────────────────────────────────── */
+const trunc = (v, n = 480) => String(v || '').trim().slice(0, n);
+const esc = (s) => String(s || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-const MAX_CV_BYTES = 3.5 * 1024 * 1024;
+const CIVILITES = { M: 'M.', Mme: 'Mme', Autre: '' };
 
-const esc = (v) =>
-  String(v == null ? '' : v)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
+/** "data:image/jpeg;base64,AAAA" -> { buffer, mime } */
+function decodeFichier(dataUrl, typesAutorises) {
+  if (!dataUrl) return null;
+  const m = /^data:([\w./+-]+);base64,(.+)$/.exec(String(dataUrl));
+  if (!m) return null;
+  const mime = m[1].toLowerCase();
+  if (!typesAutorises.includes(mime)) return { erreur: `Format non accepté (${mime})` };
+  const buffer = Buffer.from(m[2], 'base64');
+  if (!buffer.length) return null;
+  if (buffer.length > MAX_FICHIER) return { erreur: 'Fichier trop volumineux (2 Mo maximum)' };
+  return { buffer, mime };
+}
 
-const LABELS = {
-  '1x': 'En 1 fois — 850 €',
-  '2x': 'En 2 fois — 2 × 425 €, sans frais (Alma)',
-  '3x': 'En 3 fois — sans frais (Alma)',
-};
+const extension = (mime) => ({
+  'application/pdf': 'pdf', 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp',
+}[mime] || 'bin');
 
 module.exports = async (req, res) => {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
-    return res.status(405).json({ error: 'Méthode non autorisée' });
+  const manquantes = ['STRIPE_SECRET_KEY', 'STRIPE_PUBLISHABLE_KEY', 'ZOHO_USER', 'ZOHO_PASS']
+    .filter((k) => !process.env[k]);
+  if (manquantes.length) {
+    console.error('[candidature] variables manquantes :', manquantes.join(', '));
+    return res.status(500).json({ error: 'Service non configuré', code: 'config_manquante' });
   }
 
-  if (!process.env.ZOHO_USER || !process.env.ZOHO_PASS) {
-    console.error('[candidature] ZOHO_USER / ZOHO_PASS manquants');
-    return res.status(500).json({ error: 'Service e-mail non configuré' });
+  // Le retour d'un paiement redirigé a besoin de la clé publiable pour
+  // interroger Stripe ; elle est publique par nature.
+  if (req.method === 'GET') {
+    return res.status(200).json({ publishableKey: process.env.STRIPE_PUBLISHABLE_KEY });
+  }
+  if (req.method !== 'POST') {
+    res.setHeader('Allow', 'GET, POST');
+    return res.status(405).json({ error: 'Méthode non autorisée' });
   }
 
   let d = req.body;
@@ -41,122 +55,120 @@ module.exports = async (req, res) => {
   }
   if (!d || typeof d !== 'object') return res.status(400).json({ error: 'Corps de requête vide' });
 
-  // ── Validation serveur (ne jamais se fier au navigateur) ──
-  const manque = ['prenom', 'nom', 'email', 'telephone', 'motivation']
-    .filter((k) => !String(d[k] || '').trim());
-  if (manque.length) {
-    return res.status(400).json({ error: 'Champs manquants', champs: manque });
+  // Piège à robots : rempli => on répond OK sans rien faire.
+  if (trunc(d.website)) return res.status(200).json({ ok: true });
+
+  const civilite = CIVILITES[d.civilite] !== undefined ? d.civilite : 'Autre';
+  const prenom = trunc(d.prenom, 100);
+  const nom = trunc(d.nom, 100);
+  const email = trunc(d.email, 255);
+  const telephone = trunc(d.telephone, 30);
+  const ville = trunc(d.ville, 100);
+  const motivation = trunc(d.motivation);
+  const videoUrl = trunc(d.videoUrl, 400);
+
+  if (!prenom || !nom) return res.status(400).json({ error: 'Nom et prénom requis', champ: 'nom' });
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    return res.status(400).json({ error: 'Adresse e-mail invalide', champ: 'email' });
   }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(d.email).trim())) {
-    return res.status(400).json({ error: 'Adresse e-mail invalide' });
-  }
-
-  // ── Pot de miel anti-spam : rempli = robot, on répond 200 sans rien envoyer ──
-  if (String(d.website || '').trim()) return res.status(200).json({ ok: true });
-
-  const nomComplet = `${String(d.prenom).trim()} ${String(d.nom).trim()}`;
-  const formule = LABELS[d.paiement] || String(d.paiement || '—');
-
-  // ── CV en pièce jointe si transmis et raisonnable ──
-  const pieces = [];
-  let noteCv = 'Aucun CV joint.';
-  if (d.cvData && d.cvNom) {
-    const b64 = String(d.cvData).split(',').pop();
-    const taille = Math.floor((b64.length * 3) / 4);
-    if (taille > MAX_CV_BYTES) {
-      noteCv = `CV « ${d.cvNom} » trop volumineux pour l'envoi automatique — à redemander au candidat.`;
-    } else {
-      pieces.push({ filename: String(d.cvNom), content: b64, encoding: 'base64' });
-      noteCv = `CV joint : ${d.cvNom}`;
-    }
-  } else if (d.cvNom) {
-    noteCv = `CV « ${d.cvNom} » sélectionné mais non transmis.`;
+  if (!motivation) return res.status(400).json({ error: 'Motivation requise', champ: 'motivation' });
+  if (!/^https?:\/\//i.test(videoUrl)) {
+    return res.status(400).json({ error: 'Lien vidéo requis (https://…)', champ: 'videoUrl' });
   }
 
-  const ligne = (t, v) => (String(v || '').trim()
-    ? `<tr><td style="padding:9px 14px;background:#f6f2e9;font:600 12px/1.4 system-ui;text-transform:uppercase;letter-spacing:.06em;color:#7a6e62;white-space:nowrap;vertical-align:top">${t}</td>
-         <td style="padding:9px 14px;font:400 15px/1.6 system-ui;color:#1a1410">${esc(v).replace(/\n/g, '<br>')}</td></tr>`
-    : '');
+  const cv = decodeFichier(d.cvFile, TYPES_CV);
+  const photo = decodeFichier(d.photoFile, TYPES_PHOTO);
+  if (!cv) return res.status(400).json({ error: 'CV requis (PDF, JPG ou PNG)', champ: 'cvFile' });
+  if (cv.erreur) return res.status(400).json({ error: `CV : ${cv.erreur}`, champ: 'cvFile' });
+  if (!photo) return res.status(400).json({ error: 'Photo requise (JPG, PNG ou WebP)', champ: 'photoFile' });
+  if (photo.erreur) return res.status(400).json({ error: `Photo : ${photo.erreur}`, champ: 'photoFile' });
 
-  const mailYasmina = `
-  <div style="max-width:640px;margin:0 auto;font-family:system-ui,-apple-system,sans-serif">
-    <div style="border-top:3px solid #ffd400;padding:22px 0 14px">
-      <div style="font:800 11px/1 system-ui;letter-spacing:.28em;text-transform:uppercase;color:#a06800">Nouvelle candidature</div>
-      <h1 style="font-size:25px;margin:10px 0 4px;color:#1a1410">${esc(nomComplet)}</h1>
-      <div style="font-size:13px;color:#7a6e62">Session ${esc(d.session || '—')}</div>
-    </div>
-    <table style="width:100%;border-collapse:collapse;border:1px solid #e3ddd0">
-      ${ligne('E-mail', d.email)}
-      ${ligne('Téléphone', d.telephone)}
-      ${ligne('Ville', d.ville)}
-      ${ligne('Formation', d.formation)}
-      ${ligne('Expériences', d.experiences)}
-      ${ligne('Motivations', d.motivation)}
-      ${ligne('Vidéo', d.videoUrl)}
-      ${ligne('Règlement souhaité', formule)}
-      ${ligne('CV', noteCv)}
-    </table>
-    <p style="margin:18px 0 0;font-size:13px;color:#7a6e62">
-      Répondre directement à cet e-mail écrit au candidat.
-    </p>
-  </div>`;
-
-  const mailCandidat = `
-  <div style="max-width:600px;margin:0 auto;font-family:system-ui,-apple-system,sans-serif;color:#1a1410">
-    <div style="border-top:3px solid #ffd400;padding:22px 0 12px">
-      <div style="font:800 11px/1 system-ui;letter-spacing:.28em;text-transform:uppercase;color:#a06800">Candidature reçue</div>
-      <h1 style="font-size:24px;margin:10px 0 0">Merci ${esc(String(d.prenom).trim())}.</h1>
-    </div>
-    <p style="font-size:15px;line-height:1.75;color:#4a4038">
-      Votre candidature au stage du <strong>${esc(d.session || '')}</strong> est bien arrivée.
-      Yasmina lit chaque dossier personnellement et vous répond sous 48 h.
-    </p>
-    <p style="font-size:15px;line-height:1.75;color:#4a4038">
-      En cas de validation, vous recevrez le lien de paiement sécurisé ainsi que
-      le questionnaire d'inscription et la fiche de renseignements à compléter
-      avant le premier jour.
-    </p>
-    <p style="font-size:15px;line-height:1.75;color:#4a4038">
-      Aucun montant n'est débité à ce stade.
-    </p>
-    <div style="border-top:1px solid #e3ddd0;margin-top:26px;padding-top:14px;font-size:12.5px;color:#7a6e62">
-      Yasmina Pastural Training · contact@yasminapasturaltraining.com
-    </div>
-  </div>`;
+  const civiliteTxt = CIVILITES[civilite];
+  const nomComplet = `${prenom} ${nom}`.trim();
+  const intitule = `${civiliteTxt ? civiliteTxt + ' ' : ''}${nomComplet}`.trim();
+  const slug = nomComplet.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase() || 'candidat';
 
   try {
-    const transport = nodemailer.createTransport({
-      host: process.env.ZOHO_HOST || 'smtp.zoho.eu',
-      port: 465,
-      secure: true,
-      auth: { user: process.env.ZOHO_USER, pass: process.env.ZOHO_PASS },
-    });
-
-    // 1. Notification à Yasmina — bloquante : si elle échoue, la candidature est perdue.
-    await transport.sendMail({
-      from: `"Candidatures — site" <${process.env.ZOHO_USER}>`,
-      to: process.env.NOTIFY_TO || process.env.ZOHO_USER,
-      replyTo: `"${nomComplet}" <${String(d.email).trim()}>`,
-      subject: `Candidature — ${nomComplet} (${formule})`,
-      html: mailYasmina,
-      attachments: pieces,
-    });
-
-    // 2. Accusé de réception au candidat — non bloquant.
-    try {
-      await transport.sendMail({
-        from: `"Yasmina Pastural Training" <${process.env.ZOHO_USER}>`,
-        to: String(d.email).trim(),
-        subject: 'Votre candidature est bien arrivée',
-        html: mailCandidat,
-      });
-    } catch (e) {
-      console.error('[candidature] accusé candidat non envoyé :', e.message);
+    // ── 1. Stockage des pièces ──────────────────────────────────────────
+    let cvUrl = '';
+    let photoUrl = '';
+    if (process.env.BLOB_READ_WRITE_TOKEN) {
+      const opts = { access: 'public', addRandomSuffix: true, token: process.env.BLOB_READ_WRITE_TOKEN };
+      const [rCv, rPhoto] = await Promise.all([
+        put(`candidatures/${slug}-cv.${extension(cv.mime)}`, cv.buffer, { ...opts, contentType: cv.mime }),
+        put(`candidatures/${slug}-photo.${extension(photo.mime)}`, photo.buffer, { ...opts, contentType: photo.mime }),
+      ]);
+      cvUrl = rCv.url;
+      photoUrl = rPhoto.url;
+    } else {
+      console.warn('[candidature] BLOB_READ_WRITE_TOKEN absent : pièces envoyées par e-mail uniquement');
     }
 
-    return res.status(200).json({ ok: true });
+    // ── 2. Intention de paiement ────────────────────────────────────────
+    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+    const intent = await stripe.paymentIntents.create({
+      amount: MONTANT_CENTIMES,
+      currency: 'eur',
+      // Laisse Stripe proposer tout ce qui est activé sur le compte :
+      // carte, Apple Pay, Link… et Alma dès qu'il sera activé.
+      automatic_payment_methods: { enabled: true },
+      receipt_email: email,
+      description: `Stage jeu cinéma 7→11 sept. 2026 — ${intitule}`,
+      metadata: {
+        civilite, prenom, nom, email, telephone, ville,
+        motivation, videoUrl, cvUrl, photoUrl,
+      },
+    });
+
+    // ── 3. Notification immédiate (filet de sécurité avant paiement) ────
+    try {
+      const transport = nodemailer.createTransport({
+        host: process.env.ZOHO_HOST || 'smtp.zoho.eu',
+        port: 465,
+        secure: true,
+        auth: { user: process.env.ZOHO_USER, pass: process.env.ZOHO_PASS },
+      });
+      await transport.sendMail({
+        from: `"Candidatures — site" <${process.env.ZOHO_USER}>`,
+        to: process.env.NOTIFY_TO || process.env.ZOHO_USER,
+        replyTo: `"${nomComplet}" <${email}>`,
+        subject: `Dossier reçu (paiement en cours) — ${intitule}`,
+        html: `<div style="font-family:system-ui,-apple-system,sans-serif;max-width:640px;margin:0 auto">
+          <div style="font:800 11px system-ui;letter-spacing:.24em;text-transform:uppercase;color:#a06800">Paiement en cours</div>
+          <h1 style="font-size:23px;margin:8px 0 6px;color:#1a1410">${esc(intitule)}</h1>
+          <p style="font-size:14px;color:#6a5e4a;line-height:1.6;margin:0 0 16px">
+            Ce dossier vient d'être déposé. Les pièces sont en pièces jointes.<br>
+            <b>Le paiement n'est pas encore confirmé</b> — vous recevrez un second e-mail avec le reçu s'il aboutit.
+          </p>
+          <table style="width:100%;border-collapse:collapse;border:1px solid #e3ddd0;font-size:14px">
+            <tr><td style="padding:8px 12px;background:#f6f2e9;white-space:nowrap">E-mail</td><td style="padding:8px 12px">${esc(email)}</td></tr>
+            <tr><td style="padding:8px 12px;background:#f6f2e9;white-space:nowrap">Téléphone</td><td style="padding:8px 12px">${esc(telephone) || '—'}</td></tr>
+            <tr><td style="padding:8px 12px;background:#f6f2e9;white-space:nowrap">Ville</td><td style="padding:8px 12px">${esc(ville) || '—'}</td></tr>
+            <tr><td style="padding:8px 12px;background:#f6f2e9;white-space:nowrap;vertical-align:top">Motivation</td><td style="padding:8px 12px;line-height:1.6">${esc(motivation).replace(/\n/g, '<br>')}</td></tr>
+            <tr><td style="padding:8px 12px;background:#f6f2e9;white-space:nowrap">Vidéo</td><td style="padding:8px 12px"><a href="${esc(videoUrl)}">${esc(videoUrl)}</a></td></tr>
+          </table>
+        </div>`,
+        attachments: [
+          { filename: `${slug}-cv.${extension(cv.mime)}`, content: cv.buffer, contentType: cv.mime },
+          { filename: `${slug}-photo.${extension(photo.mime)}`, content: photo.buffer, contentType: photo.mime },
+        ],
+      });
+    } catch (e) {
+      // L'e-mail est un filet de sécurité : son échec ne doit pas bloquer le paiement.
+      console.error('[candidature] notification immédiate non envoyée :', e.message);
+    }
+
+    return res.status(200).json({
+      clientSecret: intent.client_secret,
+      publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
+      montant: MONTANT_CENTIMES,
+    });
   } catch (err) {
-    console.error('[candidature] échec envoi :', err);
-    return res.status(502).json({ error: "L'envoi a échoué" });
+    console.error('[candidature] échec :', err.code || '-', err.message);
+    return res.status(502).json({
+      error: "Impossible d'ouvrir le paiement",
+      code: err.code || err.type || null,
+    });
   }
 };

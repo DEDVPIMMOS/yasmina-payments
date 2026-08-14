@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@vercel/blob": "^0.23.4",
     "nodemailer": "^6.9.14",
     "stripe": "^16.8.0"
   }
