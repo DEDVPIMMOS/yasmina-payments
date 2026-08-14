@@ -7,217 +7,218 @@
   <meta name="description" content="Candidatez au stage intensif de jeu cinéma avec Yasmina Pastural — 5 jours, du 7 au 11 septembre 2026, Paris.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300;1,9..144,500&family=Archivo:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
   <script src="https://js.stripe.com/v3/"></script>
   <style>
   :root{
-    --jaune:#ffd400; --rose:#ff4d97; --bleu:#1f4fff;
-    --noir:#0c0b0a;  --creme:#f3eee4; --creme-2:#e9e2d4; --gris:#6a5e4a;
-    --S:'Syne',sans-serif; --F:'Fraunces',Georgia,serif;
-    --A:'Archivo',system-ui,sans-serif; --SG:'Space Grotesk',monospace;
-    --ease:cubic-bezier(.22,1,.36,1); --dur:200ms;
+    --bg:#07060B; --bg-2:#0E0C18; --bg-3:#16122A;
+    --ink:#F4F2FF; --muted:#9891B8; --line:rgba(255,255,255,.10);
+    --blue:#4D7CFF; --violet:#A855F7; --cyan:#22D3EE;
+    --grad:linear-gradient(115deg,#4D7CFF 0%,#8B5CFF 48%,#C64BF5 100%);
+    --glow-b:0 0 28px rgba(77,124,255,.45);
+    --glow-v:0 0 28px rgba(168,85,247,.40);
+    --D:'Bricolage Grotesque',sans-serif;
+    --B:'Instrument Sans',system-ui,sans-serif;
+    --M:'JetBrains Mono',monospace;
+    --ease:cubic-bezier(.22,1,.36,1); --dur:220ms;
   }
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-  body{font-family:var(--A);background:var(--creme);color:var(--noir);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  ::selection{background:var(--rose);color:#fff}
-  :focus-visible{outline:3px solid var(--bleu);outline-offset:3px}
+  body{font-family:var(--B);background:var(--bg);color:var(--ink);line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--violet);color:#fff}
+  :focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
   img{max-width:100%;display:block}
+  a{color:inherit}
 
-  .pad{padding:clamp(3rem,7vw,6rem) clamp(1.25rem,5vw,4rem)}
-  .inner{max-width:1160px;margin:0 auto}
+  /* halo d'ambiance */
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(760px 460px at 12% -6%,rgba(77,124,255,.20),transparent 62%),
+               radial-gradient(680px 420px at 92% 8%,rgba(168,85,247,.16),transparent 60%)}
+  .pad{padding:clamp(3.2rem,7vw,6.5rem) clamp(1.15rem,5vw,4rem);position:relative;z-index:1}
+  .inner{max-width:1140px;margin:0 auto}
+
+  h1,h2,h3{font-family:var(--D);font-weight:800;letter-spacing:-.03em;line-height:.97}
+  .kicker{display:inline-flex;align-items:center;gap:9px;font-family:var(--M);font-weight:700;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
+    padding:8px 14px;border:1px solid var(--line);border-radius:100px;background:rgba(255,255,255,.04)}
+  .kicker::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--cyan);
+    box-shadow:0 0 12px var(--cyan)}
+  .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
   /* ── Barre ── */
   .topbar{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
-    gap:1rem;padding:14px clamp(1.25rem,5vw,4rem);background:var(--jaune);border-bottom:3px solid var(--noir)}
-  .logo{font-family:var(--S);font-weight:800;font-size:15px;text-transform:uppercase;
-    letter-spacing:-.01em;color:var(--noir);text-decoration:none;line-height:1.15}
-  .logo b{color:var(--rose)}
-  .back{font-family:var(--S);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--noir);text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;
-    transition:border-color var(--dur) var(--ease);white-space:nowrap}
-  .back:hover{border-color:var(--noir)}
-
-  .lbl{display:inline-block;font-family:var(--S);font-weight:800;font-size:11px;letter-spacing:.14em;
-    text-transform:uppercase;padding:7px 13px;border:2px solid var(--noir)}
-  .lbl-bleu{background:var(--bleu);color:#fff}
-  .lbl-jaune{background:var(--jaune);color:var(--noir)}
-  .lbl-rose{background:var(--rose);color:#fff}
+    gap:1rem;padding:15px clamp(1.15rem,5vw,4rem);background:rgba(7,6,11,.82);
+    backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .logo{font-family:var(--D);font-weight:800;font-size:14px;text-transform:uppercase;
+    letter-spacing:.01em;text-decoration:none;line-height:1.2}
+  .logo b{display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .back{font-family:var(--M);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);text-decoration:none;transition:color var(--dur) var(--ease);white-space:nowrap}
+  .back:hover{color:var(--ink)}
 
   /* ── Hero ── */
-  .hero{background:var(--creme);border-bottom:3px solid var(--noir)}
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center}
-  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
-  h1{font-family:var(--F);font-style:italic;font-weight:300;font-size:clamp(3rem,8vw,6rem);
-    line-height:.92;letter-spacing:-.025em;margin:18px 0 16px}
-  .lede{font-size:clamp(15px,1.6vw,17px);line-height:1.7;color:var(--gris);max-width:46ch}
+  .hero-grid{display:grid;grid-template-columns:1fr .88fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
+  h1{font-size:clamp(3.2rem,8.5vw,6.4rem);margin:20px 0 18px}
+  .lede{font-size:clamp(16px,1.7vw,18px);line-height:1.65;color:var(--muted);max-width:44ch}
 
   /* ── Vignette prix ── */
-  .price{border:3px solid var(--noir);background:var(--jaune);box-shadow:9px 9px 0 var(--rose)}
-  .price-top{padding:clamp(1.4rem,3vw,2rem);border-bottom:3px solid var(--noir);
-    display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-  .price-amt{font-family:var(--F);font-style:italic;font-weight:300;
-    font-size:clamp(3.4rem,7vw,5rem);line-height:.85;letter-spacing:-.02em}
-  .price-meta{font-family:var(--S);font-weight:800;font-size:11px;letter-spacing:.13em;
-    text-transform:uppercase;text-align:right;line-height:1.5}
-  .price-body{background:var(--creme);padding:clamp(1.2rem,2.5vw,1.6rem)}
-  .price-li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;
-    padding:11px 0;border-bottom:1px solid rgba(12,11,10,.14);font-size:14.5px;line-height:1.5}
-  .price-li:last-of-type{border-bottom:0}
-  .price-li i{font-family:var(--SG);font-style:normal;font-weight:700;font-size:11px;
-    color:var(--rose);letter-spacing:.06em;padding-top:3px}
-  .price-foot{font-family:var(--SG);font-size:11.5px;letter-spacing:.03em;color:var(--gris);
-    padding:12px clamp(1.2rem,2.5vw,1.6rem);background:var(--creme-2);border-top:1px solid rgba(12,11,10,.14)}
-  .cta-jump{display:inline-flex;align-items:center;gap:10px;margin-top:22px;
-    font-family:var(--S);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
-    padding:15px 26px;background:var(--noir);color:var(--jaune);border:3px solid var(--noir);
-    box-shadow:5px 5px 0 var(--rose);text-decoration:none;
-    transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
-  .cta-jump:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--rose)}
+  .price{border-radius:22px;padding:2px;background:var(--grad);box-shadow:var(--glow-v)}
+  .price-in{border-radius:20px;background:linear-gradient(180deg,#120F20 0%,#0A0812 100%);
+    padding:clamp(1.6rem,3.4vw,2.4rem)}
+  .price-amt{font-family:var(--D);font-weight:800;font-size:clamp(4rem,10vw,6.4rem);
+    line-height:.86;letter-spacing:-.045em}
+  .price-sub{font-family:var(--M);font-weight:700;font-size:11.5px;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--muted);margin:14px 0 26px}
+  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  @media(max-width:420px){.price-grid{grid-template-columns:1fr}}
+  .pill{background:rgba(255,255,255,.045);border:1px solid var(--line);border-radius:14px;
+    padding:15px 16px;transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease)}
+  .pill:hover{border-color:rgba(139,92,255,.55);background:rgba(139,92,255,.09)}
+  .pill b{display:block;font-family:var(--D);font-weight:800;font-size:15.5px;
+    letter-spacing:-.01em;margin-bottom:3px}
+  .pill span{font-size:12.5px;line-height:1.45;color:var(--muted)}
+  .price-note{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);
+    font-family:var(--M);font-size:11px;letter-spacing:.05em;color:var(--muted)}
 
-  /* ── Programme ── */
-  .prog{background:var(--noir);color:var(--creme);border-bottom:3px solid var(--jaune)}
-  .prog h2,.vids h2,.form-sec h2{font-family:var(--S);font-weight:800;
-    font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.02;letter-spacing:-.02em;margin:16px 0 10px}
-  .sec-sub{font-size:15px;line-height:1.7;color:#a9a297;max-width:56ch;margin-bottom:clamp(2rem,4vw,3rem)}
-  .days{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:3px;background:rgba(255,212,0,.22)}
-  .day{background:var(--noir);padding:clamp(1.3rem,2.5vw,1.9rem);position:relative;
-    transition:background var(--dur) var(--ease)}
-  .day:hover{background:#171512}
-  .day-num{font-family:var(--F);font-style:italic;font-weight:300;font-size:2.6rem;
-    line-height:1;color:var(--jaune);margin-bottom:14px}
-  .day-kick{font-family:var(--S);font-weight:800;font-size:10px;letter-spacing:.16em;
-    text-transform:uppercase;color:var(--rose);margin-bottom:8px}
-  .day-t{font-family:var(--F);font-style:italic;font-weight:300;font-size:1.35rem;
-    line-height:1.15;margin-bottom:10px;color:var(--creme)}
-  .day-d{font-size:13.5px;line-height:1.65;color:#a9a297}
+  .cta{display:inline-flex;align-items:center;gap:11px;margin-top:26px;
+    font-family:var(--D);font-weight:800;font-size:15px;letter-spacing:-.01em;
+    padding:17px 30px;border-radius:100px;border:0;cursor:pointer;text-decoration:none;
+    background:var(--grad);color:#fff;box-shadow:var(--glow-b);
+    transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+  .cta:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(139,92,255,.65)}
+
+  /* ── Jours ── */
+  .days-head{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;
+    flex-wrap:wrap;margin-bottom:clamp(2rem,4vw,3.2rem)}
+  h2{font-size:clamp(2.3rem,5.2vw,4rem)}
+  .days{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+  .day{position:relative;border-radius:18px;padding:24px 22px 26px;
+    background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.02));
+    border:1px solid var(--line);overflow:hidden;
+    transition:transform var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+  .day::after{content:'';position:absolute;left:22px;right:22px;top:0;height:2px;
+    background:var(--grad);opacity:.5;transition:opacity var(--dur) var(--ease)}
+  .day:hover{transform:translateY(-4px);border-color:rgba(139,92,255,.5)}
+  .day:hover::after{opacity:1}
+  .day-n{font-family:var(--M);font-weight:700;font-size:11px;letter-spacing:.14em;
+    color:var(--cyan);margin-bottom:16px}
+  .day-t{font-family:var(--D);font-weight:800;font-size:1.35rem;line-height:1.08;
+    letter-spacing:-.02em;margin-bottom:10px}
+  .day-d{font-size:13.5px;line-height:1.62;color:var(--muted)}
 
   /* ── Vidéos ── */
-  .vids{background:var(--creme);border-bottom:3px solid var(--noir)}
-  .vids h2{color:var(--noir)}
-  .vids .sec-sub{color:var(--gris)}
-  .vid-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(1.2rem,2.5vw,2rem)}
-  .vid{border:3px solid var(--noir);background:var(--noir);box-shadow:6px 6px 0 var(--bleu)}
-  .vid:nth-child(2){box-shadow:6px 6px 0 var(--rose)}
-  .vid:nth-child(3){box-shadow:6px 6px 0 var(--jaune)}
-  .vid-frame{position:relative;aspect-ratio:16/9;width:100%;background:#151310;
-    display:grid;place-items:center;cursor:pointer;overflow:hidden;border:0;padding:0}
-  .vid-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .vid-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.62}
-  .vid-play{position:relative;z-index:2;width:66px;height:66px;border-radius:50%;
-    background:var(--jaune);border:3px solid var(--noir);display:grid;place-items:center;
-    font-size:19px;color:var(--noir);transition:transform var(--dur) var(--ease)}
-  .vid-frame:hover .vid-play{transform:scale(1.09)}
-  .vid-vide{position:relative;z-index:2;text-align:center;padding:1rem}
-  .vid-vide span{font-family:var(--SG);font-size:11.5px;letter-spacing:.1em;
-    text-transform:uppercase;color:#6f665b}
-  .vid-cap{padding:14px 18px;background:var(--creme);border-top:3px solid var(--noir)}
-  .vid-cap b{display:block;font-family:var(--S);font-weight:800;font-size:12px;
-    letter-spacing:.1em;text-transform:uppercase}
-  .vid-cap span{font-size:13px;color:var(--gris)}
+  .vid-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+  .vid{position:relative;aspect-ratio:16/9;border-radius:18px;overflow:hidden;
+    border:1px solid var(--line);background:linear-gradient(160deg,#141024,#0A0812);
+    display:grid;place-items:center;cursor:pointer;padding:0;width:100%;
+    transition:border-color var(--dur) var(--ease),transform var(--dur) var(--ease)}
+  .vid:hover{border-color:rgba(139,92,255,.6);transform:translateY(-3px)}
+  .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .vid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .vid-play{position:relative;z-index:2;width:62px;height:62px;border-radius:50%;
+    background:var(--grad);display:grid;place-items:center;font-size:17px;color:#fff;
+    box-shadow:var(--glow-v);transition:transform var(--dur) var(--ease)}
+  .vid:hover .vid-play{transform:scale(1.1)}
+  .vid-soon{position:relative;z-index:2;font-family:var(--M);font-size:10.5px;
+    letter-spacing:.18em;text-transform:uppercase;color:#5A5378}
 
   /* ── Formulaire ── */
-  .form-sec{background:var(--creme-2)}
-  .form-sec h2{color:var(--noir)}
-  .form-sec .sec-sub{color:var(--gris)}
-  .card{border:3px solid var(--noir);background:#fff;padding:clamp(1.4rem,3.5vw,2.6rem);
-    box-shadow:9px 9px 0 var(--noir);max-width:820px}
+  .form-wrap{border-radius:24px;padding:1px;background:linear-gradient(180deg,rgba(139,92,255,.5),rgba(255,255,255,.06));
+    max-width:860px;margin:0 auto}
+  .form-in{border-radius:23px;background:linear-gradient(180deg,#100D1C,#08070E);
+    padding:clamp(1.4rem,3.6vw,2.8rem)}
+  fieldset{border:0;margin-bottom:2.2rem}
+  legend{display:flex;align-items:center;gap:12px;width:100%;margin-bottom:1.4rem}
+  .step-n{font-family:var(--M);font-weight:700;font-size:11px;letter-spacing:.1em;
+    color:#fff;background:var(--grad);padding:5px 10px;border-radius:7px}
+  .step-t{font-family:var(--D);font-weight:800;font-size:1.15rem;letter-spacing:-.02em}
 
-  fieldset{border:0;margin-bottom:2rem}
-  legend{display:flex;align-items:center;gap:12px;width:100%;padding-bottom:12px;
-    margin-bottom:1.5rem;border-bottom:3px solid var(--noir)}
-  .step-n{font-family:var(--S);font-weight:800;font-size:12px;background:var(--rose);color:#fff;
-    padding:4px 9px;border:2px solid var(--noir);letter-spacing:.06em}
-  .step-t{font-family:var(--S);font-weight:800;font-size:14px;letter-spacing:.1em;text-transform:uppercase}
-
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
   @media(max-width:560px){.row{grid-template-columns:1fr}}
-  .fg{margin-bottom:1.1rem}
-  label{display:block;font-family:var(--S);font-weight:800;font-size:11px;letter-spacing:.12em;
-    text-transform:uppercase;margin-bottom:8px}
-  label .opt{color:var(--gris);font-weight:600}
+  .fg{margin-bottom:16px}
+  label{display:block;font-family:var(--M);font-weight:500;font-size:10.5px;
+    letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  label .opt{opacity:.65;text-transform:none;letter-spacing:.04em}
 
   input[type=text],input[type=email],input[type=tel],input[type=url],textarea{
-    width:100%;padding:14px;border:3px solid var(--noir);background:var(--creme);
-    font-family:var(--A);font-size:15.5px;color:var(--noir);line-height:1.5;
-    transition:box-shadow var(--dur) var(--ease),background var(--dur) var(--ease)}
-  input::placeholder,textarea::placeholder{color:#8b8072}
-  input:hover,textarea:hover{background:#fff}
-  input:focus,textarea:focus{outline:none;background:#fff;box-shadow:5px 5px 0 var(--rose)}
-  textarea{resize:vertical;min-height:120px}
-  [aria-invalid="true"]{box-shadow:5px 5px 0 var(--rose)!important;background:#fff}
+    width:100%;padding:15px 16px;border-radius:13px;border:1px solid var(--line);
+    background:rgba(255,255,255,.04);font-family:var(--B);font-weight:500;font-size:15.5px;
+    color:var(--ink);line-height:1.5;
+    transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease),background var(--dur) var(--ease)}
+  input::placeholder,textarea::placeholder{color:#5F5880}
+  input:hover,textarea:hover{background:rgba(255,255,255,.06)}
+  input:focus,textarea:focus{outline:none;border-color:var(--blue);
+    box-shadow:0 0 0 3px rgba(77,124,255,.18),var(--glow-b);background:rgba(255,255,255,.06)}
+  textarea{resize:vertical;min-height:118px}
+  [aria-invalid="true"]{border-color:#F0508A!important;box-shadow:0 0 0 3px rgba(240,80,138,.16)!important}
 
-  /* civilité */
-  .civ{display:flex;gap:10px;flex-wrap:wrap}
+  .civ{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:320px}
   .civ input{position:absolute;opacity:0;width:0;height:0}
-  .civ label{margin:0;cursor:pointer;padding:11px 20px;border:3px solid var(--noir);
-    background:var(--creme);font-size:12px;letter-spacing:.1em;
-    transition:background var(--dur) var(--ease),color var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
-  .civ input:checked+label{background:var(--noir);color:var(--jaune);box-shadow:4px 4px 0 var(--rose)}
-  .civ input:focus-visible+label{outline:3px solid var(--bleu);outline-offset:3px}
+  .civ label{margin:0;cursor:pointer;padding:15px;border-radius:13px;border:1px solid var(--line);
+    background:rgba(255,255,255,.04);text-align:center;font-family:var(--D);font-weight:800;
+    font-size:15px;letter-spacing:0;text-transform:none;color:var(--muted);
+    transition:all var(--dur) var(--ease)}
+  .civ input:checked+label{color:#fff;border-color:transparent;background:var(--grad);box-shadow:var(--glow-b)}
+  .civ input:focus-visible+label{outline:2px solid var(--cyan);outline-offset:3px}
 
-  /* fichiers */
-  .file{position:relative;border:3px dashed var(--noir);background:var(--creme);
-    padding:20px;display:flex;align-items:center;gap:16px;cursor:pointer;
-    transition:background var(--dur) var(--ease)}
-  .file:hover{background:#fff}
+  .file{position:relative;border:1px dashed rgba(255,255,255,.24);border-radius:14px;
+    background:rgba(255,255,255,.03);padding:18px;display:flex;align-items:center;gap:15px;
+    cursor:pointer;transition:all var(--dur) var(--ease)}
+  .file:hover{border-color:var(--violet);background:rgba(139,92,255,.08)}
   .file input{position:absolute;inset:0;opacity:0;cursor:pointer}
-  .file-ic{width:44px;height:44px;flex:none;border:3px solid var(--noir);background:var(--jaune);
-    display:grid;place-items:center;font-size:18px}
-  .file-txt b{display:block;font-family:var(--S);font-weight:800;font-size:12.5px;letter-spacing:.06em}
-  .file-txt span{font-family:var(--SG);font-size:11.5px;color:var(--gris)}
-  .file.ok{border-style:solid;background:#fff}
-  .file.ok .file-ic{background:var(--rose);color:#fff}
+  .file-ic{width:42px;height:42px;flex:none;border-radius:11px;background:rgba(255,255,255,.07);
+    display:grid;place-items:center;font-size:16px;color:var(--muted)}
+  .file-txt b{display:block;font-family:var(--D);font-weight:800;font-size:14px;letter-spacing:-.01em}
+  .file-txt span{font-family:var(--M);font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+  .file.ok{border-style:solid;border-color:var(--blue);background:rgba(77,124,255,.09)}
+  .file.ok .file-ic{background:var(--grad);color:#fff;box-shadow:var(--glow-b)}
 
-  .hint{display:flex;justify-content:space-between;gap:12px;font-family:var(--SG);
-    font-size:11.5px;color:var(--gris);margin-top:7px}
+  .hint{display:flex;justify-content:space-between;gap:12px;font-family:var(--M);
+    font-size:10.5px;color:var(--muted);margin-top:8px;letter-spacing:.03em}
   .count{font-variant-numeric:tabular-nums;flex:none}
-  .count.near{color:var(--rose);font-weight:700}
-  .error{display:none;font-family:var(--SG);font-weight:500;font-size:12.5px;color:var(--rose);margin-top:7px}
+  .count.near{color:var(--violet)}
+  .error{display:none;font-family:var(--M);font-size:11.5px;color:#FF7BA8;margin-top:8px}
   .error.show{display:block}
   .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-  /* ── Boutons ── */
+  /* ── Paiement ── */
+  .paybar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    padding:18px 20px;border-radius:16px;margin-bottom:20px;
+    background:linear-gradient(115deg,rgba(77,124,255,.14),rgba(198,75,245,.12));
+    border:1px solid rgba(139,92,255,.34)}
+  .paybar b{font-family:var(--M);font-weight:700;font-size:10.5px;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--muted)}
+  .paybar span{font-family:var(--D);font-weight:800;font-size:1.9rem;letter-spacing:-.03em}
+  #payment-element{min-height:80px}
+  .pay-skel{font-family:var(--M);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--muted);padding:26px;text-align:center;border:1px dashed var(--line);border-radius:14px}
+
   .btn{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;
-    font-family:var(--S);font-weight:800;font-size:14.5px;letter-spacing:.08em;text-transform:uppercase;
-    padding:19px 24px;border:3px solid var(--noir);cursor:pointer;
-    transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
-  .btn-noir{background:var(--noir);color:var(--jaune);box-shadow:6px 6px 0 var(--rose)}
-  .btn-rose{background:var(--rose);color:#fff;box-shadow:6px 6px 0 var(--noir)}
-  .btn:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--rose)}
-  .btn-rose:hover:not(:disabled){box-shadow:8px 8px 0 var(--noir)}
-  .btn:active:not(:disabled){transform:translate(2px,2px);box-shadow:3px 3px 0 var(--rose)}
-  .btn:disabled{cursor:progress;opacity:.6}
-  .spin{width:15px;height:15px;border:2px solid currentColor;border-top-color:transparent;
+    font-family:var(--D);font-weight:800;font-size:16px;letter-spacing:-.01em;
+    padding:20px 24px;border-radius:100px;border:0;cursor:pointer;color:#fff;
+    background:var(--grad);box-shadow:var(--glow-b);margin-top:22px;
+    transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),opacity var(--dur) var(--ease)}
+  .btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 0 44px rgba(139,92,255,.7)}
+  .btn:disabled{cursor:progress;opacity:.55;box-shadow:none}
+  .spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;
     border-radius:50%;animation:sp .7s linear infinite;display:none;flex:none}
   .btn.busy .spin{display:block}
   @keyframes sp{to{transform:rotate(360deg)}}
-  .legal{font-size:12.5px;line-height:1.6;color:var(--gris);margin-top:14px;text-align:center}
+  .legal{font-family:var(--M);font-size:10.5px;line-height:1.7;color:var(--muted);
+    margin-top:16px;text-align:center;letter-spacing:.03em}
 
-  /* ── Paiement ── */
-  .pay{display:none;margin-top:2rem}
-  .pay.on{display:block;animation:rise .5s var(--ease) both}
-  .pay-head{background:var(--noir);color:var(--creme);padding:18px 22px;border:3px solid var(--noir);
-    display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
-  .pay-head b{font-family:var(--S);font-weight:800;font-size:12px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--jaune)}
-  .pay-head span{font-family:var(--F);font-style:italic;font-size:1.7rem;line-height:1}
-  .pay-box{border:3px solid var(--noir);border-top:0;background:#fff;padding:clamp(1.2rem,3vw,2rem)}
-  .pay-methods{font-family:var(--SG);font-size:11.5px;letter-spacing:.03em;color:var(--gris);
-    margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid rgba(12,11,10,.14)}
-
-  /* ── Bandeaux ── */
-  .status{display:none;padding:18px 22px;border:3px solid var(--noir);margin-bottom:1.5rem;font-size:14.5px;line-height:1.55}
+  .status{display:none;padding:18px 20px;border-radius:16px;margin-bottom:22px;font-size:14.5px;line-height:1.55}
   .status.show{display:block}
-  .status strong{font-family:var(--S);font-weight:800;text-transform:uppercase;letter-spacing:.07em;
-    font-size:12px;display:block;margin-bottom:5px}
-  .status-ok{background:var(--noir);color:var(--creme);box-shadow:6px 6px 0 var(--jaune)}
-  .status-ok strong{color:var(--jaune)}
-  .status-ko{background:var(--rose);color:#fff;box-shadow:6px 6px 0 var(--noir)}
-  .status-code{font-family:var(--SG);font-size:11.5px;opacity:.85;display:block;margin-top:7px}
+  .status strong{font-family:var(--D);font-weight:800;font-size:15px;display:block;margin-bottom:5px}
+  .status-ok{background:linear-gradient(115deg,rgba(34,211,238,.16),rgba(77,124,255,.14));
+    border:1px solid rgba(34,211,238,.42)}
+  .status-ok strong{color:var(--cyan)}
+  .status-ko{background:rgba(240,80,138,.12);border:1px solid rgba(240,80,138,.42)}
+  .status-ko strong{color:#FF7BA8}
+  .status-code{font-family:var(--M);font-size:10.5px;opacity:.8;display:block;margin-top:8px}
 
-  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-  .rise{animation:rise .6s var(--ease) both}
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
     html{scroll-behavior:auto}
@@ -227,269 +228,230 @@
 <body>
 
 <header class="topbar">
-  <a class="logo" href="index.html">Yasmina Pastural<br><b>Training</b></a>
+  <a class="logo" href="index.html">Yasmina Pastural<b>Training</b></a>
   <a class="back" href="index.html">← Retour au site</a>
 </header>
 
 <!-- ═══ HERO ═══ -->
-<section class="hero pad">
+<section class="pad">
   <div class="inner hero-grid">
-    <div class="rise">
-      <span class="lbl lbl-bleu">Session 7 → 11 septembre 2026 · Paris</span>
-      <h1>Candidater.</h1>
-      <p class="lede">Cinq jours de plateau, en groupe restreint, pour apprendre à jouer juste devant la caméra. Votre dossier est étudié par Yasmina&nbsp;; le règlement valide votre place.</p>
-      <a href="#formulaire" class="cta-jump">Remplir ma candidature ↓</a>
+    <div>
+      <span class="kicker">7 → 11 septembre 2026 · Paris</span>
+      <h1>Prenez<br>la <span class="grad">place</span>.</h1>
+      <p class="lede">Les groupes sont volontairement réduits. Déposez votre dossier et réglez votre session en une seule fois, ici même.</p>
+      <a href="#candidature" class="cta">Déposer mon dossier →</a>
     </div>
 
-    <div class="price rise">
-      <div class="price-top">
-        <span class="price-amt">850 €</span>
-        <span class="price-meta">Session complète<br>5 jours · 1 groupe</span>
+    <div class="price">
+      <div class="price-in">
+        <div class="price-amt grad">850 €</div>
+        <div class="price-sub">Session complète · 5 jours · groupe restreint</div>
+        <div class="price-grid">
+          <div class="pill"><b>5 jours pleins</b><span>Du lundi au vendredi, en studio à Paris</span></div>
+          <div class="pill"><b>Book photo</b><span>Séance individuelle avec un photographe</span></div>
+          <div class="pill"><b>Casting réel</b><span>Devant une directrice de casting en activité</span></div>
+          <div class="pill"><b>6 intervenants</b><span>Jeu, chant, yoga, préparation mentale</span></div>
+        </div>
+        <div class="price-note">◆ Règlement sécurisé plus bas sur cette page</div>
       </div>
-      <div class="price-body">
-        <div class="price-li"><i>01</i><span>5 jours de plateau, du lundi au vendredi, à Paris</span></div>
-        <div class="price-li"><i>02</i><span>Séance photo de book individuelle</span></div>
-        <div class="price-li"><i>03</i><span>Casting réel le vendredi devant une directrice de casting</span></div>
-        <div class="price-li"><i>04</i><span>Comédienne, chant, yoga, psychologue de tournage</span></div>
-      </div>
-      <div class="price-foot">◈ Moyens de paiement proposés à l'étape de règlement</div>
     </div>
   </div>
 </section>
 
-<!-- ═══ PROGRAMME ═══ -->
-<section class="prog pad">
+<!-- ═══ LES CINQ JOURS ═══ -->
+<section class="pad">
   <div class="inner">
-    <span class="lbl lbl-jaune">Le déroulé</span>
-    <h2>Cinq jours,<br>une transformation.</h2>
-    <p class="sec-sub">Chaque journée construit sur la précédente. Yasmina dirige l'ensemble, entourée d'une équipe de professionnels du cinéma.</p>
+    <div class="days-head">
+      <div>
+        <span class="kicker">Ce que vous en repartez</span>
+        <h2 style="margin-top:18px">Cinq jours,<br>cinq <span class="grad">déclics</span>.</h2>
+      </div>
+    </div>
     <div class="days">
       <div class="day">
-        <div class="day-num">01</div>
-        <div class="day-kick">Lundi · Ouverture</div>
-        <div class="day-t">Libérer le corps</div>
-        <p class="day-d">Impros libres, création du groupe. Yasmina installe la confiance dès le premier jour.</p>
+        <div class="day-n">JOUR 01</div>
+        <div class="day-t">Vous arrêtez de jouer</div>
+        <p class="day-d">La première journée sert à faire tomber ce que vous croyez devoir montrer. On travaille sans texte, sans enjeu.</p>
       </div>
       <div class="day">
-        <div class="day-num">02</div>
-        <div class="day-kick">Mardi · Présence</div>
-        <div class="day-t">Sincérité du jeu</div>
-        <p class="day-d">Écoute, ancrage, voix, souffle et présence physique face caméra.</p>
+        <div class="day-n">JOUR 02</div>
+        <div class="day-t">La caméra cesse d'être un juge</div>
+        <p class="day-d">Vous apprenez ce qu'elle voit vraiment, et ce qu'elle ne pardonne pas. Le corps et le souffle avant le texte.</p>
       </div>
       <div class="day">
-        <div class="day-num">03</div>
-        <div class="day-kick">Mercredi · Émotions</div>
-        <div class="day-t">Construction du personnage</div>
-        <p class="day-d">Exploration émotionnelle et dramaturgique à partir du texte. Yoga le matin.</p>
+        <div class="day-n">JOUR 03</div>
+        <div class="day-t">Vous habitez quelqu'un d'autre</div>
+        <p class="day-d">Construire un personnage sans le plaquer sur soi. C'est la journée où la plupart des stagiaires basculent.</p>
       </div>
       <div class="day">
-        <div class="day-num">04</div>
-        <div class="day-kick">Jeudi · Dramaturgie</div>
-        <div class="day-t">Se laisser diriger</div>
-        <p class="day-d">Direction sans perdre sa liberté. Séance photo. Psychologue de tournage.</p>
+        <div class="day-n">JOUR 04</div>
+        <div class="day-t">Vous encaissez une direction</div>
+        <p class="day-d">Être dirigé sans se perdre, refaire une prise autrement, tenir malgré la fatigue. Votre book se tourne le même jour.</p>
       </div>
       <div class="day">
-        <div class="day-num">05</div>
-        <div class="day-kick">Vendredi · Casting</div>
-        <div class="day-t">Mise en situation réelle</div>
-        <p class="day-d">Scène devant Julie Gandossi, directrice de casting, avec retours immédiats.</p>
+        <div class="day-n">JOUR 05</div>
+        <div class="day-t">Vous passez pour de vrai</div>
+        <p class="day-d">Un casting véritable, pas une simulation. Vous repartez avec un retour professionnel sur votre singularité.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══ VIDÉOS ═══
-     POUR AJOUTER UNE VIDÉO : colle l'identifiant YouTube dans data-yt.
-     Pour https://www.youtube.com/watch?v=AbCdEf12345 -> data-yt="AbCdEf12345"
-     Rien d'autre à toucher : la miniature et la lecture se font toutes seules.
+     Colle l'identifiant YouTube dans data-yt.
+     youtube.com/watch?v=AbCdEf12345  ->  data-yt="AbCdEf12345"
 ═══ -->
-<section class="vids pad">
-  <div class="inner">
-    <span class="lbl lbl-rose">En images</span>
-    <h2>Une semaine,<br>de l'intérieur.</h2>
-    <p class="sec-sub">Le plateau, le groupe, le casting du vendredi. Les vidéos se lisent ici, sans quitter la page.</p>
-    <div class="vid-grid">
-      <div class="vid">
-        <button class="vid-frame" type="button" data-yt="" aria-label="Lire la vidéo : le stage en une semaine"></button>
-        <div class="vid-cap"><b>Le stage</b><span>Une semaine sur le plateau</span></div>
-      </div>
-      <div class="vid">
-        <button class="vid-frame" type="button" data-yt="" aria-label="Lire la vidéo : paroles de stagiaires"></button>
-        <div class="vid-cap"><b>Les stagiaires</b><span>Ce qu'ils en retiennent</span></div>
-      </div>
-      <div class="vid">
-        <button class="vid-frame" type="button" data-yt="" aria-label="Lire la vidéo : le casting du vendredi"></button>
-        <div class="vid-cap"><b>Le casting</b><span>Julie Gandossi, directrice de casting</span></div>
-      </div>
-    </div>
+<section class="pad" style="padding-top:0">
+  <div class="vid-grid inner">
+    <button class="vid" type="button" data-yt="" aria-label="Lire la vidéo"></button>
+    <button class="vid" type="button" data-yt="" aria-label="Lire la vidéo"></button>
+    <button class="vid" type="button" data-yt="" aria-label="Lire la vidéo"></button>
   </div>
 </section>
 
-<!-- ═══ FORMULAIRE ═══ -->
-<section class="form-sec pad" id="formulaire">
-  <div class="inner">
-    <span class="lbl lbl-jaune">Dernière étape</span>
-    <h2>Votre candidature.</h2>
-    <p class="sec-sub">Cinq minutes. Le règlement se fait juste en dessous, sur cette page.</p>
+<!-- ═══ CANDIDATURE ═══ -->
+<section class="pad" id="candidature">
+  <div class="inner" style="text-align:center;margin-bottom:clamp(2rem,4vw,3rem)">
+    <span class="kicker">Dossier + règlement</span>
+    <h2 style="margin-top:18px">Tout se fait <span class="grad">ici</span>.</h2>
+  </div>
 
-    <div class="card">
-      <div id="paiement-ok" class="status status-ok">
+  <div class="form-wrap">
+    <div class="form-in">
+      <div id="etat-ok" class="status status-ok">
         <strong>Inscription confirmée</strong>
-        Votre paiement est validé et votre dossier transmis à Yasmina. Vous recevez le reçu et un accusé de réception par e-mail — pensez à vérifier vos spams.
+        Votre place est réservée et votre dossier transmis à Yasmina. Le reçu part par e-mail — pensez à vérifier vos spams.
       </div>
-      <div id="paiement-erreur" class="status status-ko"></div>
+      <div id="etat-ko" class="status status-ko"></div>
 
-      <form id="candidateForm" novalidate>
+      <form id="form" novalidate>
         <fieldset>
-          <legend><span class="step-n">01</span><span class="step-t">Qui êtes-vous</span></legend>
-
+          <legend><span class="step-n">01</span><span class="step-t">Vous</span></legend>
           <div class="fg">
             <label>Civilité</label>
             <div class="civ">
               <input type="radio" name="civilite" id="civ-m" value="M" checked><label for="civ-m">M.</label>
               <input type="radio" name="civilite" id="civ-mme" value="Mme"><label for="civ-mme">Mme</label>
-              <input type="radio" name="civilite" id="civ-a" value="Autre"><label for="civ-a">Ne se prononce pas</label>
             </div>
           </div>
-
           <div class="row">
             <div class="fg">
-              <label for="cd-prenom">Prénom</label>
-              <input type="text" id="cd-prenom" name="prenom" required maxlength="100" autocomplete="given-name">
+              <label for="f-prenom">Prénom</label>
+              <input type="text" id="f-prenom" name="prenom" required maxlength="100" autocomplete="given-name">
               <div class="error" id="err-prenom"></div>
             </div>
             <div class="fg">
-              <label for="cd-nom">Nom</label>
-              <input type="text" id="cd-nom" name="nom" required maxlength="100" autocomplete="family-name">
+              <label for="f-nom">Nom</label>
+              <input type="text" id="f-nom" name="nom" required maxlength="100" autocomplete="family-name">
               <div class="error" id="err-nom"></div>
             </div>
           </div>
-
           <div class="fg">
-            <label for="cd-email">E-mail</label>
-            <input type="email" id="cd-email" name="email" required maxlength="255" autocomplete="email" placeholder="prenom@exemple.fr">
-            <div class="hint"><span>Le reçu et la réponse de Yasmina y seront envoyés</span></div>
+            <label for="f-email">E-mail</label>
+            <input type="email" id="f-email" name="email" required maxlength="255" autocomplete="email" placeholder="prenom@exemple.fr">
             <div class="error" id="err-email"></div>
           </div>
-
           <div class="row">
             <div class="fg">
-              <label for="cd-telephone">Téléphone <span class="opt">— facultatif</span></label>
-              <input type="tel" id="cd-telephone" name="telephone" maxlength="20" autocomplete="tel">
+              <label for="f-tel">Téléphone <span class="opt">facultatif</span></label>
+              <input type="tel" id="f-tel" name="telephone" maxlength="20" autocomplete="tel">
             </div>
             <div class="fg">
-              <label for="cd-ville">Ville <span class="opt">— facultatif</span></label>
-              <input type="text" id="cd-ville" name="ville" maxlength="100" autocomplete="address-level2">
+              <label for="f-ville">Ville <span class="opt">facultatif</span></label>
+              <input type="text" id="f-ville" name="ville" maxlength="100" autocomplete="address-level2">
             </div>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend><span class="step-n">02</span><span class="step-t">Votre motivation</span></legend>
+          <legend><span class="step-n">02</span><span class="step-t">Votre dossier</span></legend>
           <div class="fg">
-            <label for="cd-motivation">Pourquoi ce stage</label>
-            <textarea id="cd-motivation" name="motivation" required maxlength="450" data-count
-              placeholder="Ce que vous venez chercher, où vous en êtes, ce que vous voulez débloquer…"></textarea>
+            <label for="f-motiv">Pourquoi ce stage</label>
+            <textarea id="f-motiv" name="motivation" required maxlength="450" data-count
+              placeholder="Où vous en êtes, ce que vous venez débloquer…"></textarea>
             <div class="hint"><span>Quelques phrases suffisent</span><span class="count"></span></div>
             <div class="error" id="err-motivation"></div>
           </div>
-        </fieldset>
-
-        <fieldset>
-          <legend><span class="step-n">03</span><span class="step-t">Vos pièces</span></legend>
-
           <div class="fg">
-            <label for="cd-video">Vidéo de présentation <span class="opt">— lien YouTube, Drive, Vimeo…</span></label>
-            <input type="url" id="cd-video" name="videoUrl" required placeholder="https://youtube.com/watch?v=...">
-            <div class="hint"><span>1 à 2 min · parlez de vous et de ce stage</span></div>
+            <label for="f-video">Vidéo de présentation <span class="opt">lien YouTube, Drive, Vimeo</span></label>
+            <input type="url" id="f-video" name="videoUrl" required placeholder="https://youtube.com/watch?v=...">
+            <div class="hint"><span>1 à 2 min · parlez de vous</span></div>
             <div class="error" id="err-videoUrl"></div>
           </div>
-
-          <div class="fg">
-            <label for="cd-cv">Votre CV</label>
-            <div class="file" id="wrap-cv">
-              <div class="file-ic" aria-hidden="true">↑</div>
-              <div class="file-txt">
-                <b id="lbl-cv">Choisir un fichier</b>
-                <span>PDF, JPG ou PNG · 2 Mo maximum</span>
+          <div class="row">
+            <div class="fg">
+              <label for="f-cv">Votre CV</label>
+              <div class="file" id="w-cv">
+                <div class="file-ic" aria-hidden="true">↑</div>
+                <div class="file-txt"><b id="l-cv">Choisir un fichier</b><span>PDF · JPG · PNG — 2 Mo max</span></div>
+                <input type="file" id="f-cv" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" required>
               </div>
-              <input type="file" id="cd-cv" name="cvFile" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" required>
+              <div class="error" id="err-cvFile"></div>
             </div>
-            <div class="error" id="err-cvFile"></div>
-          </div>
-
-          <div class="fg">
-            <label for="cd-photo">Votre photo</label>
-            <div class="file" id="wrap-photo">
-              <div class="file-ic" aria-hidden="true">↑</div>
-              <div class="file-txt">
-                <b id="lbl-photo">Choisir une photo</b>
-                <span>Portrait ou demi-corps · redimensionnée automatiquement</span>
+            <div class="fg">
+              <label for="f-photo">Votre photo</label>
+              <div class="file" id="w-photo">
+                <div class="file-ic" aria-hidden="true">↑</div>
+                <div class="file-txt"><b id="l-photo">Choisir une photo</b><span>Portrait — redimensionnée seule</span></div>
+                <input type="file" id="f-photo" accept="image/jpeg,image/png,image/webp" required>
               </div>
-              <input type="file" id="cd-photo" name="photoFile" accept="image/jpeg,image/png,image/webp" required>
+              <div class="error" id="err-photoFile"></div>
             </div>
-            <div class="error" id="err-photoFile"></div>
           </div>
+        </fieldset>
+
+        <fieldset style="margin-bottom:0">
+          <legend><span class="step-n">03</span><span class="step-t">Règlement</span></legend>
+          <div class="paybar">
+            <b>Session complète</b>
+            <span class="grad">850 €</span>
+          </div>
+          <div id="payment-element"><div class="pay-skel">Chargement des moyens de paiement…</div></div>
+          <div class="error" id="err-paiement"></div>
         </fieldset>
 
         <div class="hp" aria-hidden="true">
-          <label for="cd-website">Ne pas remplir</label>
-          <input type="text" id="cd-website" name="website" tabindex="-1" autocomplete="off">
+          <label for="f-web">Ne pas remplir</label>
+          <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
         </div>
 
-        <button type="submit" class="btn btn-noir" id="submitBtn">
+        <button type="submit" class="btn" id="btn">
           <span class="spin" aria-hidden="true"></span>
-          <span id="submitTxt">Continuer vers le paiement</span>
+          <span id="btnTxt">Payer 850 € et candidater</span>
         </button>
-        <p class="legal">Aucun montant n'est débité à cette étape. Le règlement s'ouvre juste en dessous.</p>
+        <p class="legal">Paiement sécurisé par Stripe · aucune donnée bancaire ne transite par ce site</p>
       </form>
-
-      <!-- ═══ PAIEMENT ═══ -->
-      <div class="pay" id="pay">
-        <div class="pay-head">
-          <b>Règlement de la session</b>
-          <span>850 €</span>
-        </div>
-        <div class="pay-box">
-          <p class="pay-methods">Carte bancaire, Apple&nbsp;Pay, Google&nbsp;Pay et tout moyen activé sur le compte Stripe de Yasmina — les options disponibles s'affichent ci-dessous.</p>
-          <div id="payment-element"></div>
-          <button type="button" class="btn btn-rose" id="payBtn" style="margin-top:22px">
-            <span class="spin" aria-hidden="true"></span>
-            <span id="payTxt">Payer 850 €</span>
-          </button>
-          <p class="legal">Paiement sécurisé par Stripe. Aucune donnée bancaire ne transite par ce site ni n'est enregistrée par Yasmina Pastural Training.</p>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
 <script>
-/* ═══ Vidéos YouTube — chargées seulement au clic ═══ */
-document.querySelectorAll('.vid-frame').forEach(function (f) {
+// En ligne l'adresse relative suffit ; ouverte en local (file:, data:) la page
+// vise la production, sinon fetch ne sait pas résoudre l'URL.
+var API = (/^https?:$/.test(location.protocol) ? '' : 'https://yptraining.vercel.app') + '/api/candidature';
+var LIBELLE = 'Payer 850 € et candidater';
+var MAX_OCTETS = 2 * 1024 * 1024;
+var fichiers = { cvFile: null, photoFile: null };
+var stripe = null, elements = null, pretPaiement = false;
+
+/* ═══ Vidéos ═══ */
+document.querySelectorAll('.vid').forEach(function (f) {
   var id = (f.dataset.yt || '').trim();
-  if (!id) {
-    f.innerHTML = '<div class="vid-vide"><span>Vidéo à venir</span></div>';
-    f.disabled = true;
-    return;
-  }
-  f.innerHTML = '<img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" alt="" loading="lazy">' +
+  if (!id) { f.innerHTML = '<span class="vid-soon">Vidéo à venir</span>'; f.disabled = true; return; }
+  f.innerHTML = '<img src="https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg" alt="" loading="lazy">' +
                 '<div class="vid-play">▶</div>';
   f.addEventListener('click', function () {
     var fr = document.createElement('iframe');
     fr.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
     fr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture';
-    fr.allowFullscreen = true;
-    fr.title = f.getAttribute('aria-label') || 'Vidéo';
+    fr.allowFullscreen = true; fr.title = 'Vidéo';
     f.replaceWith(fr);
   }, { once: true });
 });
 
-/* ═══ Compteurs ═══ */
+/* ═══ Compteur ═══ */
 document.querySelectorAll('[data-count]').forEach(function (el) {
-  var out = el.parentElement.querySelector('.count');
-  if (!out) return;
+  var out = el.parentElement.querySelector('.count'); if (!out) return;
   var max = el.getAttribute('maxlength');
   var maj = function () {
     out.textContent = el.value.length + ' / ' + max;
@@ -499,25 +461,18 @@ document.querySelectorAll('[data-count]').forEach(function (el) {
 });
 
 /* ═══ Fichiers ═══ */
-var MAX_OCTETS = 2 * 1024 * 1024;
-var fichiers = { cvFile: null, photoFile: null };
+function joli(o) { return o < 1048576 ? Math.round(o / 1024) + ' Ko' : (o / 1048576).toFixed(1) + ' Mo'; }
 
-function joli(o) { return o < 1024 * 1024 ? Math.round(o / 1024) + ' Ko' : (o / 1048576).toFixed(1) + ' Mo'; }
-
-/** Réduit une photo côté navigateur : évite les 8 Mo sortis d'un téléphone. */
 function compresser(file) {
   return new Promise(function (resolve, reject) {
     if (!/^image\//.test(file.type)) return resolve(file);
-    var img = new Image();
-    var url = URL.createObjectURL(file);
+    var img = new Image(), url = URL.createObjectURL(file);
     img.onload = function () {
       URL.revokeObjectURL(url);
-      var max = 1400;
-      var r = Math.min(1, max / Math.max(img.width, img.height));
+      var r = Math.min(1, 1400 / Math.max(img.width, img.height));
       if (r === 1 && file.size <= 900 * 1024) return resolve(file);
       var c = document.createElement('canvas');
-      c.width = Math.round(img.width * r);
-      c.height = Math.round(img.height * r);
+      c.width = Math.round(img.width * r); c.height = Math.round(img.height * r);
       c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
       c.toBlob(function (b) { resolve(b && b.size < file.size ? b : file); }, 'image/jpeg', 0.85);
     };
@@ -525,82 +480,95 @@ function compresser(file) {
     img.src = url;
   });
 }
-
 function versDataUrl(blob) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (res, rej) {
     var r = new FileReader();
-    r.onload = function () { resolve(r.result); };
-    r.onerror = function () { reject(new Error('Lecture impossible')); };
+    r.onload = function () { res(r.result); };
+    r.onerror = function () { rej(new Error('Lecture impossible')); };
     r.readAsDataURL(blob);
   });
 }
-
-[['cd-cv', 'wrap-cv', 'lbl-cv', 'cvFile'], ['cd-photo', 'wrap-photo', 'lbl-photo', 'photoFile']]
-  .forEach(function (t) {
-    var input = document.getElementById(t[0]);
-    var wrap = document.getElementById(t[1]);
-    var lbl = document.getElementById(t[2]);
-    var cle = t[3];
-    input.addEventListener('change', async function () {
-      var f = input.files && input.files[0];
-      erreurChamp(cle, '');
-      if (!f) { fichiers[cle] = null; wrap.classList.remove('ok'); lbl.textContent = 'Choisir un fichier'; return; }
-      try {
-        var blob = await compresser(f);
-        if (blob.size > MAX_OCTETS) {
-          fichiers[cle] = null; wrap.classList.remove('ok');
-          lbl.textContent = 'Choisir un fichier';
-          erreurChamp(cle, 'Fichier trop lourd (' + joli(blob.size) + ') — 2 Mo maximum');
-          return;
-        }
-        fichiers[cle] = await versDataUrl(blob);
-        wrap.classList.add('ok');
-        lbl.textContent = f.name.slice(0, 42) + ' · ' + joli(blob.size);
-      } catch (e) {
-        erreurChamp(cle, e.message);
+[['f-cv', 'w-cv', 'l-cv', 'cvFile', 'Choisir un fichier'],
+ ['f-photo', 'w-photo', 'l-photo', 'photoFile', 'Choisir une photo']].forEach(function (t) {
+  var input = document.getElementById(t[0]), wrap = document.getElementById(t[1]);
+  var lbl = document.getElementById(t[2]), cle = t[3];
+  input.addEventListener('change', async function () {
+    var f = input.files && input.files[0];
+    erreur(cle, '');
+    if (!f) { fichiers[cle] = null; wrap.classList.remove('ok'); lbl.textContent = t[4]; return; }
+    try {
+      var blob = await compresser(f);
+      if (blob.size > MAX_OCTETS) {
+        fichiers[cle] = null; wrap.classList.remove('ok'); lbl.textContent = t[4];
+        erreur(cle, 'Trop lourd (' + joli(blob.size) + ') — 2 Mo maximum'); return;
       }
-    });
+      fichiers[cle] = await versDataUrl(blob);
+      wrap.classList.add('ok');
+      lbl.textContent = f.name.length > 26 ? f.name.slice(0, 24) + '… ' + joli(blob.size) : f.name + ' · ' + joli(blob.size);
+    } catch (e) { erreur(cle, e.message); }
   });
+});
 
 /* ═══ Erreurs ═══ */
-function erreurChamp(nom, msg) {
+function erreur(nom, msg) {
   var e = document.getElementById('err-' + nom);
   var i = document.querySelector('[name="' + nom + '"]');
   if (e) { e.textContent = msg || ''; e.classList.toggle('show', !!msg); }
   if (i) { if (msg) i.setAttribute('aria-invalid', 'true'); else i.removeAttribute('aria-invalid'); }
 }
-
-var errBox = document.getElementById('paiement-erreur');
+var boxKo = document.getElementById('etat-ko');
 function echec(msg, code) {
-  errBox.innerHTML = '';
+  boxKo.innerHTML = '';
   var s = document.createElement('strong'); s.textContent = 'Un problème est survenu';
   var p = document.createElement('span'); p.textContent = msg;
-  errBox.appendChild(s); errBox.appendChild(p);
-  if (code) {
-    var c = document.createElement('span'); c.className = 'status-code'; c.textContent = 'code : ' + code;
-    errBox.appendChild(c);
-  }
-  errBox.classList.add('show');
-  errBox.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  boxKo.appendChild(s); boxKo.appendChild(p);
+  if (code) { var c = document.createElement('span'); c.className = 'status-code'; c.textContent = 'code : ' + code; boxKo.appendChild(c); }
+  boxKo.classList.add('show');
+  boxKo.scrollIntoView({ block: 'center', behavior: 'smooth' });
 }
 
+/* ═══ Paiement affiché dès l'arrivée (intention différée) ═══ */
+(async function initPaiement() {
+  try {
+    var cfg = await (await fetch(API)).json();
+    if (!cfg.publishableKey) throw new Error('clé de paiement absente');
+    stripe = Stripe(cfg.publishableKey);
+    elements = stripe.elements({
+      mode: 'payment', amount: 85000, currency: 'eur',
+      appearance: {
+        theme: 'night',
+        variables: {
+          colorPrimary: '#8B5CFF', colorBackground: '#100D1C', colorText: '#F4F2FF',
+          colorTextSecondary: '#9891B8', colorDanger: '#FF7BA8',
+          fontFamily: 'Instrument Sans, system-ui, sans-serif',
+          borderRadius: '13px', spacingUnit: '5px'
+        }
+      }
+    });
+    var pe = elements.create('payment', { layout: 'tabs' });
+    document.getElementById('payment-element').innerHTML = '';
+    pe.mount('#payment-element');
+  } catch (e) {
+    document.getElementById('payment-element').innerHTML =
+      '<div class="pay-skel">Moyens de paiement indisponibles — ' + e.message + '</div>';
+  }
+})();
+
+/* ═══ Validation ═══ */
 function valider() {
   var ok = true;
-  [['prenom', 'cd-prenom', 'Votre prénom est requis'],
-   ['nom', 'cd-nom', 'Votre nom est requis'],
-   ['motivation', 'cd-motivation', 'Dites-nous pourquoi ce stage']].forEach(function (t) {
+  [['prenom', 'f-prenom', 'Votre prénom est requis'],
+   ['nom', 'f-nom', 'Votre nom est requis'],
+   ['motivation', 'f-motiv', 'Dites-nous pourquoi ce stage']].forEach(function (t) {
     var vide = !document.getElementById(t[1]).value.trim();
-    erreurChamp(t[0], vide ? t[2] : ''); if (vide) ok = false;
+    erreur(t[0], vide ? t[2] : ''); if (vide) ok = false;
   });
-  var mailKo = !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(document.getElementById('cd-email').value.trim());
-  erreurChamp('email', mailKo ? 'Adresse e-mail invalide' : ''); if (mailKo) ok = false;
-
-  var vidKo = !/^https?:\/\//i.test(document.getElementById('cd-video').value.trim());
-  erreurChamp('videoUrl', vidKo ? 'Lien vers votre vidéo requis (https://…)' : ''); if (vidKo) ok = false;
-
-  if (!fichiers.cvFile) { erreurChamp('cvFile', 'Votre CV est requis'); ok = false; }
-  if (!fichiers.photoFile) { erreurChamp('photoFile', 'Votre photo est requise'); ok = false; }
-
+  var mailKo = !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(document.getElementById('f-email').value.trim());
+  erreur('email', mailKo ? 'Adresse e-mail invalide' : ''); if (mailKo) ok = false;
+  var vidKo = !/^https?:\/\//i.test(document.getElementById('f-video').value.trim());
+  erreur('videoUrl', vidKo ? 'Lien vers votre vidéo requis' : ''); if (vidKo) ok = false;
+  if (!fichiers.cvFile) { erreur('cvFile', 'Votre CV est requis'); ok = false; }
+  if (!fichiers.photoFile) { erreur('photoFile', 'Votre photo est requise'); ok = false; }
   if (!ok) {
     var p = document.querySelector('[aria-invalid="true"], .error.show');
     if (p) p.scrollIntoView({ block: 'center', behavior: 'smooth' });
@@ -608,121 +576,80 @@ function valider() {
   return ok;
 }
 
-/* ═══ Soumission → paiement ═══ */
-var form = document.getElementById('candidateForm');
-var sBtn = document.getElementById('submitBtn'), sTxt = document.getElementById('submitTxt');
-var pBtn = document.getElementById('payBtn'), pTxt = document.getElementById('payTxt');
-var payWrap = document.getElementById('pay');
-var stripe = null, elements = null;
+/* ═══ Envoi ═══ */
+var btn = document.getElementById('btn'), btnTxt = document.getElementById('btnTxt');
+function occupe(o, txt) { btn.disabled = o; btn.classList.toggle('busy', o); btnTxt.textContent = txt; }
 
-function occupe(btn, txtEl, occupe_, libelle) {
-  btn.disabled = occupe_;
-  btn.classList.toggle('busy', occupe_);
-  txtEl.textContent = libelle;
-}
-
-form.addEventListener('submit', async function (e) {
+document.getElementById('form').addEventListener('submit', async function (e) {
   e.preventDefault();
-  errBox.classList.remove('show');
+  boxKo.classList.remove('show');
   if (!valider()) return;
+  if (!stripe || !elements) { echec("Le module de paiement n'est pas chargé. Rechargez la page."); return; }
 
-  occupe(sBtn, sTxt, true, 'Envoi du dossier…');
+  occupe(true, 'Vérification…');
+  var v = await elements.submit();
+  if (v.error) { echec(v.error.message || 'Moyen de paiement incomplet.', v.error.code); occupe(false, LIBELLE); return; }
 
+  occupe(true, 'Envoi du dossier…');
   var payload = {
-    civilite: (document.querySelector('[name=civilite]:checked') || {}).value || 'Autre',
-    prenom: document.getElementById('cd-prenom').value.trim(),
-    nom: document.getElementById('cd-nom').value.trim(),
-    email: document.getElementById('cd-email').value.trim(),
-    telephone: document.getElementById('cd-telephone').value.trim(),
-    ville: document.getElementById('cd-ville').value.trim(),
-    motivation: document.getElementById('cd-motivation').value.trim(),
-    videoUrl: document.getElementById('cd-video').value.trim(),
-    website: document.getElementById('cd-website').value,
-    cvFile: fichiers.cvFile,
-    photoFile: fichiers.photoFile
+    civilite: (document.querySelector('[name=civilite]:checked') || {}).value || 'M',
+    prenom: document.getElementById('f-prenom').value.trim(),
+    nom: document.getElementById('f-nom').value.trim(),
+    email: document.getElementById('f-email').value.trim(),
+    telephone: document.getElementById('f-tel').value.trim(),
+    ville: document.getElementById('f-ville').value.trim(),
+    motivation: document.getElementById('f-motiv').value.trim(),
+    videoUrl: document.getElementById('f-video').value.trim(),
+    website: document.getElementById('f-web').value,
+    cvFile: fichiers.cvFile, photoFile: fichiers.photoFile
   };
 
+  var data;
   try {
-    var res = await fetch('/api/candidature', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+    var res = await fetch(API, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
     });
-    var data = await res.json().catch(function () { return {}; });
-
+    data = await res.json().catch(function () { return {}; });
     if (!res.ok || !data.clientSecret) {
-      if (data.champ) erreurChamp(data.champ, data.error || 'Champ invalide');
-      echec(data.error || 'Le serveur a refusé le dossier (HTTP ' + res.status + ').', data.code);
-      occupe(sBtn, sTxt, false, 'Continuer vers le paiement');
-      return;
+      if (data.champ) erreur(data.champ, data.error || 'Champ invalide');
+      echec(data.error || 'Dossier refusé (HTTP ' + res.status + ').', data.code);
+      occupe(false, LIBELLE); return;
     }
-
-    stripe = Stripe(data.publishableKey);
-    elements = stripe.elements({
-      clientSecret: data.clientSecret,
-      appearance: {
-        theme: 'flat',
-        variables: {
-          colorPrimary: '#ff4d97', colorBackground: '#f3eee4', colorText: '#0c0b0a',
-          colorDanger: '#ff4d97', fontFamily: 'Archivo, system-ui, sans-serif',
-          borderRadius: '0px', spacingUnit: '5px'
-        }
-      }
-    });
-    elements.create('payment', { layout: 'tabs' }).mount('#payment-element');
-
-    occupe(sBtn, sTxt, false, 'Dossier envoyé ✓');
-    sBtn.disabled = true;
-    form.querySelectorAll('input, textarea').forEach(function (el) { el.readOnly = true; });
-    payWrap.classList.add('on');
-    payWrap.scrollIntoView({ block: 'start', behavior: 'smooth' });
   } catch (err) {
     echec('Connexion au serveur impossible : ' + err.message);
-    occupe(sBtn, sTxt, false, 'Continuer vers le paiement');
+    occupe(false, LIBELLE); return;
   }
-});
 
-pBtn.addEventListener('click', async function () {
-  if (!stripe || !elements) return;
-  errBox.classList.remove('show');
-  occupe(pBtn, pTxt, true, 'Paiement en cours…');
-
+  occupe(true, 'Paiement en cours…');
   var r = await stripe.confirmPayment({
-    elements,
-    confirmParams: { return_url: window.location.origin + '/candidater.html?paiement=ok' },
+    elements, clientSecret: data.clientSecret,
+    confirmParams: { return_url: location.origin + '/candidater.html' },
     redirect: 'if_required'
   });
-
-  if (r.error) {
-    echec(r.error.message || 'Le paiement a été refusé.', r.error.code);
-    occupe(pBtn, pTxt, false, 'Payer 850 €');
-    return;
-  }
+  if (r.error) { echec(r.error.message || 'Paiement refusé.', r.error.code); occupe(false, LIBELLE); return; }
   succes();
 });
 
 function succes() {
-  payWrap.classList.remove('on');
-  document.getElementById('paiement-ok').classList.add('show');
-  document.getElementById('paiement-ok').scrollIntoView({ block: 'center', behavior: 'smooth' });
+  document.getElementById('form').style.display = 'none';
+  var ok = document.getElementById('etat-ok');
+  ok.classList.add('show');
+  ok.scrollIntoView({ block: 'center', behavior: 'smooth' });
 }
 
-/* ═══ Retour depuis un moyen de paiement redirigé (Alma, Klarna…) ═══ */
+/* ═══ Retour d'un paiement redirigé ═══ */
 (async function () {
-  var secret = new URLSearchParams(window.location.search).get('payment_intent_client_secret');
+  var secret = new URLSearchParams(location.search).get('payment_intent_client_secret');
   if (!secret) return;
-  window.history.replaceState({}, document.title, '/candidater.html');
+  history.replaceState({}, document.title, '/candidater.html');
   try {
-    var cfg = await (await fetch('/api/candidature')).json();
-    if (!cfg.publishableKey) return;
+    var cfg = await (await fetch(API)).json();
     var r = await Stripe(cfg.publishableKey).retrievePaymentIntent(secret);
     var st = r.paymentIntent && r.paymentIntent.status;
     if (st === 'succeeded') succes();
-    else if (st === 'processing') echec('Paiement en cours de traitement. Vous recevrez la confirmation par e-mail.');
-    else if (st) echec('Paiement non abouti (statut : ' + st + '). Aucun montant n\'a été débité.');
-  } catch (e) {
-    echec('Impossible de vérifier le statut du paiement : ' + e.message);
-  }
+    else if (st === 'processing') echec('Paiement en cours de traitement. La confirmation arrivera par e-mail.');
+    else if (st) echec('Paiement non abouti (' + st + '). Aucun montant débité.');
+  } catch (e) { /* la page reste utilisable */ }
 })();
 </script>
 </body>
