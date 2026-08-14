@@ -422,7 +422,7 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
 ═══════════════════════════════════════════════════════ */
 #temoignages{background:var(--noir);color:var(--creme);
   border-top:3px solid var(--jaune)}
-.temo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:46px;
+.temo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:46px;
   border:3px solid var(--jaune);box-shadow:6px 6px 0 var(--rose-e)}
 @media(max-width:1100px){.temo-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:640px){.temo-grid{grid-template-columns:1fr}}
@@ -451,6 +451,34 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
   letter-spacing:.14em;color:var(--rose-e);text-transform:uppercase;
   display:flex;align-items:center;gap:8px}
 .temo-who::before{content:'';width:18px;height:2px;background:var(--rose-e)}
+
+/* Vidéos YouTube — montées après consentement (consentement.js) */
+[data-yt]{position:relative;display:block;width:100%;padding:0;cursor:pointer;
+  background:#16140f;border:0;overflow:hidden}
+.yt-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform .5s var(--ease),opacity .3s}
+[data-yt]:hover .yt-thumb{transform:scale(1.04)}
+.gal-feat{max-width:880px;margin:26px auto 0;aspect-ratio:16/9;
+  border:3px solid var(--noir);box-shadow:9px 9px 0 var(--jaune);
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.gal-feat:hover{transform:translate(-3px,-3px);box-shadow:12px 12px 0 var(--rose)}
+.gal-feat .temo-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:64px;height:64px;font-size:19px}
+.gal-feat:hover .temo-play{transform:translate(-50%,-50%) scale(1.12);background:var(--rose);color:#fff}
+.gal-feat-cap{max-width:880px;margin:16px auto 0;display:flex;align-items:baseline;gap:12px;
+  font-family:var(--S);font-weight:800;font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gris)}
+.gal-feat-cap b{color:var(--noir)}
+.gal-feat-cap::before{content:'';width:26px;height:3px;background:var(--rose);flex:none;align-self:center}
+.temo-vid.vert{aspect-ratio:9/16}
+.temo-vid.vert .temo-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.temo-c.temo-feat{background:#16140f}
+.temo-c.temo-feat .temo-body{border-top:none;border-bottom:3px solid var(--jaune)}
+.temo-c.soon{cursor:default}
+.temo-c.soon:hover{background:var(--noir)}
+.temo-c.soon .temo-vid::after{content:'Interview à venir';position:absolute;z-index:2;
+  font-family:var(--S);font-weight:800;font-size:10px;letter-spacing:.24em;
+  text-transform:uppercase;color:rgba(243,238,228,.4)}
 
 /* ═══════════════════════════════════════════════════════
    07 · PRESSE + BACKSTAGE — fond jaune POP
@@ -1348,6 +1376,7 @@ footer a:hover{color:var(--bleu)}
 
   <div id="gal-photos" style="padding:0 0 28px;display:none">
     <div class="gal-grid rv d4">
+      <div class="gi gt"><img src="images/face-a-face-studio.jpg" alt="Face-à-face collectif en studio" loading="lazy"></div>
       <div class="gi gt"><img src="images/yoga-collectif.jpg" alt="Yoga collectif" loading="lazy"></div>
       <div class="gi"><img src="images/direction-d-acteurs.jpg" alt="Direction d'acteurs" loading="lazy"></div>
       <div class="gi"><img src="images/cohesion-du-groupe.jpg" alt="Cohésion du groupe" loading="lazy"></div>
@@ -1366,10 +1395,9 @@ footer a:hover{color:var(--bleu)}
   </div>
 
   <div id="gal-backstage" class="bs-pane">
-    <span class="bs-label">Extraits vidéo du stage</span>
-    <div class="vid-strip" style="min-height:0">
-      <p style="grid-column:1/-1;font-size:13px;color:var(--gris);padding:20px 0;font-style:italic">Vidéos à venir.</p>
-    </div>
+    <span class="bs-label">Sur le plateau</span>
+    <button class="gal-feat" type="button" data-yt="5cMvWxLaZ0Y" aria-label="Lire l'extrait d'acting"></button>
+    <p class="gal-feat-cap"><b>Acting&nbsp;·&nbsp;extrait brut</b> travail face caméra, en conditions réelles de tournage</p>
   </div>
 </section>
 
@@ -1597,25 +1625,21 @@ footer a:hover{color:var(--bleu)}
 <section id="temoignages" class="pad" style="background:var(--noir);color:var(--creme);border-top:3px solid var(--jaune)">
   <span class="lbl lbl-jaune rv">Leurs mots</span>
   <h2 class="h2-ed rv d1" style="color:var(--creme)">Ce qu'ils<br><em>en retiennent.</em></h2>
-  <div class="temo-grid rv d2" style="grid-template-columns:repeat(3,1fr)">
-    <div class="temo-c" onclick="openVid('C0705.mp4')" role="button" tabindex="0">
-      <div class="temo-vid" style="background:linear-gradient(135deg,rgba(255,212,0,.08),rgba(255,93,143,.05))">
-        <div class="temo-play-ring"></div>
-        <div class="temo-play"></div>
+  <div class="temo-grid rv d2">
+    <div class="temo-c temo-feat">
+      <div class="temo-body">
+        <p class="temo-q">« Je suis arrivée tendue, je suis repartie avec un outil pour jouer vrai. Ce que Yasmina fait en une semaine, je n'avais pas réussi à le trouver en deux ans. »</p>
+        <div class="temo-who">Stagiaire · Interview 01</div>
       </div>
-      <div class="temo-body"><p class="temo-q">« Interview post-stage : un retour à chaud sur cette semaine, dans les mots d'un·e stagiaire. »</p><div class="temo-who">Stagiaire · Interview vidéo</div></div>
+      <button class="temo-vid vert" type="button" data-yt="nVw1CNUJG68" aria-label="Lire l'interview"></button>
     </div>
-    <div class="temo-c" onclick="openVid('ScreenRecording_06-13-2026 18-40-35_1 copie.mov')" role="button" tabindex="0">
-      <div class="temo-vid"><img class="temo-thumb" src="images/temoignage-thumb-1.jpg" alt=""><div class="temo-play"></div></div>
-      <div class="temo-body"><p class="temo-q">« Je suis arrivée tendue, je suis repartie avec un outil pour jouer vrai. Ce que Yasmina fait en une semaine, je n'avais pas réussi à le trouver en deux ans. »</p><div class="temo-who">Clément · Comédien · Paris</div></div>
+    <div class="temo-c soon">
+      <div class="temo-vid"><img class="temo-thumb" src="images/temoignage-thumb-1.jpg" alt=""></div>
+      <div class="temo-body"><p class="temo-q">« Une semaine qui vaut une année de cours. La caméra ne ment plus. Yasmina a une façon de vous voir qui vous transforme. »</p><div class="temo-who">Interview 02 · bientôt</div></div>
     </div>
-    <div class="temo-c" onclick="openVid('ScreenRecording_06-13-2026 18-40-35_1-2 copie.mov')" role="button" tabindex="0">
-      <div class="temo-vid"><img class="temo-thumb" src="images/temoignage-thumb-2.jpg" alt=""><div class="temo-play"></div></div>
-      <div class="temo-body"><p class="temo-q">« Une semaine qui vaut une année de cours. La caméra ne ment plus. Yasmina a une façon de vous voir qui vous transforme. »</p><div class="temo-who">Comédien · Lyon</div></div>
-    </div>
-    <div class="temo-c" onclick="openVid('ScreenRecording_06-13-2026 18-40-35_1-3 copie.mov')" role="button" tabindex="0">
-      <div class="temo-vid"><img class="temo-thumb" src="images/temoignage-thumb-3.jpg" alt=""><div class="temo-play"></div></div>
-      <div class="temo-body"><p class="temo-q">« Yasmina voit ce que personne ne voit. Elle sait exactement où vous bloquez, et comment en sortir. Ça change tout. »</p><div class="temo-who">Comédien·ne · Bordeaux</div></div>
+    <div class="temo-c soon">
+      <div class="temo-vid"><img class="temo-thumb" src="images/temoignage-thumb-2.jpg" alt=""></div>
+      <div class="temo-body"><p class="temo-q">« Yasmina voit ce que personne ne voit. Elle sait exactement où vous bloquez, et comment en sortir. Ça change tout. »</p><div class="temo-who">Interview 03 · bientôt</div></div>
     </div>
   </div>
 </section>
@@ -2255,5 +2279,36 @@ document.addEventListener('keydown',e=>{});
 
 </script>
 <script src="consentement.js" defer></script>
+<script>
+/* Montage des vidéos YouTube — uniquement après consentement.
+   consentement.js pose le substitut tant que rien n'est accepté, puis
+   émet « ypt:videos-autorisees » : on monte alors miniature + lecture. */
+(function(){
+  function monter(){
+    if(!window.yptConsentement||!window.yptConsentement.accepte())return;
+    document.querySelectorAll('[data-yt]').forEach(function(f){
+      var id=(f.dataset.yt||'').trim();
+      if(!id||f.dataset.monte==='1')return;
+      f.dataset.monte='1';
+      var img=document.createElement('img');
+      img.className='yt-thumb';img.alt='';img.loading='lazy';
+      img.src='https://i.ytimg.com/vi/'+id+'/maxresdefault.jpg';
+      img.onerror=function(){this.onerror=null;this.src='https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';};
+      var play=document.createElement('div');play.className='temo-play';
+      f.innerHTML='';f.appendChild(img);f.appendChild(play);
+      f.addEventListener('click',function(){
+        var fr=document.createElement('iframe');
+        fr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+        fr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture';
+        fr.allowFullscreen=true;fr.title='Vidéo';
+        fr.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';
+        img.remove();play.remove();f.appendChild(fr);
+      },{once:true});
+    });
+  }
+  document.addEventListener('ypt:videos-autorisees',monter);
+  window.addEventListener('load',monter);
+})();
+</script>
 </body>
 </html>
