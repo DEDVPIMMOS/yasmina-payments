@@ -4,324 +4,462 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Candidature — Yasmina Pastural Training</title>
+  <meta name="description" content="Candidatez au stage intensif de jeu cinéma avec Yasmina Pastural — session du 7 au 11 septembre 2026, Paris.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300;1,9..144,500&family=Archivo:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: system-ui, -apple-system, sans-serif;
-      background: #faf8f5;
-      color: #1a1410;
-      padding: 20px;
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 640px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 12px;
-      padding: 40px;
-      box-shadow: 0 2px 8px rgba(0,0,0,.08);
-    }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 8px;
-      color: #1a1410;
-    }
-    .subtitle {
-      font-size: 14px;
-      color: #7a6e62;
-      margin-bottom: 28px;
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      color: #7a6e62;
-      margin-bottom: 6px;
-    }
-    input[type="text"],
-    input[type="email"],
-    input[type="tel"],
-    input[type="url"],
-    textarea {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #e3ddd0;
-      border-radius: 6px;
-      font-family: inherit;
-      font-size: 15px;
-      color: #1a1410;
-      background: #faf8f5;
-      transition: border-color .2s;
-    }
-    input[type="text"]:focus,
-    input[type="email"]:focus,
-    input[type="tel"]:focus,
-    input[type="url"]:focus,
-    textarea:focus {
-      outline: none;
-      border-color: #22c55e;
-      background: white;
-    }
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-    .error {
-      font-size: 13px;
-      color: #dc2626;
-      margin-top: 4px;
-      display: none;
-    }
-    .error.show { display: block; }
-    .form-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    .info-box {
-      background: #f0fce7;
-      border-left: 3px solid #22c55e;
-      padding: 14px;
-      border-radius: 6px;
-      margin-bottom: 24px;
-      font-size: 14px;
-      color: #15803d;
-    }
-    button {
-      width: 100%;
-      padding: 14px;
-      background: #22c55e;
-      color: white;
-      font-size: 15px;
-      font-weight: 600;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background .2s;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-    }
-    button:hover { background: #16a34a; }
-    button:disabled {
-      background: #cbd5e1;
-      cursor: not-allowed;
-    }
-    .paiement-status {
-      display: none;
-      margin-top: 20px;
-      padding: 16px;
-      border-radius: 8px;
-      text-align: center;
-      font-weight: 600;
-    }
-    .paiement-status.ok {
-      display: block;
-      background: #f0fce7;
-      color: #15803d;
-      border: 1px solid #22c55e;
-    }
-    .paiement-status.annule {
-      display: block;
-      background: #fef2f2;
-      color: #991b1b;
-      border: 1px solid #fca5a5;
-    }
-    .lien-info {
-      font-size: 12px;
-      color: #7a6e62;
-      margin-top: 4px;
-      font-style: italic;
-    }
+  /* ═══════════════════════════════════════════════
+     Tokens — palette Yasmina Pastural Training
+     (structure du design system, valeurs client)
+  ═══════════════════════════════════════════════ */
+  :root{
+    --jaune:#ffd400; --rose:#ff4d97; --bleu:#1f4fff;
+    --noir:#0c0b0a;  --creme:#f3eee4; --gris:#6a5e4a;
+    --creme-2:#e9e2d4;
+
+    --S:'Syne',sans-serif;
+    --F:'Fraunces',Georgia,serif;
+    --A:'Archivo',system-ui,sans-serif;
+    --SG:'Space Grotesk',monospace;
+
+    --sp-1:.25rem; --sp-2:.5rem;  --sp-3:.75rem; --sp-4:1rem;
+    --sp-6:1.5rem; --sp-8:2rem;   --sp-12:3rem;  --sp-16:4rem;
+
+    --ease:cubic-bezier(.22,1,.36,1);
+    --dur:200ms;
+  }
+
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--A);
+    background:var(--creme);
+    color:var(--noir);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--rose);color:#fff}
+  :focus-visible{outline:3px solid var(--bleu);outline-offset:3px}
+
+  /* ── Barre de retour ── */
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);
+    padding:var(--sp-4) clamp(1.25rem,5vw,3rem);
+    background:var(--jaune);border-bottom:3px solid var(--noir);
+  }
+  .logo{
+    font-family:var(--S);font-weight:800;font-size:15px;
+    text-transform:uppercase;letter-spacing:-.01em;color:var(--noir);
+    text-decoration:none;line-height:1.15;
+  }
+  .logo b{color:var(--rose)}
+  .back{
+    font-family:var(--S);font-weight:700;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--noir);text-decoration:none;
+    border-bottom:2px solid transparent;padding-bottom:2px;
+    transition:border-color var(--dur) var(--ease);white-space:nowrap;
+  }
+  .back:hover{border-color:var(--noir)}
+
+  /* ── Grille : récap collant + formulaire ── */
+  .wrap{
+    max-width:1180px;margin:0 auto;
+    padding:clamp(2rem,5vw,4.5rem) clamp(1.25rem,5vw,3rem) var(--sp-16);
+    display:grid;grid-template-columns:38fr 62fr;
+    gap:clamp(2rem,5vw,4rem);align-items:start;
+  }
+  @media(max-width:900px){.wrap{grid-template-columns:1fr;gap:var(--sp-8)}}
+
+  /* ── Colonne récap ── */
+  .aside{position:sticky;top:var(--sp-8)}
+  @media(max-width:900px){.aside{position:static}}
+
+  .eyebrow{
+    display:inline-block;font-family:var(--S);font-weight:800;font-size:11px;
+    letter-spacing:.14em;text-transform:uppercase;color:#fff;background:var(--bleu);
+    padding:6px 12px;border:2px solid var(--noir);margin-bottom:var(--sp-4);
+  }
+  h1{
+    font-family:var(--F);font-style:italic;font-weight:300;
+    font-size:clamp(2.6rem,6vw,4.2rem);line-height:.98;letter-spacing:-.02em;
+    margin-bottom:var(--sp-4);
+  }
+  .lede{font-size:15px;line-height:1.7;color:var(--gris);max-width:42ch;margin-bottom:var(--sp-8)}
+
+  .recap{border:3px solid var(--noir);background:var(--creme-2);box-shadow:6px 6px 0 var(--rose)}
+  .recap-top{
+    padding:var(--sp-6);border-bottom:3px solid var(--noir);
+    display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3);flex-wrap:wrap;
+  }
+  .recap-price{font-family:var(--F);font-style:italic;font-weight:300;font-size:clamp(2.4rem,5vw,3.4rem);line-height:1}
+  .recap-price-lbl{font-family:var(--S);font-weight:800;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+  .recap-list{list-style:none;padding:var(--sp-4) var(--sp-6) var(--sp-6)}
+  .recap-list li{
+    display:grid;grid-template-columns:auto 1fr;gap:var(--sp-3);
+    padding:var(--sp-3) 0;font-size:14px;line-height:1.55;
+    border-bottom:1px solid rgba(12,11,10,.12);
+  }
+  .recap-list li:last-child{border-bottom:0}
+  .recap-list b{font-family:var(--SG);font-weight:700;font-size:11px;color:var(--rose);letter-spacing:.06em;padding-top:3px}
+  .secure{
+    margin-top:var(--sp-4);font-family:var(--SG);font-weight:500;
+    font-size:11.5px;letter-spacing:.04em;color:var(--gris);
+  }
+
+  /* ── Bandeaux d'état ── */
+  .status{display:none;padding:var(--sp-4) var(--sp-6);border:3px solid var(--noir);margin-bottom:var(--sp-6);font-size:14.5px;line-height:1.55}
+  .status.show{display:block}
+  .status strong{font-family:var(--S);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:12px;display:block;margin-bottom:4px}
+  .status-ok{background:var(--noir);color:var(--creme);box-shadow:5px 5px 0 var(--jaune)}
+  .status-ok strong{color:var(--jaune)}
+  .status-ko{background:var(--rose);color:#fff;box-shadow:5px 5px 0 var(--noir)}
+  .status-code{font-family:var(--SG);font-size:11.5px;opacity:.85;display:block;margin-top:6px}
+
+  /* ── Formulaire ── */
+  .form-card{border:3px solid var(--noir);background:#fff;padding:clamp(1.5rem,3.5vw,2.5rem)}
+
+  fieldset{border:0;margin-bottom:var(--sp-8)}
+  fieldset:last-of-type{margin-bottom:var(--sp-6)}
+  legend{
+    display:flex;align-items:center;gap:var(--sp-3);width:100%;
+    padding-bottom:var(--sp-3);margin-bottom:var(--sp-6);
+    border-bottom:2px solid var(--noir);
+  }
+  .step-n{font-family:var(--SG);font-weight:700;font-size:12px;color:var(--rose);letter-spacing:.08em}
+  .step-t{font-family:var(--S);font-weight:800;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-4)}
+  @media(max-width:560px){.row{grid-template-columns:1fr}}
+  .fg{margin-bottom:var(--sp-4)}
+
+  label{
+    display:block;font-family:var(--S);font-weight:800;font-size:11px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--noir);margin-bottom:var(--sp-2);
+  }
+  label .opt{color:var(--gris);font-weight:600;letter-spacing:.06em}
+
+  input,textarea{
+    width:100%;padding:13px 14px;
+    border:2px solid var(--noir);background:var(--creme);
+    font-family:var(--A);font-size:15.5px;color:var(--noir);line-height:1.5;
+    transition:box-shadow var(--dur) var(--ease),border-color var(--dur) var(--ease),background var(--dur) var(--ease);
+  }
+  input::placeholder,textarea::placeholder{color:#8b8072}
+  input:hover,textarea:hover{background:#fff}
+  input:focus,textarea:focus{
+    outline:none;background:#fff;border-color:var(--noir);
+    box-shadow:4px 4px 0 var(--rose);
+  }
+  textarea{resize:vertical;min-height:104px}
+  input[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:var(--rose);box-shadow:4px 4px 0 var(--rose)}
+
+  .hint{
+    display:flex;justify-content:space-between;gap:var(--sp-3);
+    font-family:var(--SG);font-size:11.5px;color:var(--gris);margin-top:6px;letter-spacing:.02em;
+  }
+  .count{font-variant-numeric:tabular-nums;flex:none}
+  .count.near{color:var(--rose);font-weight:700}
+
+  .error{
+    display:none;font-family:var(--SG);font-weight:500;font-size:12.5px;
+    color:var(--rose);margin-top:6px;letter-spacing:.01em;
+  }
+  .error.show{display:block}
+
+  /* ── Bouton ── */
+  .submit{
+    width:100%;display:flex;align-items:center;justify-content:center;gap:var(--sp-3);
+    font-family:var(--S);font-weight:800;font-size:14px;letter-spacing:.08em;text-transform:uppercase;
+    padding:17px 24px;background:var(--noir);color:var(--jaune);
+    border:3px solid var(--noir);box-shadow:5px 5px 0 var(--rose);cursor:pointer;
+    transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
+  }
+  .submit:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--rose)}
+  .submit:active:not(:disabled){transform:translate(1px,1px);box-shadow:3px 3px 0 var(--rose)}
+  .submit:disabled{cursor:progress;opacity:.62;box-shadow:5px 5px 0 rgba(12,11,10,.25)}
+  .spin{
+    width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;
+    border-radius:50%;animation:sp .7s linear infinite;display:none;flex:none;
+  }
+  .submit.busy .spin{display:block}
+  @keyframes sp{to{transform:rotate(360deg)}}
+
+  .legal{font-size:12.5px;line-height:1.6;color:var(--gris);margin-top:var(--sp-4);text-align:center}
+
+  /* ── Entrée en scène ── */
+  .rise{opacity:0;transform:translateY(18px);animation:rise .6s var(--ease) both}
+  .rise:nth-child(1){animation-delay:0ms}
+  .rise:nth-child(2){animation-delay:90ms}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+    .rise{opacity:1;transform:none}
+  }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Candidature</h1>
-    <div class="subtitle">Stage jeu cinéma · 7 au 11 septembre 2026</div>
 
-    <div id="paiement-ok" class="paiement-status ok">
-      ✓ Paiement confirmé. Vérifiez votre e-mail pour l'accusé de réception.
+<header class="topbar">
+  <a class="logo" href="index.html">Yasmina Pastural<br><b>Training</b></a>
+  <a class="back" href="index.html">← Retour au site</a>
+</header>
+
+<main class="wrap">
+
+  <aside class="aside rise">
+    <span class="eyebrow">Session 7 → 11 sept. 2026</span>
+    <h1>Candidater.</h1>
+    <p class="lede">Une semaine intensive de jeu face caméra, en groupe restreint. Votre dossier est étudié par Yasmina ; le paiement valide votre place.</p>
+
+    <div class="recap">
+      <div class="recap-top">
+        <span class="recap-price">850 €</span>
+        <span class="recap-price-lbl">tout compris</span>
+      </div>
+      <ul class="recap-list">
+        <li><b>01</b><span>5 jours de plateau, du lundi au vendredi, à Paris</span></li>
+        <li><b>02</b><span>Séance photo de book individuelle incluse</span></li>
+        <li><b>03</b><span>Casting réel le vendredi avec une directrice de casting</span></li>
+        <li><b>04</b><span>Comédienne, chant, yoga, psychologue de tournage</span></li>
+      </ul>
     </div>
-    <div id="paiement-annule" class="paiement-status annule">
-      Paiement annulé. Vous pouvez réessayer à tout moment.
+    <p class="secure">◈ Paiement sécurisé par Stripe · carte bancaire</p>
+  </aside>
+
+  <div class="rise">
+
+    <div id="paiement-ok" class="status status-ok">
+      <strong>Paiement confirmé</strong>
+      Votre candidature est enregistrée. Vous recevez un accusé de réception par e-mail — pensez à vérifier vos spams.
     </div>
-    <div id="paiement-erreur" class="paiement-status annule"></div>
-
-    <div class="info-box">
-      💳 Candidature + paiement immédiat · 850 € (carte bancaire)
+    <div id="paiement-annule" class="status status-ko">
+      <strong>Paiement annulé</strong>
+      Rien n'a été débité. Vous pouvez reprendre votre candidature quand vous le souhaitez.
     </div>
+    <div id="paiement-erreur" class="status status-ko"></div>
 
-    <form id="candidateForm">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="cd-prenom">Prénom *</label>
-          <input type="text" id="cd-prenom" name="prenom" required maxlength="100">
-          <div class="error" id="err-prenom"></div>
+    <form id="candidateForm" class="form-card" novalidate>
+
+      <fieldset>
+        <legend><span class="step-n">01</span><span class="step-t">Qui êtes-vous</span></legend>
+        <div class="row">
+          <div class="fg">
+            <label for="cd-prenom">Prénom</label>
+            <input type="text" id="cd-prenom" name="prenom" required maxlength="100" autocomplete="given-name">
+            <div class="error" id="err-prenom"></div>
+          </div>
+          <div class="fg">
+            <label for="cd-nom">Nom</label>
+            <input type="text" id="cd-nom" name="nom" required maxlength="100" autocomplete="family-name">
+            <div class="error" id="err-nom"></div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="cd-nom">Nom *</label>
-          <input type="text" id="cd-nom" name="nom" required maxlength="100">
-          <div class="error" id="err-nom"></div>
+        <div class="fg">
+          <label for="cd-email">E-mail</label>
+          <input type="email" id="cd-email" name="email" required maxlength="255" autocomplete="email" placeholder="prenom@exemple.fr">
+          <div class="hint"><span>Le reçu et la confirmation y seront envoyés</span></div>
+          <div class="error" id="err-email"></div>
         </div>
-      </div>
-
-      <div class="form-group">
-        <label for="cd-email">E-mail *</label>
-        <input type="email" id="cd-email" name="email" required maxlength="255">
-        <div class="error" id="err-email"></div>
-      </div>
-
-      <div class="form-row">
-        <div class="form-group">
-          <label for="cd-telephone">Téléphone</label>
-          <input type="tel" id="cd-telephone" name="telephone" maxlength="20">
+        <div class="row">
+          <div class="fg">
+            <label for="cd-telephone">Téléphone <span class="opt">— facultatif</span></label>
+            <input type="tel" id="cd-telephone" name="telephone" maxlength="20" autocomplete="tel">
+          </div>
+          <div class="fg">
+            <label for="cd-ville">Ville <span class="opt">— facultatif</span></label>
+            <input type="text" id="cd-ville" name="ville" maxlength="100" autocomplete="address-level2">
+          </div>
         </div>
-        <div class="form-group">
-          <label for="cd-ville">Ville</label>
-          <input type="text" id="cd-ville" name="ville" maxlength="100">
+      </fieldset>
+
+      <fieldset>
+        <legend><span class="step-n">02</span><span class="step-t">Votre parcours</span></legend>
+        <div class="fg">
+          <label for="cd-formation">Formation <span class="opt">— facultatif</span></label>
+          <textarea id="cd-formation" name="formation" maxlength="450" data-count></textarea>
+          <div class="hint"><span>Cours, écoles, ateliers suivis</span><span class="count"></span></div>
         </div>
-      </div>
+        <div class="fg">
+          <label for="cd-experiences">Expériences <span class="opt">— facultatif</span></label>
+          <textarea id="cd-experiences" name="experiences" maxlength="450" data-count></textarea>
+          <div class="hint"><span>Tournages, scène, courts-métrages…</span><span class="count"></span></div>
+        </div>
+        <div class="fg">
+          <label for="cd-motivation">Pourquoi ce stage</label>
+          <textarea id="cd-motivation" name="motivation" required maxlength="450" data-count></textarea>
+          <div class="hint"><span>Ce que vous venez chercher, en quelques phrases</span><span class="count"></span></div>
+          <div class="error" id="err-motivation"></div>
+        </div>
+      </fieldset>
 
-      <div class="form-group">
-        <label for="cd-formation">Formation</label>
-        <textarea id="cd-formation" name="formation" maxlength="450"></textarea>
-        <div class="lien-info">Max 450 caractères</div>
-      </div>
+      <fieldset>
+        <legend><span class="step-n">03</span><span class="step-t">Vos pièces</span></legend>
+        <div class="fg">
+          <label for="cd-cv-link">Lien vers votre CV</label>
+          <input type="url" id="cd-cv-link" name="cvUrl" required placeholder="https://drive.google.com/...">
+          <div class="hint"><span>Google Drive, Dropbox… en lecture pour tous</span></div>
+          <div class="error" id="err-cvUrl"></div>
+        </div>
+        <div class="fg">
+          <label for="cd-photo-link">Lien vers une photo</label>
+          <input type="url" id="cd-photo-link" name="photoUrl" required placeholder="https://...">
+          <div class="hint"><span>Portrait ou demi-corps, lumière naturelle</span></div>
+          <div class="error" id="err-photoUrl"></div>
+        </div>
+        <div class="fg">
+          <label for="cd-video-link">Lien vers une vidéo de présentation</label>
+          <input type="url" id="cd-video-link" name="videoUrl" required placeholder="https://youtube.com/...">
+          <div class="hint"><span>1 à 2 min · parlez de vous et de ce stage</span></div>
+          <div class="error" id="err-videoUrl"></div>
+        </div>
+      </fieldset>
 
-      <div class="form-group">
-        <label for="cd-experiences">Expériences / Réalisations</label>
-        <textarea id="cd-experiences" name="experiences" maxlength="450"></textarea>
-        <div class="lien-info">Max 450 caractères</div>
-      </div>
-
-      <div class="form-group">
-        <label for="cd-motivation">Motivation / Pourquoi ce stage ? *</label>
-        <textarea id="cd-motivation" name="motivation" required maxlength="450"></textarea>
-        <div class="lien-info">Max 450 caractères</div>
-        <div class="error" id="err-motivation"></div>
-      </div>
-
-      <div class="form-group">
-        <label for="cd-cv-link">Lien vers CV (Google Drive, Dropbox…) *</label>
-        <input type="url" id="cd-cv-link" name="cvUrl" placeholder="https://..." required>
-        <div class="lien-info">Fichier accessible en lecture</div>
-        <div class="error" id="err-cvUrl"></div>
-      </div>
-
-      <div class="form-group">
-        <label for="cd-photo-link">Lien vers Photo (Google Drive, Dropbox…) *</label>
-        <input type="url" id="cd-photo-link" name="photoUrl" placeholder="https://..." required>
-        <div class="lien-info">Photo portrait ou demi-corps</div>
-        <div class="error" id="err-photoUrl"></div>
-      </div>
-
-      <div class="form-group">
-        <label for="cd-video-link">Lien vers Vidéo de présentation (YouTube, Drive, Dropbox…) *</label>
-        <input type="url" id="cd-video-link" name="videoUrl" placeholder="https://..." required>
-        <div class="lien-info">1-2 min · parlez de vous et du stage</div>
-        <div class="error" id="err-videoUrl"></div>
-      </div>
-
-      <button type="submit" id="submitBtn">Payer & Candidater · 850 €</button>
+      <button type="submit" class="submit" id="submitBtn">
+        <span class="spin" aria-hidden="true"></span>
+        <span id="submitTxt">Payer &amp; candidater · 850 €</span>
+      </button>
+      <p class="legal">Vous serez redirigé vers la page de paiement sécurisée Stripe. Aucune donnée bancaire ne transite par ce site.</p>
     </form>
   </div>
+</main>
 
-  <script>
-    function showFieldError(fieldName, msg) {
-      const errorEl = document.getElementById(`err-${fieldName}`);
-      if (msg) {
-        errorEl.textContent = msg;
-        errorEl.classList.add('show');
-      } else {
-        errorEl.classList.remove('show');
-      }
+<script>
+  var LIBELLE = 'Payer & candidater · 850 €';
+
+  /* ── Compteurs de caractères ── */
+  document.querySelectorAll('[data-count]').forEach(function (el) {
+    var out = el.parentElement.querySelector('.count');
+    if (!out) return;
+    var max = el.getAttribute('maxlength');
+    var maj = function () {
+      var n = el.value.length;
+      out.textContent = n + ' / ' + max;
+      out.classList.toggle('near', n > max * 0.9);
+    };
+    el.addEventListener('input', maj);
+    maj();
+  });
+
+  /* ── Erreurs de champ ── */
+  function showFieldError(fieldName, msg) {
+    var errorEl = document.getElementById('err-' + fieldName);
+    var input = document.querySelector('[name="' + fieldName + '"]');
+    if (errorEl) {
+      errorEl.textContent = msg || '';
+      errorEl.classList.toggle('show', !!msg);
     }
-
-    function validateUrls() {
-      const urlRegex = /^https?:\/\//;
-      const cvUrl = document.getElementById('cd-cv-link').value.trim();
-      const photoUrl = document.getElementById('cd-photo-link').value.trim();
-      const videoUrl = document.getElementById('cd-video-link').value.trim();
-
-      let valid = true;
-      if (!cvUrl || !urlRegex.test(cvUrl)) {
-        showFieldError('cvUrl', 'Lien CV requis (https://...)');
-        valid = false;
-      } else {
-        showFieldError('cvUrl', '');
-      }
-
-      if (!photoUrl || !urlRegex.test(photoUrl)) {
-        showFieldError('photoUrl', 'Lien photo requis (https://...)');
-        valid = false;
-      } else {
-        showFieldError('photoUrl', '');
-      }
-
-      if (!videoUrl || !urlRegex.test(videoUrl)) {
-        showFieldError('videoUrl', 'Lien vidéo requis (https://...)');
-        valid = false;
-      } else {
-        showFieldError('videoUrl', '');
-      }
-
-      return valid;
+    if (input) {
+      if (msg) input.setAttribute('aria-invalid', 'true');
+      else input.removeAttribute('aria-invalid');
     }
+  }
 
-    document.getElementById('candidateForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
+  function validate() {
+    var urlRegex = /^https?:\/\//;
+    var champs = [
+      { n: 'prenom', v: document.getElementById('cd-prenom').value.trim(), msg: 'Votre prénom est requis' },
+      { n: 'nom', v: document.getElementById('cd-nom').value.trim(), msg: 'Votre nom est requis' },
+      { n: 'motivation', v: document.getElementById('cd-motivation').value.trim(), msg: 'Dites-nous pourquoi ce stage' }
+    ];
+    var valid = true;
 
-      if (!validateUrls()) return;
-
-      const btn = document.getElementById('submitBtn');
-      const errBox = document.getElementById('paiement-erreur');
-      errBox.style.display = 'none';
-      btn.disabled = true;
-      btn.textContent = 'Création du paiement...';
-
-      const echec = (msg, code) => {
-        errBox.textContent = code ? `${msg} (code : ${code})` : msg;
-        errBox.style.display = 'block';
-        errBox.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        btn.disabled = false;
-        btn.textContent = 'Payer & Candidater · 850 €';
-      };
-
-      const formData = new FormData(e.target);
-      const payload = Object.fromEntries(formData);
-
-      try {
-        const res = await fetch('/api/create-checkout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-
-        const data = await res.json().catch(() => ({}));
-        if (res.ok && data.url) {
-          window.location.href = data.url;
-        } else {
-          echec(data.error || `Impossible de créer le paiement (HTTP ${res.status})`, data.code);
-        }
-      } catch (err) {
-        echec(`Connexion au serveur de paiement impossible : ${err.message}`);
-      }
+    champs.forEach(function (c) {
+      var ko = !c.v;
+      showFieldError(c.n, ko ? c.msg : '');
+      if (ko) valid = false;
     });
 
-    // Affiche le statut de paiement si le user revient de Stripe
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('paiement') === 'ok') {
-      document.getElementById('paiement-ok').style.display = 'block';
-      window.history.replaceState({}, document.title, '/candidater.html');
-    } else if (params.get('paiement') === 'annule') {
-      document.getElementById('paiement-annule').style.display = 'block';
-      window.history.replaceState({}, document.title, '/candidater.html');
+    var email = document.getElementById('cd-email').value.trim();
+    var emailKo = !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+    showFieldError('email', emailKo ? 'Adresse e-mail invalide' : '');
+    if (emailKo) valid = false;
+
+    [
+      ['cvUrl', 'cd-cv-link', 'Lien vers votre CV requis (https://…)'],
+      ['photoUrl', 'cd-photo-link', 'Lien vers votre photo requis (https://…)'],
+      ['videoUrl', 'cd-video-link', 'Lien vers votre vidéo requis (https://…)']
+    ].forEach(function (t) {
+      var v = document.getElementById(t[1]).value.trim();
+      var ko = !urlRegex.test(v);
+      showFieldError(t[0], ko ? t[2] : '');
+      if (ko) valid = false;
+    });
+
+    if (!valid) {
+      var premier = document.querySelector('[aria-invalid="true"]');
+      if (premier) {
+        premier.focus();
+        premier.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }
     }
-  </script>
+    return valid;
+  }
+
+  var btn = document.getElementById('submitBtn');
+  var btnTxt = document.getElementById('submitTxt');
+  var errBox = document.getElementById('paiement-erreur');
+
+  function echec(msg, code) {
+    errBox.innerHTML = '';
+    var t = document.createElement('strong');
+    t.textContent = 'Paiement impossible';
+    var p = document.createElement('span');
+    p.textContent = msg;
+    errBox.appendChild(t);
+    errBox.appendChild(p);
+    if (code) {
+      var c = document.createElement('span');
+      c.className = 'status-code';
+      c.textContent = 'code : ' + code;
+      errBox.appendChild(c);
+    }
+    errBox.classList.add('show');
+    errBox.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    btn.disabled = false;
+    btn.classList.remove('busy');
+    btnTxt.textContent = LIBELLE;
+  }
+
+  document.getElementById('candidateForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    errBox.classList.remove('show');
+    if (!validate()) return;
+
+    btn.disabled = true;
+    btn.classList.add('busy');
+    btnTxt.textContent = 'Création du paiement…';
+
+    var payload = Object.fromEntries(new FormData(e.target));
+
+    try {
+      var res = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      var data = await res.json().catch(function () { return {}; });
+      if (res.ok && data.url) {
+        btnTxt.textContent = 'Redirection vers le paiement…';
+        window.location.href = data.url;
+      } else {
+        echec(data.error || 'Le serveur de paiement a refusé la demande (HTTP ' + res.status + ').', data.code);
+      }
+    } catch (err) {
+      echec('Connexion au serveur de paiement impossible : ' + err.message);
+    }
+  });
+
+  /* ── Retour depuis Stripe ── */
+  var params = new URLSearchParams(window.location.search);
+  var etat = params.get('paiement');
+  if (etat === 'ok' || etat === 'annule') {
+    var el = document.getElementById(etat === 'ok' ? 'paiement-ok' : 'paiement-annule');
+    el.classList.add('show');
+    window.history.replaceState({}, document.title, '/candidater.html');
+    el.scrollIntoView({ block: 'center' });
+  }
+</script>
 </body>
 </html>
