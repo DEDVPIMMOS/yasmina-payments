@@ -108,7 +108,7 @@ module.exports = async (req, res) => {
         ${ligneLien('Reçu de paiement', recuUrl, 'Ouvrir le reçu Stripe')}
       </table>
       <p style="margin:18px 0 0;font-size:13px;color:#7a6e62;line-height:1.6">
-        Le CV et la photo sont également en pièces jointes du premier e-mail « Dossier reçu ».<br>
+        ${m.cvUrl ? '' : 'Le CV et la photo sont en pièces jointes du premier e-mail « Dossier reçu ».<br>'}
         Répondre directement à cet e-mail écrit au candidat.<br>
         En cas de refus après coup : remboursement depuis le dashboard Stripe.
       </p>

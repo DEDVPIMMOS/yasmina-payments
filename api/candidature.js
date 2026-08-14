@@ -123,13 +123,28 @@ module.exports = async (req, res) => {
     let cvUrl = '';
     let photoUrl = '';
     if (process.env.BLOB_READ_WRITE_TOKEN) {
-      const opts = { access: 'public', addRandomSuffix: true, token: process.env.BLOB_READ_WRITE_TOKEN };
+      // Le store peut être public ou privé : on tente le public (lien
+      // ouvrable depuis l'e-mail), sinon on bascule en privé et on
+      // n'expose aucun lien inutilisable.
+      const deposer = async (chemin, buffer, contentType) => {
+        const base = { addRandomSuffix: true, token: process.env.BLOB_READ_WRITE_TOKEN, contentType };
+        try {
+          const r = await put(chemin, buffer, { ...base, access: 'public' });
+          return { url: r.url, ouvrable: true };
+        } catch (e) {
+          const r = await put(chemin, buffer, { ...base, access: 'private' });
+          return { url: r.url, ouvrable: false };
+        }
+      };
       const [rCv, rPhoto] = await Promise.all([
-        put(`candidatures/${slug}-cv.${extension(cv.mime)}`, cv.buffer, { ...opts, contentType: cv.mime }),
-        put(`candidatures/${slug}-photo.${extension(photo.mime)}`, photo.buffer, { ...opts, contentType: photo.mime }),
+        deposer(`candidatures/${slug}-cv.${extension(cv.mime)}`, cv.buffer, cv.mime),
+        deposer(`candidatures/${slug}-photo.${extension(photo.mime)}`, photo.buffer, photo.mime),
       ]);
-      cvUrl = rCv.url;
-      photoUrl = rPhoto.url;
+      if (rCv.ouvrable) cvUrl = rCv.url;
+      if (rPhoto.ouvrable) photoUrl = rPhoto.url;
+      if (!rCv.ouvrable) {
+        console.warn('[candidature] store Blob privé : liens omis, pièces jointes seules');
+      }
     } else {
       console.warn('[candidature] BLOB_READ_WRITE_TOKEN absent : pièces envoyées par e-mail uniquement');
     }
