@@ -55,6 +55,7 @@
   .kicker::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--cyan);
     box-shadow:0 0 10px var(--cyan)}
   .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .dark .grad{filter:drop-shadow(0 0 24px rgba(139,92,255,.42))}
 
   /* ── Barre ── */
   .topbar{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
@@ -74,7 +75,12 @@
   .lede{font-size:clamp(16px,1.7vw,18px);line-height:1.65;color:var(--muted);max-width:44ch}
 
   /* ── Bulle 850 € — le néon reste ici ── */
-  .price{border-radius:24px;padding:2px;background:var(--grad);box-shadow:var(--glow-v)}
+  .price{border-radius:24px;padding:2px;background:var(--grad);box-shadow:var(--glow-v);
+    animation:breathe 4.5s ease-in-out infinite}
+  @keyframes breathe{
+    0%,100%{box-shadow:0 0 26px rgba(168,85,247,.38)}
+    50%{box-shadow:0 0 46px rgba(139,92,255,.58),0 0 80px rgba(77,124,255,.25)}
+  }
   .price-in{border-radius:22px;background:linear-gradient(180deg,#120F20,#09070F);
     padding:clamp(1.6rem,3.4vw,2.4rem)}
   .price-amt{font-family:var(--D);font-weight:800;font-size:clamp(4rem,10vw,6.4rem);
@@ -105,11 +111,14 @@
   .day{position:relative;border-radius:18px;padding:26px 22px;background:#0D0B16;
     border:1px solid var(--line);overflow:hidden;
     transition:transform var(--dur) var(--ease),border-color var(--dur) var(--ease)}
-  .day::after{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--c);
-    box-shadow:0 0 18px var(--c)}
-  .day:hover{transform:translateY(-4px);border-color:var(--c)}
+  .day::after{content:'';position:absolute;left:0;right:0;top:0;height:4px;background:var(--c);
+    box-shadow:0 0 16px var(--c),0 0 34px var(--c)}
+  .day::before{content:'';position:absolute;left:0;right:0;top:0;height:64px;
+    background:linear-gradient(180deg,var(--c),transparent);opacity:.14;pointer-events:none}
+  .day:hover{transform:translateY(-5px);border-color:var(--c);
+    box-shadow:0 18px 40px -20px var(--c)}
   .day-n{font-family:var(--M);font-weight:700;font-size:10.5px;letter-spacing:.14em;
-    color:var(--c);margin-bottom:16px}
+    color:var(--c);margin-bottom:16px;text-shadow:0 0 12px var(--c)}
   .day-t{font-family:var(--D);font-weight:800;font-size:1.32rem;line-height:1.1;
     letter-spacing:-.02em;margin-bottom:10px}
   .day-d{font-size:13.5px;line-height:1.62;color:var(--muted)}
@@ -135,10 +144,16 @@
      FORMULAIRE — blanc nacré, bleu roi, LED sobre
   ═══════════════════════════════════════════ */
   .light{background:
-      radial-gradient(900px 500px at 8% 0%,rgba(124,92,255,.10),transparent 60%),
-      radial-gradient(760px 460px at 96% 12%,rgba(0,194,203,.10),transparent 58%),
+      radial-gradient(900px 500px at 8% 0%,rgba(124,92,255,.13),transparent 60%),
+      radial-gradient(760px 460px at 96% 12%,rgba(0,194,203,.13),transparent 58%),
+      radial-gradient(680px 420px at 50% 100%,rgba(27,63,204,.08),transparent 62%),
       linear-gradient(180deg,var(--pearl) 0%,#FBFCFF 55%,var(--pearl) 100%);
-    color:var(--navy);border-top:1px solid rgba(255,255,255,.08)}
+    color:var(--navy);border-top:1px solid rgba(255,255,255,.08);position:relative}
+  /* voile irisé du nacré : deux reflets diagonaux quasi imperceptibles */
+  .light::after{content:'';position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(115deg,transparent 28%,rgba(255,255,255,.55) 42%,transparent 56%),
+               linear-gradient(65deg,transparent 60%,rgba(124,92,255,.05) 74%,transparent 88%);
+    mix-blend-mode:soft-light}
   .light h2{color:var(--navy)}
   .light .kicker{color:var(--roi);border-color:var(--hair);background:rgba(255,255,255,.72)}
   .light .kicker::before{background:var(--led);box-shadow:0 0 10px var(--led)}
@@ -147,7 +162,11 @@
 
   .sheet{max-width:840px;margin:0 auto;background:var(--pearl-2);border:1px solid var(--hair);
     border-radius:26px;box-shadow:0 1px 2px rgba(10,16,48,.05),0 24px 60px -28px rgba(27,63,204,.28);
-    overflow:hidden}
+    overflow:hidden;position:relative;z-index:1}
+  /* liseré LED en tête de feuille — écho des barres des jours, version sobre */
+  .sheet::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--roi),var(--led) 50%,var(--led-v));
+    box-shadow:0 2px 14px rgba(0,194,203,.35)}
   .sheet-in{padding:clamp(1.5rem,3.6vw,2.8rem)}
 
   fieldset{border:0;margin-bottom:2.2rem}
@@ -218,6 +237,10 @@
     letter-spacing:.06em;color:var(--slate)}
   .pay-lock i{width:6px;height:6px;border-radius:50%;background:var(--led);
     box-shadow:0 0 9px var(--led);font-style:normal}
+  .pay-right{display:flex;flex-direction:column;align-items:flex-end;gap:9px}
+  .brands{display:flex;gap:6px}
+  .brands svg{height:23px;width:auto;border-radius:5px;display:block;
+    box-shadow:0 1px 3px rgba(10,16,48,.12)}
   .pay-body{padding:18px 20px 20px;min-height:132px}
   .pay-foot{padding:13px 20px;border-top:1px solid var(--hair);background:var(--pearl);
     font-family:var(--M);font-size:9.5px;letter-spacing:.06em;color:var(--slate);text-align:center}
@@ -238,8 +261,13 @@
     background:linear-gradient(115deg,var(--roi),var(--roi-2) 55%,#4B6BFF);
     box-shadow:0 10px 26px -10px rgba(27,63,204,.7),0 0 20px rgba(0,194,203,.22);margin-top:22px;
     transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),opacity var(--dur) var(--ease)}
+  .btn{position:relative;overflow:hidden}
+  .btn::after{content:'';position:absolute;top:0;bottom:0;left:-40%;width:34%;
+    background:linear-gradient(105deg,transparent,rgba(255,255,255,.35),transparent);
+    transform:skewX(-18deg);transition:left .55s var(--ease)}
   .btn:hover:not(:disabled){transform:translateY(-2px);
     box-shadow:0 14px 34px -10px rgba(27,63,204,.8),0 0 30px rgba(0,194,203,.35)}
+  .btn:hover:not(:disabled)::after{left:120%}
   .btn:disabled{cursor:progress;opacity:.55;box-shadow:none}
   .spin{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;
     border-radius:50%;animation:sp .7s linear infinite;display:none;flex:none}
@@ -440,7 +468,19 @@
                 <span class="l">Montant à régler</span>
                 <span class="pay-amt">850,00 €</span>
               </div>
-              <span class="pay-lock"><i></i> Stripe · chiffré de bout en bout</span>
+              <div class="pay-right">
+                <span class="brands" aria-hidden="true">
+                  <!-- CB -->
+                  <svg viewBox="0 0 46 30" width="46" height="30"><rect width="46" height="30" rx="4" fill="url(#gcb)"/><defs><linearGradient id="gcb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1B3FCC"/><stop offset="1" stop-color="#00A896"/></linearGradient></defs><text x="23" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#fff">CB</text></svg>
+                  <!-- Visa -->
+                  <svg viewBox="0 0 46 30" width="46" height="30"><rect width="46" height="30" rx="4" fill="#fff" stroke="#D8DFEE"/><text x="23" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" font-style="italic" fill="#1A1F71">VISA</text></svg>
+                  <!-- Mastercard -->
+                  <svg viewBox="0 0 46 30" width="46" height="30"><rect width="46" height="30" rx="4" fill="#fff" stroke="#D8DFEE"/><circle cx="19" cy="15" r="8" fill="#EB001B"/><circle cx="27" cy="15" r="8" fill="#F79E1B" fill-opacity=".9"/></svg>
+                  <!-- Apple Pay -->
+                  <svg viewBox="0 0 46 30" width="46" height="30"><rect width="46" height="30" rx="4" fill="#0A0A0A"/><text x="23" y="19.5" text-anchor="middle" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="600" fill="#fff">&#63743; Pay</text></svg>
+                </span>
+                <span class="pay-lock"><i></i> Stripe · chiffré de bout en bout</span>
+              </div>
             </div>
             <div class="pay-body">
               <div id="payment-element">
