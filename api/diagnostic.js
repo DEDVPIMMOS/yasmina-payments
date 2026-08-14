@@ -45,6 +45,14 @@ module.exports = async (req, res) => {
           paiements_actifs: a.charges_enabled,
           virements_actifs: a.payouts_enabled,
           exigences_en_attente: (a.requirements?.currently_due || []).length,
+          exigences: a.requirements?.currently_due || [],
+        };
+        // Une capacité absente ou "inactive" prime sur la configuration des
+        // moyens de paiement : le moyen ne sera jamais proposé.
+        out.capacites = {
+          alma: a.capabilities?.alma_payments || 'absente',
+          card: a.capabilities?.card_payments || 'absente',
+          klarna: a.capabilities?.klarna_payments || 'absente',
         };
         if (!a.charges_enabled) out.erreurs.push("Le compte n'est pas autorisé à encaisser");
       })
