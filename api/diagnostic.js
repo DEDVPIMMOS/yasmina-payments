@@ -93,6 +93,27 @@ module.exports = async (req, res) => {
       .catch((e) => out.erreurs.push('Domaines Apple Pay illisibles : ' + e.message)),
   ]);
 
+  // ?intent=1 : crée une intention de paiement puis l'annule immédiatement,
+  // pour lire exactement ce qui sera proposé au candidat. Aucun débit.
+  if (req.query && req.query.intent) {
+    try {
+      const pi = await stripe.paymentIntents.create({
+        amount: 85000,
+        currency: 'eur',
+        automatic_payment_methods: { enabled: true },
+        description: 'Sonde de diagnostic — annulée aussitôt',
+      });
+      out.intention = { moyens_proposes: pi.payment_method_types, statut: pi.status };
+      await stripe.paymentIntents.cancel(pi.id);
+      out.intention.annulee = true;
+      if (!pi.payment_method_types.includes('alma')) {
+        out.erreurs.push("Alma est activé mais non proposé sur ce montant — vérifier les plafonds Alma");
+      }
+    } catch (e) {
+      out.erreurs.push('Sonde d\'intention impossible : ' + e.message);
+    }
+  }
+
   out.pret = out.erreurs.length === 0;
   return res.status(200).json(out);
 };
