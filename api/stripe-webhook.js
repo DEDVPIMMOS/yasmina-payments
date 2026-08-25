@@ -133,7 +133,7 @@ module.exports = async (req, res) => {
       await transport.sendMail({
         from: `"Yasmina Pastural Training" <${process.env.ZOHO_USER}>`,
         to: m.email,
-        subject: 'Inscription confirmée — stage du 7 au 11 septembre 2026',
+        subject: 'Inscription confirmée — stage du 28 septembre au 2 octobre 2026',
         html: `<div style="font-family:system-ui,sans-serif;max-width:600px;margin:0 auto">
           <h1 style="font-size:22px;color:#1a1410">Merci ${esc(m.prenom)}.</h1>
           <p style="font-size:15px;line-height:1.7;color:#1a1410">
