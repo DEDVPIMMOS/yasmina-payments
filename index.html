@@ -230,27 +230,16 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
 .day-int{font-family:var(--S);font-weight:700;font-size:10px;letter-spacing:.06em;text-transform:uppercase;
   color:var(--jaune-e);margin-top:14px}
 /* Encadrement pro */
-.enc-row{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;margin-top:4px}
-@media(max-width:720px){.enc-row{grid-template-columns:1fr}}
-.enc-photo{overflow:hidden}
-.enc-photo img{width:100%;height:100%;min-height:220px;object-fit:cover;object-position:center top;
-  filter:contrast(1.1) saturate(.65);display:block;transition:transform .6s var(--ease)}
-.enc-photo:hover img{transform:scale(1.04)}
+.enc-row{margin-top:4px}
 .enc-box{padding:28px 30px;background:var(--ink);border:1px solid rgba(255,212,0,.15)}
 .enc-box .enc-lbl{font-family:var(--S);font-weight:800;font-size:11px;letter-spacing:.3em;
   text-transform:uppercase;color:var(--jaune-e);margin-bottom:14px;display:block}
 .enc-box p{font-size:14px;line-height:1.72;color:var(--gris);margin-bottom:18px}
-.enc-pills{display:flex;flex-wrap:wrap;gap:6px}
-.enc-pill{border:1.5px solid rgba(255,212,0,.25);padding:6px 13px;font-family:var(--S);
-  font-weight:700;font-size:10.5px;letter-spacing:.04em;color:rgba(243,238,228,.65);
-  transition:.2s;text-transform:uppercase;background:none;cursor:pointer}
-.enc-pill:hover,.enc-pill.star{border-color:var(--jaune-e);color:var(--jaune-e)}
-.enc-pill-more{border-style:dashed;opacity:.4;cursor:default}
-.enc-pill-more:hover{border-color:rgba(255,212,0,.25);color:rgba(243,238,228,.65)}
-.enc-bio{margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,212,0,.15);min-height:76px}
-.enc-bio-role{font-family:var(--S);font-weight:800;font-size:11px;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--jaune-e);display:block;margin-bottom:8px}
-.enc-bio-desc{font-size:14.5px;line-height:1.7;color:var(--gris)}
+/* Accordeon Intervenants fusionne ici : ses couleurs sont normalement pensees
+   pour un fond clair (--itv-ink:noir). On les reaccorde aux tons clairs deja
+   utilises dans Le Stage (fond sombre), sinon le texte est illisible. */
+.enc-box .itv-list{--itv-ink:var(--creme);--itv-accent:var(--rose);
+  --itv-rule:rgba(243,238,228,.22);--itv-muted:rgba(243,238,228,.75);margin-top:24px}
 
 /* ═══════════════════════════════════════════════════════
    GALERIE / BACKSTAGE — fond crème, tabs POP
@@ -411,12 +400,6 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
 .real-tag{font-family:var(--A);font-size:13.5px;border:1px solid rgba(255,93,143,.35);
   color:rgba(243,238,228,.85);padding:9px 17px;transition:.2s}
 .real-tag:hover{border-color:var(--rose-e);color:var(--rose-e)}
-
-/* ═══════════════════════════════════════════════════════
-   05 · INTERVENANTS — fond crème ÉDITO, cards POP
-═══════════════════════════════════════════════════════ */
-#intervenants{background:var(--creme);color:var(--noir);
-  border-top:3px solid var(--noir);border-bottom:3px solid var(--noir)}
 
 /* ═══════════════════════════════════════════════════════
    06 · TÉMOIGNAGES — fond noir ÉDITO, cards POP
@@ -1089,22 +1072,7 @@ footer a:hover{color:var(--bleu)}
 }
 
 /* ===== INTERVENANTS ===== */
-.itv{
-  --itv-ink:var(--noir);
-  --itv-accent:var(--rose);
-  --itv-rule:var(--noir);
-  --itv-muted:#6a5e4a;
-  --itv-serif:var(--F);
-  padding:clamp(4rem,10vw,8rem) clamp(1.25rem,5vw,4rem);
-}
-.itv-head{max-width:65ch;margin:0 0 clamp(2.5rem,6vw,4.5rem)}
-.itv-eyebrow{
-  display:block;font-family:var(--S);font-size:.75rem;font-weight:800;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--itv-accent);margin-bottom:.9rem;
-}
-.itv-intro{font-size:1.0625rem;line-height:1.6;color:var(--itv-muted);margin:0}
-
-.itv-list{border-top:2px solid var(--itv-rule)}
+.itv-list{--itv-serif:var(--F);border-top:2px solid var(--itv-rule)}
 .itv-row{border-bottom:2px solid var(--itv-rule)}
 
 .itv-trigger{
@@ -1196,7 +1164,7 @@ footer a:hover{color:var(--bleu)}
   .itv-role{font-size:clamp(1.9rem,10vw,3rem)}
 }
 @media (prefers-reduced-motion:reduce){
-  .itv *{transition-duration:.01ms!important}
+  .itv-list *{transition-duration:.01ms!important}
 }
 </style>
 </head>
@@ -1343,25 +1311,104 @@ footer a:hover{color:var(--bleu)}
   </div>
 
   <div class="enc-row rv d4" style="margin-top:4px;border:1px solid rgba(255,212,0,.15)">
-    <div class="enc-photo">
-      <img src="images/yoga-ancrage-avant-le-plateau.jpg" alt="Yoga, ancrage avant le plateau" loading="lazy">
-    </div>
     <div class="enc-box">
       <span class="enc-lbl">Encadrement professionnel</span>
       <p>Yasmina dirige chaque journée. Une équipe de professionnels du cinéma intervient tout au long de la semaine.</p>
-      <div class="enc-pills" role="tablist">
-        <button type="button" class="enc-pill star" role="tab" aria-selected="true" onclick="switchEnc(this,'yasmina')">Yasmina Pastural</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'claudia')">Claudia Tagbo</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'julie')">Julie Gandossi</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'feriel')">Feriel Issahnane</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'acey')">Acey Farley</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'thibault')">Thibault Duboucher</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'sophie')">Sophie Brive</button>
-        <span class="enc-pill enc-pill-more" aria-hidden="true">+ à venir</span>
-      </div>
-      <div class="enc-bio">
-        <span class="enc-bio-role" id="enc-bio-role">Coach acteurs · Formatrice</span>
-        <p class="enc-bio-desc" id="enc-bio-desc">Dirige l'ensemble du stage, du premier jour au casting final.</p>
+
+      <div class="itv-list">
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Comédiens</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Claudia Tagbo</h3>
+              <p class="itv-bio">Comédienne au sommet de sa carrière. Elle partage son parcours et joue avec le groupe le lundi, une rencontre qui ouvre le jeu dès le premier jour.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Chant</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Feriel Issahnane</h3>
+              <p class="itv-bio">Respiration, rythme, voix, ancrage corporel. Libérer le son, c'est libérer le jeu.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Yoga</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Acey Farley</h3>
+              <p class="itv-bio">Yoga le matin : ancrage, gestion du trac, maîtrise du souffle avant d'entrer sur le plateau.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Photographe</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Thibault Duboucher</h3>
+              <p class="itv-bio">Séance photo individuelle incluse dans le stage : portraits professionnels pour votre dossier artistique.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Psychologue</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Sophie Brive</h3>
+              <p class="itv-bio">Psychologue de tournage : décoder les blocages et préparer sereinement le casting du vendredi.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Directrice de casting</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Julie Gandossi</h3>
+              <p class="itv-bio">Casting réel : retours concrets sur votre jeu, votre présence et votre singularité. Le vendredi qui change tout.</p>
+              <div class="itv-extras">
+                <button type="button" class="itv-vid-btn" onclick="openVid('julie-gandossi.mp4')">
+                  <span class="itv-vid-play" aria-hidden="true">▶</span>
+                  <span>Présentation vidéo</span>
+                </button>
+                <a href="https://www.instagram.com/juliegandossicasting?igsh=MXQ1cDB0OG1xM2g1bA==" target="_blank" rel="noopener" class="itv-ig-link">
+                  ◎ @juliegandossicasting
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- POUR AJOUTER UN INTERVENANT : copie un bloc <article class="itv-row">…</article>
+             et change le rôle, le nom et la bio. Rien d'autre à toucher. -->
+
+        <p class="itv-more">D'autres intervenants seront ajoutés au fil des sessions.</p>
+
       </div>
     </div>
   </div>
@@ -1520,111 +1567,6 @@ footer a:hover{color:var(--bleu)}
     </div>
   </div>
 </section>
-
-<!-- ═══ 05 · INTERVENANTS ═══ -->
-<section class="itv" id="intervenants">
-  <div class="itv-head">
-    <span class="itv-eyebrow">L'équipe</span>
-    <p class="itv-intro">Ils interviennent aux côtés de Yasmina tout au long de la semaine.</p>
-  </div>
-
-  <div class="itv-list">
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Comédienne</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Claudia Tagbo</h3>
-          <p class="itv-bio">Comédienne au sommet de sa carrière. Elle partage son parcours et joue avec le groupe le lundi, une rencontre qui ouvre le jeu dès le premier jour.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Chant</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Feriel Issahnane</h3>
-          <p class="itv-bio">Respiration, rythme, voix, ancrage corporel. Libérer le son, c'est libérer le jeu.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Yoga</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Acey Farley</h3>
-          <p class="itv-bio">Yoga le matin : ancrage, gestion du trac, maîtrise du souffle avant d'entrer sur le plateau.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Photographe</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Thibault Duboucher</h3>
-          <p class="itv-bio">Séance photo individuelle incluse dans le stage : portraits professionnels pour votre dossier artistique.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Psychologue</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Sophie Brive</h3>
-          <p class="itv-bio">Psychologue de tournage : décoder les blocages et préparer sereinement le casting du vendredi.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Directrice de casting</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Julie Gandossi</h3>
-          <p class="itv-bio">Casting réel : retours concrets sur votre jeu, votre présence et votre singularité. Le vendredi qui change tout.</p>
-          <div class="itv-extras">
-            <button type="button" class="itv-vid-btn" onclick="openVid('julie-gandossi.mp4')">
-              <span class="itv-vid-play" aria-hidden="true">▶</span>
-              <span>Présentation vidéo</span>
-            </button>
-            <a href="https://www.instagram.com/juliegandossicasting?igsh=MXQ1cDB0OG1xM2g1bA==" target="_blank" rel="noopener" class="itv-ig-link">
-              ◎ @juliegandossicasting
-            </a>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- POUR AJOUTER UN INTERVENANT : copie un bloc <article class="itv-row">…</article>
-         et change le rôle, le nom et la bio. Rien d'autre à toucher. -->
-
-    <p class="itv-more">D'autres intervenants seront ajoutés au fil des sessions.</p>
-
-  </div>
-</section>
-
 
 <!-- ═══ 06 · TÉMOIGNAGES ═══ -->
 <section id="temoignages" class="pad" style="background:var(--noir);color:var(--creme);border-top:3px solid var(--jaune)">
@@ -2052,15 +1994,6 @@ const hp=document.querySelector('.hero-photo');
 if(hp)window.addEventListener('scroll',()=>{if(window.scrollY<window.innerHeight*1.2)hp.style.transform=`translateY(${window.scrollY*.16}px)`;},{passive:true});
 
 /* GAL TABS */
-const ENC_DATA={
-  yasmina:{role:"Coach acteurs · Formatrice",desc:"Dirige l'ensemble du stage, du premier jour au casting final."},
-  claudia:{role:"Comédienne",desc:"Comédienne au sommet de sa carrière. Elle partage son parcours et joue avec le groupe le lundi, une rencontre qui ouvre le jeu dès le premier jour."},
-  julie:{role:"Directrice de casting",desc:"Casting réel : retours concrets sur votre jeu, votre présence et votre singularité. Le vendredi qui change tout."},
-  feriel:{role:"Chant",desc:"Respiration, rythme, voix, ancrage corporel. Libérer le son, c'est libérer le jeu."},
-  acey:{role:"Yoga",desc:"Yoga le matin : ancrage, gestion du trac, maîtrise du souffle avant d'entrer sur le plateau."},
-  thibault:{role:"Photographe",desc:"Séance photo individuelle incluse dans le stage : portraits professionnels pour votre dossier artistique."},
-  sophie:{role:"Psychologue",desc:"Psychologue de tournage : décoder les blocages et préparer sereinement le casting du vendredi."}
-};
 /* ===== INTERVENANTS — accordéon ===== */
 document.querySelectorAll('.itv-trigger').forEach(function(btn){
   btn.addEventListener('click', function(){
@@ -2076,13 +2009,6 @@ document.querySelectorAll('.itv-trigger').forEach(function(btn){
     }
   });
 });
-function switchEnc(btn,key){
-  document.querySelectorAll('.enc-pill[role="tab"]').forEach(b=>{b.classList.remove('star');b.setAttribute('aria-selected','false');});
-  btn.classList.add('star');btn.setAttribute('aria-selected','true');
-  const d=ENC_DATA[key];
-  document.getElementById('enc-bio-role').textContent=d.role;
-  document.getElementById('enc-bio-desc').textContent=d.desc;
-}
 function switchGal(t,btn){document.querySelectorAll('.gal-tab').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-selected','false');});btn.classList.add('on');btn.setAttribute('aria-selected','true');document.getElementById('gal-photos').style.display=t==='photos'?'block':'none';document.getElementById('gal-backstage').style.display=t==='backstage'?'block':'none';}
 
 /* VID STRIP AUTOPLAY */
