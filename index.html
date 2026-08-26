@@ -457,7 +457,6 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
 .temo-vid.vert{aspect-ratio:9/16}
 .temo-vid.vert .temo-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
 .temo-c.temo-feat{background:#16140f}
-.temo-c.temo-feat .temo-body{border-top:none;border-bottom:3px solid var(--jaune)}
 .temo-c.soon{cursor:default}
 .temo-c.soon:hover{background:var(--noir)}
 .temo-c.soon .temo-vid::after{content:'Interview à venir';position:absolute;z-index:2;
@@ -1584,14 +1583,10 @@ footer a:hover{color:var(--bleu)}
   <h2 class="h2-ed rv d1" style="color:var(--creme)">Ce qu'ils<br><em>en retiennent.</em></h2>
   <div class="temo-grid rv d2">
     <div class="temo-c temo-feat">
-      <div class="temo-body">
-        <div class="temo-who">Stagiaire · Interview 01</div>
-      </div>
       <button class="temo-vid vert" type="button" data-yt="nVw1CNUJG68" aria-label="Lire l'interview"></button>
     </div>
-    <div class="temo-c soon">
-      <div class="temo-vid"><img class="temo-thumb" src="images/temoignage-thumb-1.jpg" alt=""></div>
-      <div class="temo-body"><p class="temo-q">« Une semaine qui vaut une année de cours. La caméra ne ment plus. Yasmina a une façon de vous voir qui vous transforme. »</p><div class="temo-who">Interview 02 · bientôt</div></div>
+    <div class="temo-c temo-feat">
+      <button class="temo-vid vert" type="button" data-yt="klPA8eYbf48" aria-label="Lire l'interview"></button>
     </div>
     <div class="temo-c soon">
       <div class="temo-vid"><img class="temo-thumb" src="images/temoignage-thumb-2.jpg" alt=""></div>
@@ -2225,7 +2220,8 @@ document.addEventListener('keydown',e=>{});
    qu'au clic sur la vignette, pas au chargement. */
 const COVER_MAP = {
   '5cMvWxLaZ0Y': 'images/couverture-video-acting.png', // Sur le plateau · extrait acting
-  'nVw1CNUJG68': null,                                  // Interview 01 · Stagiaire — photo à fournir
+  'nVw1CNUJG68': null,                                  // Témoignage · photo à fournir
+  'klPA8eYbf48': null,                                  // Témoignage · photo à fournir
 };
 (function(){
   function embarquer(f,id){
