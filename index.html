@@ -2218,34 +2218,45 @@ document.addEventListener('keydown',e=>{});
 </script>
 <script src="consentement.js" defer></script>
 <script>
-/* Montage des vidéos YouTube — uniquement après consentement.
-   consentement.js pose le substitut tant que rien n'est accepté, puis
-   émet « ypt:videos-autorisees » : on monte alors miniature + lecture. */
+/* Vignettes vidéo — chaque ID YouTube a sa propre photo de couverture
+   dédiée. Pas de photo fournie -> fond neutre déjà en CSS ([data-yt]),
+   jamais une photo empruntée à une autre vidéo, jamais la miniature
+   YouTube auto-récupérée (i.ytimg.com). Le consentement n'est demandé
+   qu'au clic sur la vignette, pas au chargement. */
+const COVER_MAP = {
+  '5cMvWxLaZ0Y': 'images/couverture-video-acting.png', // Sur le plateau · extrait acting
+  'nVw1CNUJG68': null,                                  // Interview 01 · Stagiaire — photo à fournir
+};
 (function(){
+  function embarquer(f,id){
+    var fr=document.createElement('iframe');
+    fr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
+    fr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture';
+    fr.allowFullscreen=true;fr.title='Vidéo';
+    fr.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';
+    f.innerHTML='';f.appendChild(fr);
+  }
   function monter(){
-    if(!window.yptConsentement||!window.yptConsentement.accepte())return;
     document.querySelectorAll('[data-yt]').forEach(function(f){
       var id=(f.dataset.yt||'').trim();
       if(!id||f.dataset.monte==='1')return;
       f.dataset.monte='1';
-      var img=document.createElement('img');
-      img.className='yt-thumb';img.alt='';img.loading='lazy';
-      img.src='https://i.ytimg.com/vi/'+id+'/maxresdefault.jpg';
-      img.onerror=function(){this.onerror=null;this.src='https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';};
+      var cover=COVER_MAP[id];
+      if(cover){
+        var img=document.createElement('img');
+        img.className='yt-thumb';img.alt='';img.loading='lazy';img.src=cover;
+        f.appendChild(img);
+      }
       var play=document.createElement('div');play.className='temo-play';
-      f.innerHTML='';f.appendChild(img);f.appendChild(play);
+      f.appendChild(play);
       f.addEventListener('click',function(){
-        var fr=document.createElement('iframe');
-        fr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
-        fr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture';
-        fr.allowFullscreen=true;fr.title='Vidéo';
-        fr.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';
-        img.remove();play.remove();f.appendChild(fr);
+        if(!window.yptConsentement){embarquer(f,id);return;}
+        window.yptConsentement.demanderPourVideo(f,function(){embarquer(f,id);});
       },{once:true});
     });
   }
-  document.addEventListener('ypt:videos-autorisees',monter);
-  window.addEventListener('load',monter);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',monter);
+  else monter();
 })();
 </script>
 </body>
