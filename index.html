@@ -575,17 +575,6 @@ footer a:hover{color:var(--bleu)}
 .ft-logo{font-family:var(--S);font-weight:800;font-size:16px;letter-spacing:-.01em}
 .ft-logo b{color:var(--rose)}
 
-/* ─── LIGHTBOX VIDÉO ─── */
-#vov{display:none;position:fixed;inset:0;z-index:800;background:rgba(12,11,10,.96);
-  backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:24px}
-#vov.open{display:flex}
-#vbox{position:relative;width:100%;max-width:520px;aspect-ratio:9/16;max-height:86vh}
-#vclose{position:absolute;top:-44px;right:0;background:none;border:none;
-  font-size:22px;color:var(--gris);padding:6px;transition:.2s}
-#vclose:hover{color:var(--jaune)}
-#vframe{width:100%;height:100%;border:none;background:#000;display:none}
-
-
 /* ── OVERRIDES MODAL ── */
 #mov{
   display:none;position:fixed;inset:0;z-index:700;
@@ -1127,30 +1116,6 @@ footer a:hover{color:var(--bleu)}
   font-size:1rem;line-height:1.7;color:var(--itv-muted);
   max-width:62ch;margin:0 0 clamp(1.5rem,3.5vw,2.5rem);
 }
-.itv-extras{
-  display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;
-  margin:-.75rem 0 clamp(1.5rem,3.5vw,2.5rem);
-}
-.itv-vid-btn{
-  display:inline-flex;align-items:center;gap:12px;cursor:pointer;
-  background:none;border:1px solid rgba(12,11,10,.18);padding:10px 16px 10px 10px;
-  transition:border-color .25s,background .25s;
-}
-.itv-vid-btn:hover{border-color:var(--itv-accent);background:rgba(255,77,151,.06)}
-.itv-vid-play{
-  width:34px;height:34px;border-radius:50%;background:var(--itv-accent);
-  display:grid;place-items:center;font-size:12px;color:#fff;flex-shrink:0;
-}
-.itv-vid-btn span:last-child{
-  font-family:var(--S);font-weight:800;font-size:10.5px;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--itv-ink);
-}
-.itv-ig-link{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:var(--S);font-weight:700;font-size:10.5px;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--itv-accent);transition:opacity .2s;
-}
-.itv-ig-link:hover{opacity:.7}
 .itv-more{
   font-size:.875rem;line-height:1.6;color:var(--itv-muted);opacity:.75;
   margin:clamp(1.25rem,3vw,2rem) 0 0;
@@ -1390,15 +1355,6 @@ footer a:hover{color:var(--bleu)}
             <div class="itv-panel-in">
               <h3 class="itv-name">Julie Gandossi</h3>
               <p class="itv-bio">Casting réel : retours concrets sur votre jeu, votre présence et votre singularité. Le vendredi qui change tout.</p>
-              <div class="itv-extras">
-                <button type="button" class="itv-vid-btn" onclick="openVid('julie-gandossi.mp4')">
-                  <span class="itv-vid-play" aria-hidden="true">▶</span>
-                  <span>Présentation vidéo</span>
-                </button>
-                <a href="https://www.instagram.com/juliegandossicasting?igsh=MXQ1cDB0OG1xM2g1bA==" target="_blank" rel="noopener" class="itv-ig-link">
-                  ◎ @juliegandossicasting
-                </a>
-              </div>
             </div>
           </div>
         </article>
@@ -1686,14 +1642,6 @@ footer a:hover{color:var(--bleu)}
   </div>
   <div><a href="mentions-legales.html">Mentions légales</a>&ensp;·&ensp;<a href="confidentialite.html">Confidentialité</a>&ensp;·&ensp;<a href="mes-donnees.html">Mes données</a>&ensp;·&ensp;<a href="#" data-cookies-open>Cookies</a>&ensp;·&ensp;© 2026</div>
 </footer>
-
-<!-- LIGHTBOX VIDÉO -->
-<div id="vov" role="dialog" aria-modal="true">
-  <div id="vbox">
-    <button id="vclose" onclick="closeVid()" aria-label="Fermer">✕</button>
-    <iframe id="vframe" src="" allowfullscreen allow="autoplay; encrypted-media" title="Vidéo"></iframe>
-  </div>
-</div>
 
 <!-- MODAL CANDIDATURE -->
 <div id="mov" role="dialog" aria-modal="true" aria-label="Candidature au stage">
@@ -2018,16 +1966,6 @@ function switchGal(t,btn){document.querySelectorAll('.gal-tab').forEach(b=>{b.cl
 /* VID STRIP AUTOPLAY */
 document.querySelectorAll('.vs-item').forEach(el=>new IntersectionObserver(en=>{en.forEach(e=>{const v=e.target.querySelector('video');if(!v)return;if(e.isIntersecting)v.play().catch(()=>{});else v.pause();});},{threshold:.3}).observe(el));
 
-/* LIGHTBOX */
-const vov=document.getElementById('vov'),vframe=document.getElementById('vframe');
-function openVid(src){let v=document.getElementById('_lv');if(!v){v=document.createElement('video');v.id='_lv';v.controls=true;v.autoplay=true;v.muted=false;v.playsInline=true;v.style.cssText='width:100%;height:100%;background:#000;object-fit:contain';document.getElementById('vbox').appendChild(v);}
-  let errMsg=document.getElementById('_vlv-err');
-  if(!errMsg){errMsg=document.createElement('div');errMsg.id='_vlv-err';errMsg.style.cssText='display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:#f3eee4;font-family:sans-serif;text-align:center;padding:20px';document.getElementById('vbox').appendChild(errMsg);}
-  vframe.style.display='none';v.style.display='block';errMsg.style.display='none';
-  v.onerror=function(){v.style.display='none';errMsg.style.display='flex';errMsg.innerHTML='<div style="font-size:15px;opacity:.7">Fichier vidéo introuvable</div><div style="font-family:monospace;font-size:13px;background:rgba(255,255,255,.1);padding:8px 14px;border-radius:4px">'+src+'</div><div style="font-size:12px;opacity:.5;max-width:340px">Ce fichier doit être déposé dans le même dossier que index.html</div>';};
-  v.src=src;v.load();v.play().catch(()=>{});vov.classList.add('open');document.body.style.overflow='hidden';}
-function closeVid(){const v=document.getElementById('_lv');if(v){v.pause();v.src='';v.style.display='none';}vframe.style.display='';vov.classList.remove('open');document.body.style.overflow='';}
-vov.addEventListener('click',e=>{if(e.target===vov)closeVid();});
 document.querySelectorAll('.temo-c,.vs-item').forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')el.click();}));
 
 /* MODAL */
@@ -2035,15 +1973,15 @@ const mOv=document.getElementById('mov');
 function openMod(e){if(e)e.preventDefault();closeMob();mOv.classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('mf-p')?.focus(),100);}
 function closeMod(){mOv.classList.remove('open');document.body.style.overflow='';}
 mOv.addEventListener('click',e=>{if(e.target===mOv)closeMod();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMod();closeVid();closeMob();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMod();closeMob();}});
 function upAlma(){const v=document.querySelector('input[name=mpay]:checked')?.value;document.getElementById('an').classList.toggle('show',v!=='1x');}
 function doSub(){const r=['mf-p','mf-n','mf-e','mf-m'];let ok=true;r.forEach(id=>{const el=document.getElementById(id);el.classList.remove('mo-err');if(!el.value.trim()){el.classList.add('mo-err');ok=false;}});const em=document.getElementById('mf-e');if(em.value&&!em.value.includes('@')){em.classList.add('mo-err');ok=false;}if(!ok)return;document.getElementById('mwrap').style.display='none';document.getElementById('mok').style.display='block';}
 
 /* NEWSLETTER */
 function doNL(){const el=document.getElementById('nl-em');if(!el.value.trim()||!el.value.includes('@')){el.style.borderColor='var(--rose)';el.focus();return;}el.style.borderColor='';el.value='';el.placeholder='Merci, inscrit·e !';}
 
-/* ESC sur lightboxes */
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeVid();closeMod();}});
+/* ESC sur le modal */
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMod();}});
 
 /* ── INSCRIPTION DANS MODAL ── */
 /* PROGRESS */
