@@ -158,7 +158,7 @@ module.exports = async (req, res) => {
       // carte, Apple Pay, Link… et Alma dès qu'il sera activé.
       automatic_payment_methods: { enabled: true },
       receipt_email: email,
-      description: `Stage jeu cinéma 7→11 sept. 2026 — ${intitule}`,
+      description: `Stage jeu cinéma 28 sept.→2 oct. 2026 — ${intitule}`,
       metadata: {
         civilite, prenom, nom, email, telephone, ville,
         motivation, videoUrl, cvChemin, photoChemin,

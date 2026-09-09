@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Candidater — Yasmina Pastural Training</title>
-  <meta name="description" content="Candidatez au stage intensif de jeu cinéma avec Yasmina Pastural — 5 jours, du 7 au 11 septembre 2026, Paris.">
+  <meta name="description" content="Candidatez au stage intensif de jeu cinéma avec Yasmina Pastural — 5 jours, du 28 septembre au 2 octobre 2026, Paris.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -118,22 +118,6 @@
     letter-spacing:-.02em;margin-bottom:9px;color:var(--dark-ink)}
   .day-d{font-size:13.5px;line-height:1.6;color:var(--dark-muted)}
   .d1{--c:#4D7CFF} .d2{--c:#8B5CFF} .d3{--c:#00D6C2} .d4{--c:#C64BF5} .d5{--c:#3FA9FF}
-
-  /* ── Vidéos — vignettes sobres sur fond blanc ── */
-  .vid-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-  .vid{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid var(--hair);
-    background:linear-gradient(160deg,#131022,#0A0912);display:grid;place-items:center;
-    cursor:pointer;padding:0;width:100%;box-shadow:0 12px 30px -18px rgba(11,18,48,.35);
-    transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
-  .vid:hover{transform:translateY(-3px);box-shadow:0 18px 40px -18px rgba(27,63,204,.4)}
-  .vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-  .vid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .vid-play{position:relative;z-index:2;width:58px;height:58px;border-radius:50%;
-    background:var(--white);display:grid;place-items:center;font-size:15px;color:var(--navy);
-    box-shadow:0 6px 20px rgba(0,0,0,.35);transition:transform var(--dur) var(--ease)}
-  .vid:hover .vid-play{transform:scale(1.08)}
-  .vid-soon{position:relative;z-index:2;font-family:var(--M);font-size:10px;
-    letter-spacing:.18em;text-transform:uppercase;color:#524B70}
 
   /* ── Formulaire — blanc, épuré, professionnel ── */
   .sheet{max-width:820px;margin:0 auto;background:var(--white);border:1px solid var(--hair);
@@ -280,7 +264,7 @@
 <section class="pad">
   <div class="inner hero-grid">
     <div>
-      <span class="kicker">7 → 11 septembre 2026 · Paris</span>
+      <span class="kicker">28 septembre → 2 octobre 2026 · Paris</span>
       <h1>Prenez<br>la <span class="grad">place</span>.</h1>
       <p class="lede">Les groupes sont volontairement réduits. Déposez votre dossier et réglez votre session en une seule fois, ici même.</p>
       <a href="#candidature" class="cta">Déposer mon dossier →</a>
@@ -334,15 +318,6 @@
         <p class="day-d">Un casting véritable, pas une simulation. Vous repartez avec un retour professionnel sur votre singularité.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ═══ VIDÉOS ═══  data-yt="IDENTIFIANT_YOUTUBE" ═══ -->
-<section class="pad" style="padding-top:0">
-  <div class="vid-grid inner">
-    <button class="vid" type="button" data-yt="" aria-label="Lire la vidéo"></button>
-    <button class="vid" type="button" data-yt="" aria-label="Lire la vidéo"></button>
-    <button class="vid" type="button" data-yt="" aria-label="Lire la vidéo"></button>
   </div>
 </section>
 
@@ -523,37 +498,6 @@ var LIBELLE = 'Payer 850 € et candidater';
 var MAX_OCTETS = 2 * 1024 * 1024;
 var fichiers = { cvFile: null, photoFile: null };
 var stripe = null, elements = null;
-
-/* ═══ Vidéos ═══
-   La miniature est déjà servie par Google : on ne construit donc rien
-   tant que le consentement n'est pas donné. consentement.js affiche le
-   substitut et émet « ypt:videos-autorisees » une fois l'accord obtenu. */
-function monterVideos() {
-  if (!window.yptConsentement || !window.yptConsentement.accepte()) return;
-  document.querySelectorAll('.vid').forEach(function (f) {
-    var id = (f.dataset.yt || '').trim();
-    if (!id || f.dataset.monte === '1') return;
-    f.dataset.monte = '1';
-    f.innerHTML = '<img src="https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg" alt="" loading="lazy">' +
-                  '<div class="vid-play">▶</div>';
-    f.addEventListener('click', function () {
-      var fr = document.createElement('iframe');
-      fr.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
-      fr.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture';
-      fr.allowFullscreen = true; fr.title = 'Vidéo';
-      f.replaceWith(fr);
-    }, { once: true });
-  });
-}
-// Emplacements encore vides : ils ne dépendent d'aucun consentement.
-document.querySelectorAll('.vid').forEach(function (f) {
-  if (!(f.dataset.yt || '').trim()) {
-    f.innerHTML = '<span class="vid-soon">Vidéo à venir</span>';
-    f.disabled = true;
-  }
-});
-document.addEventListener('ypt:videos-autorisees', monterVideos);
-window.addEventListener('load', monterVideos);
 
 /* ═══ Compteur ═══ */
 document.querySelectorAll('[data-count]').forEach(function (el) {

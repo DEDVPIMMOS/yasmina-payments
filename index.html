@@ -226,30 +226,20 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
   color:var(--gris);margin:4px 0 16px}
 .day-title{font-family:var(--F);font-style:italic;font-weight:300;font-size:19px;margin-bottom:10px}
 .day-desc{font-size:13.5px;line-height:1.6;color:var(--gris)}
+.day-c:nth-child(2) .day-desc,.day-c:nth-child(4) .day-desc{color:#fff}
 .day-int{font-family:var(--S);font-weight:700;font-size:10px;letter-spacing:.06em;text-transform:uppercase;
   color:var(--jaune-e);margin-top:14px}
 /* Encadrement pro */
-.enc-row{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;margin-top:4px}
-@media(max-width:720px){.enc-row{grid-template-columns:1fr}}
-.enc-photo{overflow:hidden}
-.enc-photo img{width:100%;height:100%;min-height:220px;object-fit:cover;object-position:center top;
-  filter:contrast(1.1) saturate(.65);display:block;transition:transform .6s var(--ease)}
-.enc-photo:hover img{transform:scale(1.04)}
+.enc-row{margin-top:4px}
 .enc-box{padding:28px 30px;background:var(--ink);border:1px solid rgba(255,212,0,.15)}
 .enc-box .enc-lbl{font-family:var(--S);font-weight:800;font-size:11px;letter-spacing:.3em;
   text-transform:uppercase;color:var(--jaune-e);margin-bottom:14px;display:block}
 .enc-box p{font-size:14px;line-height:1.72;color:var(--gris);margin-bottom:18px}
-.enc-pills{display:flex;flex-wrap:wrap;gap:6px}
-.enc-pill{border:1.5px solid rgba(255,212,0,.25);padding:6px 13px;font-family:var(--S);
-  font-weight:700;font-size:10.5px;letter-spacing:.04em;color:rgba(243,238,228,.65);
-  transition:.2s;text-transform:uppercase;background:none;cursor:pointer}
-.enc-pill:hover,.enc-pill.star{border-color:var(--jaune-e);color:var(--jaune-e)}
-.enc-pill-more{border-style:dashed;opacity:.4;cursor:default}
-.enc-pill-more:hover{border-color:rgba(255,212,0,.25);color:rgba(243,238,228,.65)}
-.enc-bio{margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,212,0,.15);min-height:76px}
-.enc-bio-role{font-family:var(--S);font-weight:800;font-size:11px;letter-spacing:.1em;
-  text-transform:uppercase;color:var(--jaune-e);display:block;margin-bottom:8px}
-.enc-bio-desc{font-size:14.5px;line-height:1.7;color:var(--gris)}
+/* Accordeon Intervenants fusionne ici : ses couleurs sont normalement pensees
+   pour un fond clair (--itv-ink:noir). On les reaccorde aux tons clairs deja
+   utilises dans Le Stage (fond sombre), sinon le texte est illisible. */
+.enc-box .itv-list{--itv-ink:var(--creme);--itv-accent:var(--rose);
+  --itv-rule:rgba(243,238,228,.22);--itv-muted:rgba(243,238,228,.75);margin-top:24px}
 
 /* ═══════════════════════════════════════════════════════
    GALERIE / BACKSTAGE — fond crème, tabs POP
@@ -412,12 +402,6 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
 .real-tag:hover{border-color:var(--rose-e);color:var(--rose-e)}
 
 /* ═══════════════════════════════════════════════════════
-   05 · INTERVENANTS — fond crème ÉDITO, cards POP
-═══════════════════════════════════════════════════════ */
-#intervenants{background:var(--creme);color:var(--noir);
-  border-top:3px solid var(--noir);border-bottom:3px solid var(--noir)}
-
-/* ═══════════════════════════════════════════════════════
    06 · TÉMOIGNAGES — fond noir ÉDITO, cards POP
 ═══════════════════════════════════════════════════════ */
 #temoignages{background:var(--noir);color:var(--creme);
@@ -473,7 +457,6 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
 .temo-vid.vert{aspect-ratio:9/16}
 .temo-vid.vert .temo-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
 .temo-c.temo-feat{background:#16140f}
-.temo-c.temo-feat .temo-body{border-top:none;border-bottom:3px solid var(--jaune)}
 .temo-c.soon{cursor:default}
 .temo-c.soon:hover{background:var(--noir)}
 .temo-c.soon .temo-vid::after{content:'Interview à venir';position:absolute;z-index:2;
@@ -591,17 +574,6 @@ footer a{color:var(--noir);transition:.2s}
 footer a:hover{color:var(--bleu)}
 .ft-logo{font-family:var(--S);font-weight:800;font-size:16px;letter-spacing:-.01em}
 .ft-logo b{color:var(--rose)}
-
-/* ─── LIGHTBOX VIDÉO ─── */
-#vov{display:none;position:fixed;inset:0;z-index:800;background:rgba(12,11,10,.96);
-  backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:24px}
-#vov.open{display:flex}
-#vbox{position:relative;width:100%;max-width:520px;aspect-ratio:9/16;max-height:86vh}
-#vclose{position:absolute;top:-44px;right:0;background:none;border:none;
-  font-size:22px;color:var(--gris);padding:6px;transition:.2s}
-#vclose:hover{color:var(--jaune)}
-#vframe{width:100%;height:100%;border:none;background:#000;display:none}
-
 
 /* ── OVERRIDES MODAL ── */
 #mov{
@@ -1088,22 +1060,7 @@ footer a:hover{color:var(--bleu)}
 }
 
 /* ===== INTERVENANTS ===== */
-.itv{
-  --itv-ink:var(--noir);
-  --itv-accent:var(--rose);
-  --itv-rule:var(--noir);
-  --itv-muted:#6a5e4a;
-  --itv-serif:var(--F);
-  padding:clamp(4rem,10vw,8rem) clamp(1.25rem,5vw,4rem);
-}
-.itv-head{max-width:65ch;margin:0 0 clamp(2.5rem,6vw,4.5rem)}
-.itv-eyebrow{
-  display:block;font-family:var(--S);font-size:.75rem;font-weight:800;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--itv-accent);margin-bottom:.9rem;
-}
-.itv-intro{font-size:1.0625rem;line-height:1.6;color:var(--itv-muted);margin:0}
-
-.itv-list{border-top:2px solid var(--itv-rule)}
+.itv-list{--itv-serif:var(--F);border-top:2px solid var(--itv-rule)}
 .itv-row{border-bottom:2px solid var(--itv-rule)}
 
 .itv-trigger{
@@ -1159,30 +1116,6 @@ footer a:hover{color:var(--bleu)}
   font-size:1rem;line-height:1.7;color:var(--itv-muted);
   max-width:62ch;margin:0 0 clamp(1.5rem,3.5vw,2.5rem);
 }
-.itv-extras{
-  display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px;
-  margin:-.75rem 0 clamp(1.5rem,3.5vw,2.5rem);
-}
-.itv-vid-btn{
-  display:inline-flex;align-items:center;gap:12px;cursor:pointer;
-  background:none;border:1px solid rgba(12,11,10,.18);padding:10px 16px 10px 10px;
-  transition:border-color .25s,background .25s;
-}
-.itv-vid-btn:hover{border-color:var(--itv-accent);background:rgba(255,77,151,.06)}
-.itv-vid-play{
-  width:34px;height:34px;border-radius:50%;background:var(--itv-accent);
-  display:grid;place-items:center;font-size:12px;color:#fff;flex-shrink:0;
-}
-.itv-vid-btn span:last-child{
-  font-family:var(--S);font-weight:800;font-size:10.5px;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--itv-ink);
-}
-.itv-ig-link{
-  display:inline-flex;align-items:center;gap:6px;
-  font-family:var(--S);font-weight:700;font-size:10.5px;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--itv-accent);transition:opacity .2s;
-}
-.itv-ig-link:hover{opacity:.7}
 .itv-more{
   font-size:.875rem;line-height:1.6;color:var(--itv-muted);opacity:.75;
   margin:clamp(1.25rem,3vw,2rem) 0 0;
@@ -1195,7 +1128,7 @@ footer a:hover{color:var(--bleu)}
   .itv-role{font-size:clamp(1.9rem,10vw,3rem)}
 }
 @media (prefers-reduced-motion:reduce){
-  .itv *{transition-duration:.01ms!important}
+  .itv-list *{transition-duration:.01ms!important}
 }
 </style>
 </head>
@@ -1243,7 +1176,7 @@ footer a:hover{color:var(--bleu)}
       <span class="ln">jouer juste,</span>
       <span class="ln">devant la caméra.</span>
     </h1>
-    <p class="hero-sub">Une semaine d'immersion totale avec Yasmina Pastural, coach des plateaux de Klapisch, Kery James, Grand Corps Malade, Harvey Keitel. Depuis 2009, elle forme les acteurs à jouer vrai.</p>
+    <p class="hero-sub">Une semaine d'immersion totale avec Yasmina Pastural, coach d'acteurs depuis plus de vingt ans qu'on a pu voir travailler sur les plateaux de Kery James, Mehdi Idir, GCM, Ludovic Colbeau Justin, Mounia Meddour, Claude Zidi Jr... Depuis 2006, elle forme les acteurs à jouer vrai.</p>
     <div class="hero-acts">
       <a href="candidater.html" class="btn btn-noir">Candidater au prochain stage</a>
       <a href="#stage" class="btn btn-white">Découvrir le programme</a>
@@ -1251,23 +1184,27 @@ footer a:hover{color:var(--bleu)}
   </div>
   <div class="hero-meta" aria-hidden="true">
     35H D'IMMERSION · CASTING RÉEL LE VENDREDI<br>
-    SESSION · <b>07 → 11 SEPT 2026</b>
+    SESSION · <b>28 SEPT → 02 OCT 2026</b>
   </div>
 </section>
 
 <!-- MARQUEE ÉDITO -->
 <div class="marquee" aria-hidden="true">
   <div class="mq-track">
-    <span>Klapisch <b>✦</b></span><span>Lola Doillon <b>✦</b></span>
+    <span>Daniel Prévost <b>✦</b></span><span>Chantal Ladesou <b>✦</b></span>
     <span>Kery James <b>✦</b></span><span>Grand Corps Malade <b>✦</b></span>
     <span>Mounia Meddour <b>✦</b></span><span>Amanda Sthers <b>✦</b></span>
     <span>Nicole Garcia <b>✦</b></span><span>Harvey Keitel <b>✦</b></span>
     <span>Sylvie Vartan <b>✦</b></span><span>Claude Zidi Jr <b>✦</b></span>
-    <span>Klapisch <b>✦</b></span><span>Lola Doillon <b>✦</b></span>
+    <span>Leila Sy <b>✦</b></span><span>Jean Kounen <b>✦</b></span>
+    <span>Alexandre Arcady <b>✦</b></span><span>Elie Wajeman <b>✦</b></span>
+    <span>Daniel Prévost <b>✦</b></span><span>Chantal Ladesou <b>✦</b></span>
     <span>Kery James <b>✦</b></span><span>Grand Corps Malade <b>✦</b></span>
     <span>Mounia Meddour <b>✦</b></span><span>Amanda Sthers <b>✦</b></span>
     <span>Nicole Garcia <b>✦</b></span><span>Harvey Keitel <b>✦</b></span>
     <span>Sylvie Vartan <b>✦</b></span><span>Claude Zidi Jr <b>✦</b></span>
+    <span>Leila Sy <b>✦</b></span><span>Jean Kounen <b>✦</b></span>
+    <span>Alexandre Arcady <b>✦</b></span><span>Elie Wajeman <b>✦</b></span>
   </div>
 </div>
 
@@ -1302,61 +1239,131 @@ footer a:hover{color:var(--bleu)}
 <section id="semaine" class="pad" style="background:var(--noir);color:var(--creme);border-top:3px solid var(--jaune);border-bottom:3px solid var(--jaune)">
   <span class="lbl lbl-jaune rv">La semaine type</span>
   <h2 class="h2-pop rv d1" style="color:var(--creme)">Cinq jours,<br>une transformation.</h2>
-  <p class="rv d2" style="font-size:15.5px;line-height:1.78;color:var(--gris);max-width:54ch;margin-top:10px">Yasmina a conçu un parcours progressif pour révéler le jeu : du premier texte au casting devant une professionnelle.</p>
+  <p class="rv d2" style="font-size:15.5px;line-height:1.78;color:var(--gris);max-width:54ch;margin-top:10px">Yasmina a conçu un parcours progressif pour révéler le jeu.</p>
 
   <div class="days-grid rv d3">
     <div class="day-c">
       <div class="day-num">01</div>
       <div class="day-kick">Lundi · Ouverture</div>
       <div class="day-title">Libérer le corps</div>
-      <p class="day-desc">Impros libres, création du groupe. Yasmina installe la confiance dès le premier jour.</p>
+      <p class="day-desc">Impros libres, création du groupe. Yasmina installe la confiance dès le premier jour. Présence du guest invité.</p>
     </div>
     <div class="day-c">
       <div class="day-num">02</div>
       <div class="day-kick">Mardi · Présence</div>
       <div class="day-title">Sincérité du jeu</div>
-      <p class="day-desc">Écoute, ancrage, voix, souffle et présence physique face caméra.</p>
+      <p class="day-desc">Écoute, ancrage, voix, souffle et présence physique face caméra. Coach vocale.</p>
     </div>
     <div class="day-c">
       <div class="day-num">03</div>
       <div class="day-kick">Mercredi · Émotions</div>
       <div class="day-title">Construction du personnage</div>
-      <p class="day-desc">Exploration émotionnelle et dramaturgique à partir du texte. Yoga le matin.</p>
+      <p class="day-desc">Exploration émotionnelle et dramaturgique à partir du texte. Yoga en fin de journée.</p>
     </div>
     <div class="day-c">
       <div class="day-num">04</div>
       <div class="day-kick">Jeudi · Dramaturgie</div>
       <div class="day-title">Se laisser diriger</div>
-      <p class="day-desc">Direction sans perdre sa liberté. Séance photo. Psychologue de tournage.</p>
+      <p class="day-desc">Direction sans perdre sa liberté, se dépasser, séance photo pour le book.</p>
     </div>
     <div class="day-c">
       <div class="day-num">05</div>
       <div class="day-kick">Vendredi · Casting</div>
       <div class="day-title">Mise en situation réelle</div>
-      <p class="day-desc">Scène devant Julie Gandossi, directrice de casting pro, avec retours immédiats.</p>
+      <p class="day-desc">Scène devant un·e directeur·rice de casting, mise en situation, présentation du projet au guest invité.</p>
     </div>
   </div>
 
   <div class="enc-row rv d4" style="margin-top:4px;border:1px solid rgba(255,212,0,.15)">
-    <div class="enc-photo">
-      <img src="images/yoga-ancrage-avant-le-plateau.jpg" alt="Yoga, ancrage avant le plateau" loading="lazy">
-    </div>
     <div class="enc-box">
       <span class="enc-lbl">Encadrement professionnel</span>
       <p>Yasmina dirige chaque journée. Une équipe de professionnels du cinéma intervient tout au long de la semaine.</p>
-      <div class="enc-pills" role="tablist">
-        <button type="button" class="enc-pill star" role="tab" aria-selected="true" onclick="switchEnc(this,'yasmina')">Yasmina Pastural</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'claudia')">Claudia Tagbo</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'julie')">Julie Gandossi</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'feriel')">Feriel Issahnane</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'acey')">Acey Farley</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'thibault')">Thibault Duboucher</button>
-        <button type="button" class="enc-pill" role="tab" aria-selected="false" onclick="switchEnc(this,'sophie')">Sophie Brive</button>
-        <span class="enc-pill enc-pill-more" aria-hidden="true">+ à venir</span>
-      </div>
-      <div class="enc-bio">
-        <span class="enc-bio-role" id="enc-bio-role">Coach acteurs · Formatrice</span>
-        <p class="enc-bio-desc" id="enc-bio-desc">Dirige l'ensemble du stage, du premier jour au casting final.</p>
+
+      <div class="itv-list">
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Comédiens</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Claudia Tagbo</h3>
+              <p class="itv-bio">Comédienne au sommet de sa carrière. Elle partage son parcours et joue avec le groupe le lundi, une rencontre qui ouvre le jeu dès le premier jour.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Chant</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Feriel Issahnane</h3>
+              <p class="itv-bio">Respiration, rythme, voix, ancrage corporel. Libérer le son, c'est libérer le jeu.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Yoga</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Acey Farley</h3>
+              <p class="itv-bio">Yoga le matin : ancrage, gestion du trac, maîtrise du souffle avant d'entrer sur le plateau.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Photographe</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Thibault Duboucher</h3>
+              <p class="itv-bio">Séance photo individuelle incluse dans le stage : portraits professionnels pour votre dossier artistique.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Psychologue</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Sophie Brive</h3>
+              <p class="itv-bio">Psychologue de tournage : décoder les blocages et préparer sereinement le casting du vendredi.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="itv-row">
+          <button class="itv-trigger" type="button" aria-expanded="false">
+            <span class="itv-role">Directrice de casting</span>
+            <span class="itv-plus"></span>
+          </button>
+          <div class="itv-panel">
+            <div class="itv-panel-in">
+              <h3 class="itv-name">Julie Gandossi</h3>
+              <p class="itv-bio">Casting réel : retours concrets sur votre jeu, votre présence et votre singularité. Le vendredi qui change tout.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- POUR AJOUTER UN INTERVENANT : copie un bloc <article class="itv-row">…</article>
+             et change le rôle, le nom et la bio. Rien d'autre à toucher. -->
+
+        <p class="itv-more">D'autres intervenants seront ajoutés au fil des sessions.</p>
+
       </div>
     </div>
   </div>
@@ -1386,11 +1393,7 @@ footer a:hover{color:var(--bleu)}
       <div class="gi gw"><img src="images/pleniere-studio.jpg" alt="Plénière studio" loading="lazy"></div>
       <div class="gi"><img src="images/backstage.jpg" alt="Backstage" loading="lazy"></div>
       <div class="gi"><img src="images/fin-de-stage.jpg" alt="Fin de stage" loading="lazy"></div>
-      <div class="gi gw"><img src="images/cercle-de-travail-debout-studio.jpg" alt="Cercle de travail debout, studio" loading="lazy"></div>
-      <div class="gi"><img src="images/yasmina-pastural-anime-le-cercle.jpg" alt="Yasmina Pastural anime le cercle" loading="lazy"></div>
-      <div class="gi gt"><img src="images/yasmina-pastural-en-direction.jpg" alt="Yasmina Pastural en direction" loading="lazy"></div>
-      <div class="gi"><img src="images/groupe-en-cercle-exercice-collectif.jpg" alt="Groupe en cercle, exercice collectif"></div>
-      
+
     </div>
   </div>
 
@@ -1420,9 +1423,9 @@ footer a:hover{color:var(--bleu)}
     </div>
     <div class="bio-right rv-r d2">
       <h2>Yasmina<br>Pastural.</h2>
-      <div class="bio-sub-label">Coach acteurs · Formatrice · 2009 →</div>
+      <div class="bio-sub-label">Coach acteurs · Formatrice · 2006 →</div>
       <p class="bio-p">Je suis passionnée de cinéma depuis ma plus tendre enfance. Très jeune, j'ai découvert les films de <strong>Claude Lelouch</strong>, <strong>Alexandre Arcady</strong>, <strong>Cédric Klapisch</strong>, <strong>Martin Scorsese</strong> et <strong>Francis Ford Coppola</strong>. Leur univers a nourri mon imagination et m'a donné très tôt l'envie de raconter des histoires et de faire partie de ce monde.</p>
-      <p class="bio-p">J'ai commencé le théâtre à l'âge de huit ans. Cette passion ne m'a jamais quittée et m'a naturellement menée vers une carrière de comédienne professionnelle à partir de 2006.</p>
+      <p class="bio-p">J'ai commencé le théâtre à l'âge de huit ans. Cette passion ne m'a jamais quittée et m'a naturellement menée vers une carrière de comédienne professionnelle à partir de 2003.</p>
       <p class="bio-p">Un tournant important de mon parcours a été ma rencontre avec <strong>Lola Doillon</strong>, qui préparait son premier long métrage. C'est à cette période que j'ai découvert le coaching d'acteurs et que j'ai compris que l'accompagnement des comédiens était une véritable vocation.</p>
       <p class="bio-p">Depuis plus de vingt ans, je mets mon expérience au service des acteurs, qu'ils tournent pour la première fois ou qu'ils soient déjà confirmés. J'ai eu la chance de collaborer sur de nombreux films, notamment <em>Les Murs</em> de Christian Faure, <em>Maison de retraite</em> avec Kev Adams, ainsi que de nombreux autres projets, en accompagnant les comédiens dans leur préparation.</p>
       <p class="bio-p">Au fil des années, j'ai également travaillé avec de nombreux artistes, parmi lesquels <strong>Harvey Keitel</strong> et <strong>Sylvie Vartan</strong>. J'ai produit une centaine de contenus vidéo et de publicités, et j'ai eu l'opportunité de travailler en France, aux États-Unis, au Canada, au Gabon, en Corée du Sud, en Espagne et dans d'autres pays.</p>
@@ -1431,13 +1434,13 @@ footer a:hover{color:var(--bleu)}
       <p class="bio-p">Aujourd'hui, je propose des trainings d'acteurs destinés aussi bien aux professionnels qu'aux personnes qui souhaitent découvrir le métier de comédien. Mon objectif est de vous accompagner avec exigence, bienveillance et passion dans cette formidable aventure artistique.</p>
       <div class="stats-grid">
         <div class="stat-c"><div class="stat-n" data-count="20"><span>0</span><sup>ans</sup></div><div class="stat-l">sur les plateaux</div></div>
-        <div class="stat-c"><div class="stat-n" data-count="6"><span>0</span></div><div class="stat-l">acteurs coachés nommés aux César</div></div>
+        <div class="stat-c"><div class="stat-n" data-count="15"><span>0</span><sup>+</sup></div><div class="stat-l">acteurs coachés nommés aux César</div></div>
         <div class="stat-c"><div class="stat-n" data-count="100"><span>0</span><sup>+</sup></div><div class="stat-l">productions accompagnées</div></div>
-        <div class="stat-c"><div class="stat-n" data-count="12"><span>0</span><sup>+</sup></div><div class="stat-l">réalisateurs</div></div>
+        <div class="stat-c"><div class="stat-n" data-count="50"><span>0</span><sup>+</sup></div><div class="stat-l">réalisateurs</div></div>
       </div>
       <div class="coached-list">
         <span class="coached-lbl">Parmi les comédiens coachés</span>
-        <p class="coached-names">Harvey Keitel · Sylvie Vartan · Guillaume Gouix · Christa Théret · Finnegan Oldfield · Émile Berling · Thomas Solivérès · Dali Benssalah · Claudia Tagbo · Chloé Jouannet · Daniel Prévost</p>
+        <p class="coached-names">Harvey Keitel · Sylvie Vartan · Bakary Diombera · Christa Théret · Finnegan Oldfield · Émile Berling · Thomas Solivérès · Dali Benssalah · Claudia Tagbo · Kery James · Daniel Prévost · Liam Pierron · Samy Seghir · La Fouine · Waly Dia</p>
       </div>
     </div>
   </div>
@@ -1486,6 +1489,20 @@ footer a:hover{color:var(--bleu)}
         <div class="film-row">Yo Mama</div>
         <div class="film-row">La plus belle pour danser</div>
         <div class="film-row">Léo Matteï<small>Série TV</small></div>
+        <div class="film-row">Tapie<small>Série</small></div>
+        <div class="film-row">Malika</div>
+        <div class="film-row">Le Panache</div>
+        <div class="film-row">Métamorph</div>
+        <div class="film-row">Engrenages<small>Série</small></div>
+        <div class="film-row">Le crime lui va si bien</div>
+        <div class="film-row">Juste un regard</div>
+        <div class="film-row">Père et fils thérapie</div>
+        <div class="film-row">Braqueurs</div>
+        <div class="film-row">C'est qui les plus forts</div>
+        <div class="film-row">On voulait tout casser</div>
+        <div class="film-row">À toute épreuve</div>
+        <div class="film-row">Les hauts murs</div>
+        <div class="film-row">Et toi t'es sur qui ?</div>
       </div>
     </div>
     <!-- Keitel card à côté -->
@@ -1516,126 +1533,16 @@ footer a:hover{color:var(--bleu)}
   </div>
 </section>
 
-<!-- ═══ 05 · INTERVENANTS ═══ -->
-<section class="itv" id="intervenants">
-  <div class="itv-head">
-    <span class="itv-eyebrow">L'équipe</span>
-    <p class="itv-intro">Ils interviennent aux côtés de Yasmina tout au long de la semaine.</p>
-  </div>
-
-  <div class="itv-list">
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Comédienne</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Claudia Tagbo</h3>
-          <p class="itv-bio">Comédienne au sommet de sa carrière. Elle partage son parcours et joue avec le groupe le lundi, une rencontre qui ouvre le jeu dès le premier jour.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Chant</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Feriel Issahnane</h3>
-          <p class="itv-bio">Respiration, rythme, voix, ancrage corporel. Libérer le son, c'est libérer le jeu.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Yoga</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Acey Farley</h3>
-          <p class="itv-bio">Yoga le matin : ancrage, gestion du trac, maîtrise du souffle avant d'entrer sur le plateau.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Photographe</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Thibault Duboucher</h3>
-          <p class="itv-bio">Séance photo individuelle incluse dans le stage : portraits professionnels pour votre dossier artistique.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Psychologue</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Sophie Brive</h3>
-          <p class="itv-bio">Psychologue de tournage : décoder les blocages et préparer sereinement le casting du vendredi.</p>
-        </div>
-      </div>
-    </article>
-
-    <article class="itv-row">
-      <button class="itv-trigger" type="button" aria-expanded="false">
-        <span class="itv-role">Directrice de casting</span>
-        <span class="itv-plus"></span>
-      </button>
-      <div class="itv-panel">
-        <div class="itv-panel-in">
-          <h3 class="itv-name">Julie Gandossi</h3>
-          <p class="itv-bio">Casting réel : retours concrets sur votre jeu, votre présence et votre singularité. Le vendredi qui change tout.</p>
-          <div class="itv-extras">
-            <button type="button" class="itv-vid-btn" onclick="openVid('julie-gandossi.mp4')">
-              <span class="itv-vid-play" aria-hidden="true">▶</span>
-              <span>Présentation vidéo</span>
-            </button>
-            <a href="https://www.instagram.com/juliegandossicasting?igsh=MXQ1cDB0OG1xM2g1bA==" target="_blank" rel="noopener" class="itv-ig-link">
-              ◎ @juliegandossicasting
-            </a>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- POUR AJOUTER UN INTERVENANT : copie un bloc <article class="itv-row">…</article>
-         et change le rôle, le nom et la bio. Rien d'autre à toucher. -->
-
-    <p class="itv-more">D'autres intervenants seront ajoutés au fil des sessions.</p>
-
-  </div>
-</section>
-
-
 <!-- ═══ 06 · TÉMOIGNAGES ═══ -->
 <section id="temoignages" class="pad" style="background:var(--noir);color:var(--creme);border-top:3px solid var(--jaune)">
   <span class="lbl lbl-jaune rv">Leurs mots</span>
   <h2 class="h2-ed rv d1" style="color:var(--creme)">Ce qu'ils<br><em>en retiennent.</em></h2>
   <div class="temo-grid rv d2">
     <div class="temo-c temo-feat">
-      <div class="temo-body">
-        <p class="temo-q">« Je suis arrivée tendue, je suis repartie avec un outil pour jouer vrai. Ce que Yasmina fait en une semaine, je n'avais pas réussi à le trouver en deux ans. »</p>
-        <div class="temo-who">Stagiaire · Interview 01</div>
-      </div>
       <button class="temo-vid vert" type="button" data-yt="nVw1CNUJG68" aria-label="Lire l'interview"></button>
     </div>
-    <div class="temo-c soon">
-      <div class="temo-vid"><img class="temo-thumb" src="images/temoignage-thumb-1.jpg" alt=""></div>
-      <div class="temo-body"><p class="temo-q">« Une semaine qui vaut une année de cours. La caméra ne ment plus. Yasmina a une façon de vous voir qui vous transforme. »</p><div class="temo-who">Interview 02 · bientôt</div></div>
+    <div class="temo-c temo-feat">
+      <button class="temo-vid vert" type="button" data-yt="klPA8eYbf48" aria-label="Lire l'interview"></button>
     </div>
     <div class="temo-c soon">
       <div class="temo-vid"><img class="temo-thumb" src="images/temoignage-thumb-2.jpg" alt=""></div>
@@ -1714,7 +1621,7 @@ footer a:hover{color:var(--bleu)}
   <div class="sess-box rv d2">
     <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:var(--bleu);top:-120px;left:50%;transform:translateX(-50%);opacity:.18;filter:blur(4px);pointer-events:none"></div>
     <div style="position:relative;z-index:2">
-      <span class="sess-date">Session · <span>7 → 11 Septembre 2026</span> · Paris</span>
+      <span class="sess-date">Session · <span>28 Septembre → 2 Octobre 2026</span> · Paris</span>
       <div class="sess-price">850 €</div>
       <div class="sess-note">paiement sécurisé · photo de book incluse · sur candidature</div>
       <p class="sess-desc">Une semaine intensive au cœur du jeu cinéma avec Yasmina Pastural et une équipe de professionnels du cinéma. Groupe restreint.</p>
@@ -1735,14 +1642,6 @@ footer a:hover{color:var(--bleu)}
   </div>
   <div><a href="mentions-legales.html">Mentions légales</a>&ensp;·&ensp;<a href="confidentialite.html">Confidentialité</a>&ensp;·&ensp;<a href="mes-donnees.html">Mes données</a>&ensp;·&ensp;<a href="#" data-cookies-open>Cookies</a>&ensp;·&ensp;© 2026</div>
 </footer>
-
-<!-- LIGHTBOX VIDÉO -->
-<div id="vov" role="dialog" aria-modal="true">
-  <div id="vbox">
-    <button id="vclose" onclick="closeVid()" aria-label="Fermer">✕</button>
-    <iframe id="vframe" src="" allowfullscreen allow="autoplay; encrypted-media" title="Vidéo"></iframe>
-  </div>
-</div>
 
 <!-- MODAL CANDIDATURE -->
 <div id="mov" role="dialog" aria-modal="true" aria-label="Candidature au stage">
@@ -1861,7 +1760,7 @@ footer a:hover{color:var(--bleu)}
     <div class="prat-c">
       <div class="prat-e">📅</div>
       <div class="prat-tit">Dates & horaires</div>
-      <p class="prat-txt">Du lundi 7 au vendredi 11 septembre 2026. Horaires précis communiqués une semaine avant le début.</p>
+      <p class="prat-txt">Du lundi 28 septembre au vendredi 2 octobre 2026. Horaires précis communiqués une semaine avant le début.</p>
     </div>
     <div class="prat-c">
       <div class="prat-e">📍</div>
@@ -1992,7 +1891,7 @@ footer a:hover{color:var(--bleu)}
       <div class="form-alert" id="mifalert" role="alert" aria-live="polite"></div>
       <label class="check-row">
         <input type="checkbox" id="mifcheck" required>
-        <span>J'ai pris connaissance du programme et des informations pratiques, et je souhaite candidater à la session du <strong>7 au 11 septembre 2026</strong>.</span>
+        <span>J'ai pris connaissance du programme et des informations pratiques, et je souhaite candidater à la session du <strong>28 septembre au 2 octobre 2026</strong>.</span>
       </label>
 
       <!-- Submit -->
@@ -2047,15 +1946,6 @@ const hp=document.querySelector('.hero-photo');
 if(hp)window.addEventListener('scroll',()=>{if(window.scrollY<window.innerHeight*1.2)hp.style.transform=`translateY(${window.scrollY*.16}px)`;},{passive:true});
 
 /* GAL TABS */
-const ENC_DATA={
-  yasmina:{role:"Coach acteurs · Formatrice",desc:"Dirige l'ensemble du stage, du premier jour au casting final."},
-  claudia:{role:"Comédienne",desc:"Comédienne au sommet de sa carrière. Elle partage son parcours et joue avec le groupe le lundi, une rencontre qui ouvre le jeu dès le premier jour."},
-  julie:{role:"Directrice de casting",desc:"Casting réel : retours concrets sur votre jeu, votre présence et votre singularité. Le vendredi qui change tout."},
-  feriel:{role:"Chant",desc:"Respiration, rythme, voix, ancrage corporel. Libérer le son, c'est libérer le jeu."},
-  acey:{role:"Yoga",desc:"Yoga le matin : ancrage, gestion du trac, maîtrise du souffle avant d'entrer sur le plateau."},
-  thibault:{role:"Photographe",desc:"Séance photo individuelle incluse dans le stage : portraits professionnels pour votre dossier artistique."},
-  sophie:{role:"Psychologue",desc:"Psychologue de tournage : décoder les blocages et préparer sereinement le casting du vendredi."}
-};
 /* ===== INTERVENANTS — accordéon ===== */
 document.querySelectorAll('.itv-trigger').forEach(function(btn){
   btn.addEventListener('click', function(){
@@ -2071,28 +1961,11 @@ document.querySelectorAll('.itv-trigger').forEach(function(btn){
     }
   });
 });
-function switchEnc(btn,key){
-  document.querySelectorAll('.enc-pill[role="tab"]').forEach(b=>{b.classList.remove('star');b.setAttribute('aria-selected','false');});
-  btn.classList.add('star');btn.setAttribute('aria-selected','true');
-  const d=ENC_DATA[key];
-  document.getElementById('enc-bio-role').textContent=d.role;
-  document.getElementById('enc-bio-desc').textContent=d.desc;
-}
 function switchGal(t,btn){document.querySelectorAll('.gal-tab').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-selected','false');});btn.classList.add('on');btn.setAttribute('aria-selected','true');document.getElementById('gal-photos').style.display=t==='photos'?'block':'none';document.getElementById('gal-backstage').style.display=t==='backstage'?'block':'none';}
 
 /* VID STRIP AUTOPLAY */
 document.querySelectorAll('.vs-item').forEach(el=>new IntersectionObserver(en=>{en.forEach(e=>{const v=e.target.querySelector('video');if(!v)return;if(e.isIntersecting)v.play().catch(()=>{});else v.pause();});},{threshold:.3}).observe(el));
 
-/* LIGHTBOX */
-const vov=document.getElementById('vov'),vframe=document.getElementById('vframe');
-function openVid(src){let v=document.getElementById('_lv');if(!v){v=document.createElement('video');v.id='_lv';v.controls=true;v.autoplay=true;v.muted=false;v.playsInline=true;v.style.cssText='width:100%;height:100%;background:#000;object-fit:contain';document.getElementById('vbox').appendChild(v);}
-  let errMsg=document.getElementById('_vlv-err');
-  if(!errMsg){errMsg=document.createElement('div');errMsg.id='_vlv-err';errMsg.style.cssText='display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:14px;color:#f3eee4;font-family:sans-serif;text-align:center;padding:20px';document.getElementById('vbox').appendChild(errMsg);}
-  vframe.style.display='none';v.style.display='block';errMsg.style.display='none';
-  v.onerror=function(){v.style.display='none';errMsg.style.display='flex';errMsg.innerHTML='<div style="font-size:15px;opacity:.7">Fichier vidéo introuvable</div><div style="font-family:monospace;font-size:13px;background:rgba(255,255,255,.1);padding:8px 14px;border-radius:4px">'+src+'</div><div style="font-size:12px;opacity:.5;max-width:340px">Ce fichier doit être déposé dans le même dossier que index.html</div>';};
-  v.src=src;v.load();v.play().catch(()=>{});vov.classList.add('open');document.body.style.overflow='hidden';}
-function closeVid(){const v=document.getElementById('_lv');if(v){v.pause();v.src='';v.style.display='none';}vframe.style.display='';vov.classList.remove('open');document.body.style.overflow='';}
-vov.addEventListener('click',e=>{if(e.target===vov)closeVid();});
 document.querySelectorAll('.temo-c,.vs-item').forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')el.click();}));
 
 /* MODAL */
@@ -2100,15 +1973,15 @@ const mOv=document.getElementById('mov');
 function openMod(e){if(e)e.preventDefault();closeMob();mOv.classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('mf-p')?.focus(),100);}
 function closeMod(){mOv.classList.remove('open');document.body.style.overflow='';}
 mOv.addEventListener('click',e=>{if(e.target===mOv)closeMod();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMod();closeVid();closeMob();}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMod();closeMob();}});
 function upAlma(){const v=document.querySelector('input[name=mpay]:checked')?.value;document.getElementById('an').classList.toggle('show',v!=='1x');}
 function doSub(){const r=['mf-p','mf-n','mf-e','mf-m'];let ok=true;r.forEach(id=>{const el=document.getElementById(id);el.classList.remove('mo-err');if(!el.value.trim()){el.classList.add('mo-err');ok=false;}});const em=document.getElementById('mf-e');if(em.value&&!em.value.includes('@')){em.classList.add('mo-err');ok=false;}if(!ok)return;document.getElementById('mwrap').style.display='none';document.getElementById('mok').style.display='block';}
 
 /* NEWSLETTER */
 function doNL(){const el=document.getElementById('nl-em');if(!el.value.trim()||!el.value.includes('@')){el.style.borderColor='var(--rose)';el.focus();return;}el.style.borderColor='';el.value='';el.placeholder='Merci, inscrit·e !';}
 
-/* ESC sur lightboxes */
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeVid();closeMod();}});
+/* ESC sur le modal */
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMod();}});
 
 /* ── INSCRIPTION DANS MODAL ── */
 /* PROGRESS */
@@ -2213,7 +2086,7 @@ function doMISubmit(e){
     videoUrl:    document.getElementById('miflink')?.value.trim() || '',
     cvNom:       document.getElementById('mifcv')?.files?.[0]?.name || '',
     paiement:    document.querySelector('input[name=mipay]:checked')?.value || '1x',
-    session:     '7-11 septembre 2026',
+    session:     '28 septembre-2 octobre 2026',
     website:     document.getElementById('mifwebsite')?.value || ''
   };
 
@@ -2278,34 +2151,46 @@ document.addEventListener('keydown',e=>{});
 </script>
 <script src="consentement.js" defer></script>
 <script>
-/* Montage des vidéos YouTube — uniquement après consentement.
-   consentement.js pose le substitut tant que rien n'est accepté, puis
-   émet « ypt:videos-autorisees » : on monte alors miniature + lecture. */
+/* Vignettes vidéo — chaque ID YouTube a sa propre photo de couverture
+   dédiée. Pas de photo fournie -> fond neutre déjà en CSS ([data-yt]),
+   jamais une photo empruntée à une autre vidéo, jamais la miniature
+   YouTube auto-récupérée (i.ytimg.com). Le consentement n'est demandé
+   qu'au clic sur la vignette, pas au chargement. */
+const COVER_MAP = {
+  '5cMvWxLaZ0Y': 'images/couverture-video-acting.png', // Sur le plateau · extrait acting
+  'nVw1CNUJG68': null,                                  // Témoignage · photo à fournir
+  'klPA8eYbf48': null,                                  // Témoignage · photo à fournir
+};
 (function(){
+  function embarquer(f,id){
+    var fr=document.createElement('iframe');
+    fr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0&cc_load_policy=0';
+    fr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture';
+    fr.allowFullscreen=true;fr.title='Vidéo';
+    fr.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';
+    f.innerHTML='';f.appendChild(fr);
+  }
   function monter(){
-    if(!window.yptConsentement||!window.yptConsentement.accepte())return;
     document.querySelectorAll('[data-yt]').forEach(function(f){
       var id=(f.dataset.yt||'').trim();
       if(!id||f.dataset.monte==='1')return;
       f.dataset.monte='1';
-      var img=document.createElement('img');
-      img.className='yt-thumb';img.alt='';img.loading='lazy';
-      img.src='https://i.ytimg.com/vi/'+id+'/maxresdefault.jpg';
-      img.onerror=function(){this.onerror=null;this.src='https://i.ytimg.com/vi/'+id+'/hqdefault.jpg';};
+      var cover=COVER_MAP[id];
+      if(cover){
+        var img=document.createElement('img');
+        img.className='yt-thumb';img.alt='';img.loading='lazy';img.src=cover;
+        f.appendChild(img);
+      }
       var play=document.createElement('div');play.className='temo-play';
-      f.innerHTML='';f.appendChild(img);f.appendChild(play);
+      f.appendChild(play);
       f.addEventListener('click',function(){
-        var fr=document.createElement('iframe');
-        fr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0';
-        fr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture';
-        fr.allowFullscreen=true;fr.title='Vidéo';
-        fr.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';
-        img.remove();play.remove();f.appendChild(fr);
+        if(!window.yptConsentement){embarquer(f,id);return;}
+        window.yptConsentement.demanderPourVideo(f,function(){embarquer(f,id);});
       },{once:true});
     });
   }
-  document.addEventListener('ypt:videos-autorisees',monter);
-  window.addEventListener('load',monter);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',monter);
+  else monter();
 })();
 </script>
 </body>

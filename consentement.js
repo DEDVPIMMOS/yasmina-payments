@@ -75,37 +75,27 @@
   ].join('');
   document.head.appendChild(css);
 
-  /* ── Vidéos : substitut tant que le consentement manque ─────────── */
-  function rendreVideos() {
-    var ok = accepte();
-    document.querySelectorAll('[data-yt]').forEach(function (el) {
-      var id = (el.dataset.yt || '').trim();
-      if (!id) return;
-      if (!ok) {
-        if (el.dataset.yptBloque === '1') return;
-        el.dataset.yptBloque = '1';
-        el.innerHTML = '';
-        var ph = document.createElement('div');
-        ph.className = 'ypt-ph';
-        var p = document.createElement('p');
-        p.textContent = 'Cette vidéo est hébergée par YouTube. La lire déposera des traceurs de Google sur votre appareil.';
-        var b = document.createElement('button');
-        b.type = 'button';
-        b.textContent = 'Autoriser et lire';
-        b.addEventListener('click', function (e) {
-          e.preventDefault(); e.stopPropagation();
-          ecrire(true); fermer(); rendreVideos();
-        });
-        ph.appendChild(p); ph.appendChild(b);
-        el.appendChild(ph);
-        el.disabled = false;
-      } else if (el.dataset.yptBloque === '1') {
-        // Consentement donné : on rend la main au script de la page.
-        delete el.dataset.yptBloque;
-        el.innerHTML = '';
-        document.dispatchEvent(new CustomEvent('ypt:videos-autorisees'));
-      }
+  /* ── Vidéos : demande de consentement au moment de l'intention réelle ──
+     N'est appelée qu'au clic sur une vignette précise (jamais au chargement) :
+     rien n'est affiché tant que l'utilisateur n'a pas manifesté l'intention
+     de lire CETTE vidéo. Si le consentement est déjà acquis, on rend la
+     main immédiatement à onAutorise() sans rien afficher ici. */
+  function demanderPourVideo(el, onAutorise) {
+    if (accepte()) { onAutorise(); return; }
+    el.innerHTML = '';
+    var ph = document.createElement('div');
+    ph.className = 'ypt-ph';
+    var p = document.createElement('p');
+    p.textContent = 'Cette vidéo est hébergée par YouTube. La lire déposera des traceurs de Google sur votre appareil.';
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = 'Autoriser et lire';
+    b.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      ecrire(true); fermer(); onAutorise();
     });
+    ph.appendChild(p); ph.appendChild(b);
+    el.appendChild(ph);
   }
 
   /* ── Bandeau ────────────────────────────────────────────────────── */
@@ -139,13 +129,13 @@
     var refus = document.createElement('button');
     refus.type = 'button';
     refus.textContent = 'Continuer sans les vidéos';
-    refus.addEventListener('click', function () { ecrire(false); fermer(); rendreVideos(); });
+    refus.addEventListener('click', function () { ecrire(false); fermer(); });
 
     var ok = document.createElement('button');
     ok.type = 'button';
     ok.className = 'ypt-ok';
     ok.textContent = 'Autoriser les vidéos';
-    ok.addEventListener('click', function () { ecrire(true); fermer(); rendreVideos(); });
+    ok.addEventListener('click', function () { ecrire(true); fermer(); });
 
     zone.appendChild(refus);
     zone.appendChild(ok);
@@ -158,7 +148,9 @@
     document.querySelectorAll('[data-cookies-open]').forEach(function (a) {
       a.addEventListener('click', function (e) { e.preventDefault(); ouvrir(); });
     });
-    rendreVideos();
+    // Bandeau global RGPD : reste inchangé, s'ouvre au chargement si un choix
+    // reste à faire. Distinct de demanderPourVideo(), qui ne s'affiche que
+    // sur clic d'une vignette précise.
     // Le bandeau n'apparaît que si un choix reste à faire ET qu'une vidéo
     // est réellement présente. Un emplacement encore vide ne dépose rien :
     // solliciter l'utilisateur pour rien serait du bruit, et la CNIL
@@ -174,5 +166,5 @@
     document.addEventListener('DOMContentLoaded', init);
   } else { init(); }
 
-  window.yptConsentement = { accepte: accepte, ouvrir: ouvrir };
+  window.yptConsentement = { accepte: accepte, ouvrir: ouvrir, demanderPourVideo: demanderPourVideo };
 })();
