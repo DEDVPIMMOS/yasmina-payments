@@ -1130,6 +1130,50 @@ footer a:hover{color:var(--bleu)}
 @media (prefers-reduced-motion:reduce){
   .itv-list *{transition-duration:.01ms!important}
 }
+   /* Vignettes vidéo intervenants — placeholders */
+.itv-vid-slot{
+  margin-top:1.25rem;
+  aspect-ratio:16/9;
+  max-width:420px;
+  border:2px solid var(--itv-rule,rgba(12,11,10,.18));
+  background:rgba(12,11,10,.05);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  cursor:default;
+  position:relative;
+}
+
+.itv-vid-play{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:var(--itv-accent,var(--rose));
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:16px;
+  opacity:.55;
+}
+
+.itv-vid-label{
+  font-family:var(--S);
+  font-weight:800;
+  font-size:10.5px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--itv-muted,rgba(12,11,10,.5));
+  text-align:center;
+  padding:0 12px;
+}
+
+@media(max-width:640px){
+  .itv-vid-slot{
+    max-width:100%;
+  }
+}
 </style>
 </head>
 <body>
@@ -1290,6 +1334,10 @@ footer a:hover{color:var(--bleu)}
             <div class="itv-panel-in">
               <h3 class="itv-name">Claudia Tagbo</h3>
               <p class="itv-bio">Comédienne au sommet de sa carrière. Elle partage son parcours et joue avec le groupe le lundi, une rencontre qui ouvre le jeu dès le premier jour.</p>
+                             <div class="itv-vid-slot" data-intervenant="Claudia Tagbo">
+                <div class="itv-vid-play">▶</div>
+                <span class="itv-vid-label">Vidéo de présentation — à venir</span>
+              </div>
             </div>
           </div>
         </article>
@@ -1303,6 +1351,10 @@ footer a:hover{color:var(--bleu)}
             <div class="itv-panel-in">
               <h3 class="itv-name">Feriel Issahnane</h3>
               <p class="itv-bio">Respiration, rythme, voix, ancrage corporel. Libérer le son, c'est libérer le jeu.</p>
+               <div class="itv-vid-slot" data-intervenant="Feriel Issahnane">
+  <div class="itv-vid-play">▶</div>
+  <span class="itv-vid-label">Vidéo de présentation — à venir</span>
+</div>
             </div>
           </div>
         </article>
@@ -1316,7 +1368,10 @@ footer a:hover{color:var(--bleu)}
             <div class="itv-panel-in">
               <h3 class="itv-name">Acey Farley</h3>
               <p class="itv-bio">Yoga le matin : ancrage, gestion du trac, maîtrise du souffle avant d'entrer sur le plateau.</p>
-            </div>
+            <div class="itv-vid-slot" data-intervenant="Acey Farley">
+  <div class="itv-vid-play">▶</div>
+  <span class="itv-vid-label">Vidéo de présentation — à venir</span>
+</div></div>
           </div>
         </article>
 
@@ -1329,7 +1384,10 @@ footer a:hover{color:var(--bleu)}
             <div class="itv-panel-in">
               <h3 class="itv-name">Thibault Duboucher</h3>
               <p class="itv-bio">Séance photo individuelle incluse dans le stage : portraits professionnels pour votre dossier artistique.</p>
-            </div>
+            <div class="itv-vid-slot" data-intervenant="Thibault Duboucher">
+  <div class="itv-vid-play">▶</div>
+  <span class="itv-vid-label">Vidéo de présentation — à venir</span>
+</div></div>
           </div>
         </article>
 
@@ -1342,7 +1400,10 @@ footer a:hover{color:var(--bleu)}
             <div class="itv-panel-in">
               <h3 class="itv-name">Sophie Brive</h3>
               <p class="itv-bio">Psychologue de tournage : décoder les blocages et préparer sereinement le casting du vendredi.</p>
-            </div>
+            <div class="itv-vid-slot" data-intervenant="Sophie Brive">
+  <div class="itv-vid-play">▶</div>
+  <span class="itv-vid-label">Vidéo de présentation — à venir</span>
+</div></div>
           </div>
         </article>
 
@@ -1355,7 +1416,10 @@ footer a:hover{color:var(--bleu)}
             <div class="itv-panel-in">
               <h3 class="itv-name">Julie Gandossi</h3>
               <p class="itv-bio">Casting réel : retours concrets sur votre jeu, votre présence et votre singularité. Le vendredi qui change tout.</p>
-            </div>
+            <div class="itv-vid-slot" data-intervenant="Julie Gandossi">
+  <div class="itv-vid-play">▶</div>
+  <span class="itv-vid-label">Vidéo de présentation — à venir</span>
+</div></div>
           </div>
         </article>
 
@@ -1453,24 +1517,6 @@ footer a:hover{color:var(--bleu)}
   <p class="rv d2" style="font-size:15px;line-height:1.72;color:var(--gris);max-width:54ch;margin-top:10px">Coach acteurs sur les plateaux de ces productions, aux côtés de leurs réalisateurs et comédiens.</p>
 </section>
 
-<div class="pellicule rv">
-  <div class="affiches" role="list">
-    <div class="aff"><div class="aff-img"><img src="images/madame.jpg" alt="Madame" loading="lazy"><div class="aff-ov"><span class="aff-meta">Amanda Sthers · 2017</span></div></div><div class="aff-name">Madame</div><div class="aff-sub">Harvey Keitel</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/casse-tete-chinois.jpg" alt="Casse-tête chinois" loading="lazy"><div class="aff-ov"><span class="aff-meta">Klapisch · 2013</span></div></div><div class="aff-name">Casse-tête chinois</div><div class="aff-sub">Klapisch</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/la-vie-scolaire.jpg" alt="La Vie scolaire" loading="lazy"><div class="aff-ov"><span class="aff-meta">Grand Corps Malade · 2019</span></div></div><div class="aff-name">La Vie scolaire</div><div class="aff-sub">Grand Corps Malade</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/banlieusards.jpg" alt="Banlieusards" loading="lazy"><div class="aff-ov"><span class="aff-meta">Kery James · 2019</span></div></div><div class="aff-name">Banlieusards</div><div class="aff-sub">Kery James</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/coco-chanel-igor.jpg" alt="Coco Chanel & Igor" loading="lazy"><div class="aff-ov"><span class="aff-meta">Jan Kounen · 2009</span></div></div><div class="aff-name">Coco Chanel & Igor</div><div class="aff-sub">Jan Kounen</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/quand-tu-seras-grand.jpg" alt="Quand tu seras grand" loading="lazy"><div class="aff-ov"><span class="aff-meta">Bescond & Métayer · 2023</span></div></div><div class="aff-name">Quand tu seras grand</div><div class="aff-sub">Bescond & Métayer</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/dans-la-brume.jpg" alt="Dans la brume" loading="lazy"><div class="aff-ov"><span class="aff-meta">Daniel Roby · 2018</span></div></div><div class="aff-name">Dans la brume</div><div class="aff-sub">Daniel Roby</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/roqya.jpg" alt="Roqya" loading="lazy"><div class="aff-ov"><span class="aff-meta">Roqya</span></div></div><div class="aff-name">Roqya</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/le-blond-de-la-casbah.jpg" alt="Le Blond de la Casbah" loading="lazy"><div class="aff-ov"><span class="aff-meta">Le Blond de la Casbah</span></div></div><div class="aff-name">Le Blond de la Casbah</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/leo-mattei.jpg" alt="Léo Mattéï" loading="lazy"><div class="aff-ov"><span class="aff-meta">Léo Mattéï · Série TV</span></div></div><div class="aff-name">Léo Mattéï</div><div class="aff-sub">Série TV</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/la-plus-belle-pour-danser.jpg" alt="La plus belle pour danser" loading="lazy"><div class="aff-ov"><span class="aff-meta">La plus belle pour danser</span></div></div><div class="aff-name">La plus belle pour danser</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/yo-mama.jpg" alt="Yo Mama" loading="lazy"><div class="aff-ov"><span class="aff-meta">Yo Mama</span></div></div><div class="aff-name">Yo Mama</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/y-a-pas-de-reseau.jpg" alt="Y a pas de réseau" loading="lazy"><div class="aff-ov"><span class="aff-meta">Y a pas de réseau</span></div></div><div class="aff-name">Y a pas de réseau</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff"><div class="aff-img"><img src="images/maison-de-retraite-2.jpg" alt="Maison de retraite 2" loading="lazy"><div class="aff-ov"><span class="aff-meta">Maison de retraite 2</span></div></div><div class="aff-name">Maison de retraite 2</div><div class="aff-sub">&nbsp;</div></div>
-  </div>
-</div>
 
 <section class="pad" style="background:var(--noir);color:var(--creme);padding-top:0;border-bottom:3px solid var(--rose)">
   <div class="filmo-split rv">
