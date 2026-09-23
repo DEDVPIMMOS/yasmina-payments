@@ -1180,24 +1180,32 @@ footer a:hover{color:var(--bleu)}
    Tout est préfixé #dernieres-sorties / .ds- : aucune règle globale. */
 #dernieres-sorties{background:var(--noir);color:var(--creme);
   border-top:3px solid var(--jaune);border-bottom:3px solid var(--jaune)}
-#dernieres-sorties .ds-liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,340px));gap:32px;margin-top:46px}
-@media(max-width:640px){#dernieres-sorties .ds-liste{grid-template-columns:1fr}}
-#dernieres-sorties .ds-carte{border:3px solid var(--jaune);box-shadow:6px 6px 0 var(--rose-e);background:#16140f;
-  overflow:hidden;transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
-#dernieres-sorties .ds-carte:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--rose-e)}
-#dernieres-sorties .ds-video{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;
-  background:#16140f;overflow:hidden}
+#dernieres-sorties .ds-liste{display:grid;gap:72px}
+#dernieres-sorties .ds-bloc{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+@media(min-width:821px){#dernieres-sorties .ds-bloc:nth-child(even) .ds-bulle{order:2}}
+@media(max-width:820px){#dernieres-sorties .ds-bloc{grid-template-columns:1fr;gap:30px}}
+#dernieres-sorties .ds-bulle{border:3px solid var(--jaune);box-shadow:6px 6px 0 var(--rose-e);background:#16140f;padding:34px 36px}
+#dernieres-sorties .ds-rubrique{font-family:var(--F);font-weight:300;font-size:clamp(30px,4vw,46px);
+  line-height:1;letter-spacing:-.02em;color:var(--creme)}
+#dernieres-sorties .ds-rubrique em{font-style:italic;color:var(--jaune-e)}
+#dernieres-sorties .ds-titre{margin-top:22px;font-family:var(--F);font-style:italic;font-weight:300;
+  font-size:26px;line-height:1.2;color:var(--creme)}
+#dernieres-sorties .ds-realisation{margin-top:10px;font-family:var(--S);font-weight:800;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--rose-e)}
+#dernieres-sorties .ds-role{margin-top:8px;font-family:var(--S);font-weight:800;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--rose-e)}
+#dernieres-sorties .ds-date{margin-top:6px;font-size:13.5px;color:var(--gris)}
+#dernieres-sorties .ds-texte{margin-top:18px;font-size:15px;line-height:1.7;color:rgba(243,238,228,.82)}
+#dernieres-sorties .ds-video{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;
+  border:3px solid var(--jaune);box-shadow:6px 6px 0 var(--rose-e);background:#16140f;overflow:hidden;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+#dernieres-sorties .ds-video:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--rose-e)}
 #dernieres-sorties button.ds-video{cursor:pointer}
 #dernieres-sorties .ds-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 #dernieres-sorties .ds-video .temo-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
-#dernieres-sorties .ds-carte:hover .temo-play{transform:translate(-50%,-50%) scale(1.12);background:var(--rose);color:#fff}
+#dernieres-sorties .ds-video:hover .temo-play{transform:translate(-50%,-50%) scale(1.12);background:var(--rose);color:#fff}
 #dernieres-sorties .ds-badge{position:absolute;top:10px;left:10px;z-index:3;font-family:var(--S);font-weight:800;
   font-size:10px;letter-spacing:.14em;text-transform:uppercase;background:var(--jaune);color:var(--noir);padding:4px 10px}
-#dernieres-sorties .ds-corps{padding:20px 22px 24px;border-top:3px solid var(--jaune)}
-#dernieres-sorties .ds-titre{font-family:var(--F);font-style:italic;font-weight:300;font-size:24px;line-height:1.2;color:var(--creme)}
-#dernieres-sorties .ds-role{margin-top:12px;font-family:var(--S);font-weight:800;font-size:10px;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--rose-e)}
-#dernieres-sorties .ds-date{margin-top:6px;font-size:13.5px;color:var(--gris)}
 </style>
 </head>
 <body>
@@ -1280,9 +1288,7 @@ footer a:hover{color:var(--bleu)}
 
 <!-- ═══ DERNIÈRES SORTIES ═══ composant isolé : données dans DERNIERES_SORTIES (fin de fichier), style dans #ds-styles -->
 <section id="dernieres-sorties" class="pad">
-  <span class="lbl lbl-jaune rv">Dernières sorties</span>
-  <h2 class="h2-ed rv d1" style="color:var(--creme)">Productions<br><em>récentes.</em></h2>
-  <div class="ds-liste rv d2" id="ds-liste"></div>
+  <div class="ds-liste rv" id="ds-liste"></div>
 </section>
 
 <!-- ═══ 01 · LE STAGE ═══ -->
@@ -2319,25 +2325,36 @@ const POSTER_MAP = {
 })();
 </script>
 <script>
-/* Dernières sorties — ajouter une sortie = ajouter un objet à ce tableau, rien d'autre.
-   youtube    : ID de la bande-annonce (vide = pas de vidéo, cadre neutre)
-   couverture : photo de couverture DÉDIÉE à cette vidéo (null = fond neutre ;
-                jamais la miniature YouTube automatique, jamais une photo empruntée)
-   exemple    : true = badge "Exemple" — à retirer pour une vraie production
+/* Dernières sorties — ajouter un bloc = ajouter un objet à ce tableau, rien d'autre.
+   rubrique    : intitulé du bloc (ex. « Dernières sorties », « Dernier casting coaché »)
+   titre       : nom du film        realisateur : réalisateur, affiché sous le titre
+   role, date  : lignes optionnelles        texte : petit texte libre
+   Tout champ vide n'est pas affiché.
+   youtube     : ID de la bande-annonce (vide = pas de vidéo, cadre neutre)
+   couverture  : photo de couverture DÉDIÉE à cette vidéo (null = fond neutre ;
+                 jamais la miniature YouTube automatique, jamais une photo empruntée)
+   exemple     : true = badge "Exemple" — à retirer une fois le bloc renseigné
+   Disposition : texte à gauche / vidéo à droite, inversée un bloc sur deux (CSS).
    La vidéo passe par le système existant : data-yt + COVER_MAP + consentement.js. */
 const DERNIERES_SORTIES = [
   {
+    rubrique: 'Dernières sorties',
     titre: '',
-    youtube: 'kBJGhdd0AeU',   // Quelques mots d'amour — bande-annonce (AD VITAM)
+    realisateur: '',
     role: '',
     date: '',
+    texte: '',
+    youtube: 'kBJGhdd0AeU',   // Quelques mots d'amour — bande-annonce (AD VITAM)
     couverture: null,
   },
   {
+    rubrique: 'Dernier casting coaché',
     titre: '',
-    youtube: '',              // 2e production : vidéo à fournir
+    realisateur: '',
     role: '',
     date: '',
+    texte: '',
+    youtube: '',              // 2e bloc : vidéo à fournir
     couverture: null,
     exemple: true,
   },
@@ -2347,7 +2364,22 @@ const DERNIERES_SORTIES = [
   if(!liste)return;
   function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt)n.textContent=txt;return n;}
   DERNIERES_SORTIES.forEach(function(s){
-    var carte=el('article','ds-carte');
+    var bloc=el('article','ds-bloc');
+    var bulle=el('div','ds-bulle');
+    if(s.rubrique){
+      var h=el('h2','ds-rubrique');
+      var mots=s.rubrique.split(' ');
+      if(mots.length>1){
+        h.appendChild(document.createTextNode(mots.slice(0,-1).join(' ')+' '));
+        h.appendChild(el('em','',mots[mots.length-1]));
+      }else h.textContent=s.rubrique;
+      bulle.appendChild(h);
+    }
+    if(s.titre)bulle.appendChild(el('h3','ds-titre',s.titre));
+    if(s.realisateur)bulle.appendChild(el('p','ds-realisation',s.realisateur));
+    if(s.role)bulle.appendChild(el('p','ds-role',s.role));
+    if(s.date)bulle.appendChild(el('p','ds-date',s.date));
+    if(s.texte)bulle.appendChild(el('p','ds-texte',s.texte));
     var video;
     if(s.youtube){
       if(!(s.youtube in COVER_MAP))COVER_MAP[s.youtube]=s.couverture||null;
@@ -2360,15 +2392,9 @@ const DERNIERES_SORTIES = [
       if(s.couverture){var img=el('img','ds-cover');img.src=s.couverture;img.alt='';img.loading='lazy';video.appendChild(img);}
     }
     if(s.exemple)video.appendChild(el('span','ds-badge','Exemple'));
-    carte.appendChild(video);
-    if(s.titre||s.role||s.date){
-      var corps=el('div','ds-corps');
-      if(s.titre)corps.appendChild(el('h3','ds-titre',s.titre));
-      if(s.role)corps.appendChild(el('p','ds-role',s.role));
-      if(s.date)corps.appendChild(el('p','ds-date',s.date));
-      carte.appendChild(corps);
-    }
-    liste.appendChild(carte);
+    bloc.appendChild(bulle);
+    bloc.appendChild(video);
+    liste.appendChild(bloc);
   });
 })();
 </script>
