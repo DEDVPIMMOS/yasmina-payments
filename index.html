@@ -1175,6 +1175,30 @@ footer a:hover{color:var(--bleu)}
   }
 }
 </style>
+<style id="ds-styles">
+/* ═══ DERNIÈRES SORTIES — composant isolé ═══
+   Tout est préfixé #dernieres-sorties / .ds- : aucune règle globale. */
+#dernieres-sorties{background:var(--noir);color:var(--creme);
+  border-top:3px solid var(--jaune);border-bottom:3px solid var(--jaune)}
+#dernieres-sorties .ds-liste{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,340px));gap:32px;margin-top:46px}
+@media(max-width:640px){#dernieres-sorties .ds-liste{grid-template-columns:1fr}}
+#dernieres-sorties .ds-carte{border:3px solid var(--jaune);box-shadow:6px 6px 0 var(--rose-e);background:#16140f;
+  overflow:hidden;transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+#dernieres-sorties .ds-carte:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--rose-e)}
+#dernieres-sorties .ds-video{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;
+  background:#16140f;overflow:hidden}
+#dernieres-sorties button.ds-video{cursor:pointer}
+#dernieres-sorties .ds-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#dernieres-sorties .ds-video .temo-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+#dernieres-sorties .ds-carte:hover .temo-play{transform:translate(-50%,-50%) scale(1.12);background:var(--rose);color:#fff}
+#dernieres-sorties .ds-badge{position:absolute;top:10px;left:10px;z-index:3;font-family:var(--S);font-weight:800;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;background:var(--jaune);color:var(--noir);padding:4px 10px}
+#dernieres-sorties .ds-corps{padding:20px 22px 24px;border-top:3px solid var(--jaune)}
+#dernieres-sorties .ds-titre{font-family:var(--F);font-style:italic;font-weight:300;font-size:24px;line-height:1.2;color:var(--creme)}
+#dernieres-sorties .ds-role{margin-top:12px;font-family:var(--S);font-weight:800;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--rose-e)}
+#dernieres-sorties .ds-date{margin-top:6px;font-size:13.5px;color:var(--gris)}
+</style>
 </head>
 <body>
 
@@ -1184,6 +1208,7 @@ footer a:hover{color:var(--bleu)}
 <nav id="nav">
   <span class="logo">Yasmina Pastural <b>Training</b></span>
   <div class="nav-links">
+    <a href="#dernieres-sorties" class="nav-link">Dernières sorties</a>
     <a href="#stage" class="nav-link">Le stage</a>
     <a href="#semaine" class="nav-link">La semaine</a>
     <a href="#yasmina" class="nav-link">Yasmina</a>
@@ -1198,6 +1223,7 @@ footer a:hover{color:var(--bleu)}
 </nav>
 
 <div class="mob" id="mob" aria-hidden="true">
+  <a href="#dernieres-sorties" onclick="closeMob()">Dernières sorties</a>
   <a href="#stage" onclick="closeMob()">Le stage</a>
   <a href="#semaine" onclick="closeMob()">La semaine</a>
   <a href="#yasmina" onclick="closeMob()">Yasmina</a>
@@ -1251,6 +1277,13 @@ footer a:hover{color:var(--bleu)}
     <span>Alexandre Arcady <b>✦</b></span><span>Elie Wajeman <b>✦</b></span>
   </div>
 </div>
+
+<!-- ═══ DERNIÈRES SORTIES ═══ composant isolé : données dans DERNIERES_SORTIES (fin de fichier), style dans #ds-styles -->
+<section id="dernieres-sorties" class="pad">
+  <span class="lbl lbl-jaune rv">Dernières sorties</span>
+  <h2 class="h2-ed rv d1" style="color:var(--creme)">Productions<br><em>récentes.</em></h2>
+  <div class="ds-liste rv d2" id="ds-liste"></div>
+</section>
 
 <!-- ═══ 01 · LE STAGE ═══ -->
 <section id="stage" class="pad" style="background:var(--creme);color:var(--noir);border-bottom:3px solid var(--noir)">
@@ -2282,6 +2315,51 @@ const POSTER_MAP = {
     var img=document.createElement('img');
     img.src=f;img.alt=a.dataset.film;img.loading='lazy';
     a.querySelector('.aff-img').prepend(img);
+  });
+})();
+</script>
+<script>
+/* Dernières sorties — ajouter une sortie = ajouter un objet à ce tableau, rien d'autre.
+   youtube    : ID de la bande-annonce (vide = pas de vidéo, cadre neutre)
+   couverture : photo de couverture DÉDIÉE à cette vidéo (null = fond neutre ;
+                jamais la miniature YouTube automatique, jamais une photo empruntée)
+   exemple    : true = badge "Exemple" — à retirer pour une vraie production
+   La vidéo passe par le système existant : data-yt + COVER_MAP + consentement.js. */
+const DERNIERES_SORTIES = [
+  {
+    titre: '[Titre de la production]',
+    youtube: '',
+    role: '[Rôle de Yasmina]',
+    date: '[Date de sortie]',
+    couverture: null,
+    exemple: true,
+  },
+];
+(function(){
+  var liste=document.getElementById('ds-liste');
+  if(!liste)return;
+  function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt)n.textContent=txt;return n;}
+  DERNIERES_SORTIES.forEach(function(s){
+    var carte=el('article','ds-carte');
+    var video;
+    if(s.youtube){
+      if(!(s.youtube in COVER_MAP))COVER_MAP[s.youtube]=s.couverture||null;
+      video=el('button','ds-video');
+      video.type='button';
+      video.dataset.yt=s.youtube;
+      video.setAttribute('aria-label','Lire la bande-annonce : '+s.titre);
+    }else{
+      video=el('div','ds-video');
+      if(s.couverture){var img=el('img','ds-cover');img.src=s.couverture;img.alt='';img.loading='lazy';video.appendChild(img);}
+    }
+    if(s.exemple)video.appendChild(el('span','ds-badge','Exemple'));
+    carte.appendChild(video);
+    var corps=el('div','ds-corps');
+    if(s.titre)corps.appendChild(el('h3','ds-titre',s.titre));
+    if(s.role)corps.appendChild(el('p','ds-role',s.role));
+    if(s.date)corps.appendChild(el('p','ds-date',s.date));
+    carte.appendChild(corps);
+    liste.appendChild(carte);
   });
 })();
 </script>
