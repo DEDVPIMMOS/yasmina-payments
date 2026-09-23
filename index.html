@@ -1517,6 +1517,24 @@ footer a:hover{color:var(--bleu)}
   <p class="rv d2" style="font-size:15px;line-height:1.72;color:var(--gris);max-width:54ch;margin-top:10px">Coach acteurs sur les plateaux de ces productions, aux côtés de leurs réalisateurs et comédiens.</p>
 </section>
 
+<div class="pellicule rv">
+  <div class="affiches" role="list">
+    <div class="aff" data-film="Madame"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Amanda Sthers · 2017</span></div></div><div class="aff-name">Madame</div><div class="aff-sub">Harvey Keitel</div></div>
+    <div class="aff" data-film="Casse-tête chinois"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Klapisch · 2013</span></div></div><div class="aff-name">Casse-tête chinois</div><div class="aff-sub">Klapisch</div></div>
+    <div class="aff" data-film="La Vie scolaire"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Grand Corps Malade · 2019</span></div></div><div class="aff-name">La Vie scolaire</div><div class="aff-sub">Grand Corps Malade</div></div>
+    <div class="aff" data-film="Banlieusards"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Kery James · 2019</span></div></div><div class="aff-name">Banlieusards</div><div class="aff-sub">Kery James</div></div>
+    <div class="aff" data-film="Coco Chanel &amp; Igor"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Jan Kounen · 2009</span></div></div><div class="aff-name">Coco Chanel &amp; Igor</div><div class="aff-sub">Jan Kounen</div></div>
+    <div class="aff" data-film="Quand tu seras grand"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Bescond &amp; Métayer · 2023</span></div></div><div class="aff-name">Quand tu seras grand</div><div class="aff-sub">Bescond &amp; Métayer</div></div>
+    <div class="aff" data-film="Dans la brume"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Daniel Roby · 2018</span></div></div><div class="aff-name">Dans la brume</div><div class="aff-sub">Daniel Roby</div></div>
+    <div class="aff" data-film="Roqya"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Roqya</span></div></div><div class="aff-name">Roqya</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Le Blond de la Casbah"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Le Blond de la Casbah</span></div></div><div class="aff-name">Le Blond de la Casbah</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Léo Mattéï"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Léo Mattéï · Série TV</span></div></div><div class="aff-name">Léo Mattéï</div><div class="aff-sub">Série TV</div></div>
+    <div class="aff" data-film="La plus belle pour danser"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">La plus belle pour danser</span></div></div><div class="aff-name">La plus belle pour danser</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Yo Mama"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Yo Mama</span></div></div><div class="aff-name">Yo Mama</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Y a pas de réseau"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Y a pas de réseau</span></div></div><div class="aff-name">Y a pas de réseau</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Maison de retraite 2"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Maison de retraite 2</span></div></div><div class="aff-name">Maison de retraite 2</div><div class="aff-sub">&nbsp;</div></div>
+  </div>
+</div>
 
 <section class="pad" style="background:var(--noir);color:var(--creme);padding-top:0;border-bottom:3px solid var(--rose)">
   <div class="filmo-split rv">
@@ -2237,6 +2255,34 @@ const COVER_MAP = {
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',monter);
   else monter();
+})();
+
+/* Affiches de films — seules les affiches explicitement autorisées s'affichent.
+   null = cadre neutre. Pour réactiver une affiche autorisée : 'Titre': 'images/fichier.jpg' */
+const POSTER_MAP = {
+  'Madame': null,
+  'Casse-tête chinois': null,
+  'La Vie scolaire': null,
+  'Banlieusards': null,
+  'Coco Chanel & Igor': null,
+  'Quand tu seras grand': null,
+  'Dans la brume': null,
+  'Roqya': null,
+  'Le Blond de la Casbah': null,
+  'Léo Mattéï': null,
+  'La plus belle pour danser': null,
+  'Yo Mama': null,
+  'Y a pas de réseau': null,
+  'Maison de retraite 2': null,
+};
+(function(){
+  document.querySelectorAll('.aff[data-film]').forEach(function(a){
+    var f=POSTER_MAP[a.dataset.film];
+    if(!f)return;
+    var img=document.createElement('img');
+    img.src=f;img.alt=a.dataset.film;img.loading='lazy';
+    a.querySelector('.aff-img').prepend(img);
+  });
 })();
 </script>
 </body>
