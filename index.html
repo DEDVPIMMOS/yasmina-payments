@@ -2327,10 +2327,17 @@ const POSTER_MAP = {
    La vidéo passe par le système existant : data-yt + COVER_MAP + consentement.js. */
 const DERNIERES_SORTIES = [
   {
-    titre: '[Titre de la production]',
-    youtube: '',
-    role: '[Rôle de Yasmina]',
-    date: '[Date de sortie]',
+    titre: '',
+    youtube: 'kBJGhdd0AeU',   // Quelques mots d'amour — bande-annonce (AD VITAM)
+    role: '',
+    date: '',
+    couverture: null,
+  },
+  {
+    titre: '',
+    youtube: '',              // 2e production : vidéo à fournir
+    role: '',
+    date: '',
     couverture: null,
     exemple: true,
   },
@@ -2347,18 +2354,20 @@ const DERNIERES_SORTIES = [
       video=el('button','ds-video');
       video.type='button';
       video.dataset.yt=s.youtube;
-      video.setAttribute('aria-label','Lire la bande-annonce : '+s.titre);
+      video.setAttribute('aria-label','Lire la bande-annonce'+(s.titre?' : '+s.titre:''));
     }else{
       video=el('div','ds-video');
       if(s.couverture){var img=el('img','ds-cover');img.src=s.couverture;img.alt='';img.loading='lazy';video.appendChild(img);}
     }
     if(s.exemple)video.appendChild(el('span','ds-badge','Exemple'));
     carte.appendChild(video);
-    var corps=el('div','ds-corps');
-    if(s.titre)corps.appendChild(el('h3','ds-titre',s.titre));
-    if(s.role)corps.appendChild(el('p','ds-role',s.role));
-    if(s.date)corps.appendChild(el('p','ds-date',s.date));
-    carte.appendChild(corps);
+    if(s.titre||s.role||s.date){
+      var corps=el('div','ds-corps');
+      if(s.titre)corps.appendChild(el('h3','ds-titre',s.titre));
+      if(s.role)corps.appendChild(el('p','ds-role',s.role));
+      if(s.date)corps.appendChild(el('p','ds-date',s.date));
+      carte.appendChild(corps);
+    }
     liste.appendChild(carte);
   });
 })();
