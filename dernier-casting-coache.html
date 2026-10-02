@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Yasmina Pastural Training · Jeu cinéma · Paris</title>
-<meta name="description" content="Stage intensif de jeu cinéma avec Yasmina Pastural, coach des plateaux de Klapisch, Kery James, Harvey Keitel. 35h, une semaine, Paris. Sur candidature.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dernier casting coaché — Yasmina Pastural Training</title>
+<meta name="description" content="Dernier casting coaché par Yasmina Pastural.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300;1,9..144,500&family=Archivo:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1175,47 +1175,37 @@ footer a:hover{color:var(--bleu)}
   }
 }
 </style>
-<style id="ds-styles">
-/* ═══ DERNIÈRES SORTIES — composant isolé ═══
-   Tout est préfixé #dernieres-sorties / .ds- : aucune règle globale.
-   Fond clair volontairement : la section tranche avec le hero/bandeau
-   sombres qui précèdent. Pas d'étiquette répétée par production :
-   « Dernières sorties » n'apparaît qu'une fois, comme titre de la section. */
-#dernieres-sorties{background:var(--creme);
-  border-top:3px solid var(--noir);border-bottom:3px solid var(--noir)}
-#dernieres-sorties .ds-page-titre{color:var(--bleu);text-align:center}
-#dernieres-sorties .ds-liste{display:grid;gap:56px;margin-top:40px}
-#dernieres-sorties .ds-carte{display:grid;grid-template-columns:160px 1fr 1.3fr;gap:30px;align-items:start}
-@media(max-width:900px){#dernieres-sorties .ds-carte{grid-template-columns:120px 1fr;}#dernieres-sorties .ds-video{grid-column:1/-1}}
-@media(max-width:560px){#dernieres-sorties .ds-carte{grid-template-columns:1fr}}
-/* Affiche du film — pas d'image tant que les droits ne sont pas confirmés */
-#dernieres-sorties .ds-affiche{aspect-ratio:2/3;border:3px solid var(--noir);box-shadow:5px 5px 0 var(--bleu);
-  background:#ece6d8;overflow:hidden}
-#dernieres-sorties .ds-affiche img{width:100%;height:100%;object-fit:cover}
-#dernieres-sorties .ds-film{font-family:var(--F);font-style:italic;font-weight:300;
-  font-size:clamp(32px,4.2vw,52px);line-height:1.1;color:var(--noir)}
-/* Sobre, volontairement : cette page tranche avec les codes POP (gras,
-   majuscules, rose) utilisés ailleurs sur le site. */
-#dernieres-sorties .ds-realisation{margin-top:12px;font-family:var(--A);font-weight:400;
-  font-size:15px;color:#4c4233}
-#dernieres-sorties .ds-role{margin-top:8px;font-family:var(--A);font-weight:400;font-size:14px;color:#4c4233}
-#dernieres-sorties .ds-date{margin-top:6px;font-size:13.5px;color:#6a5e4a}
-#dernieres-sorties .ds-syn-lbl{display:block;margin-top:22px;font-family:var(--A);font-weight:600;
-  font-size:12px;letter-spacing:.03em;color:#6a5e4a}
-#dernieres-sorties .ds-texte{margin-top:8px;font-size:15px;line-height:1.7;color:#4c4233}
-/* Bande-annonce — cadre simple, pas d'étiquette dessus */
-#dernieres-sorties .ds-video{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;
+<style id="dcc-styles">
+/* ═══ DERNIER CASTING COACHÉ — page isolée ═══
+   Préfixe #dcc / .dcc- : pas de classe générique. Même langage visuel
+   que « Dernières sorties » sur la page d'accueil (fond clair, cadres
+   affiche/bande-annonce), repris ici plutôt que réinventé. */
+#dcc-hero{background:var(--creme);padding:120px 40px 40px}
+#dcc-hero h1{font-size:clamp(46px,8vw,104px)}
+@media(max-width:720px){#dcc-hero{padding:100px 22px 30px}}
+#dcc-intro{max-width:62ch;margin-top:18px;font-size:15.5px;line-height:1.72;color:#4c4233}
+#dcc-liste{display:grid;gap:56px;background:var(--creme);padding:48px 40px 90px}
+@media(max-width:720px){#dcc-liste{padding:30px 22px 60px}}
+.dcc-carte{display:grid;grid-template-columns:1fr 1.3fr;gap:36px;align-items:center}
+@media(max-width:720px){.dcc-carte{grid-template-columns:1fr}}
+.dcc-film{font-family:var(--F);font-style:italic;font-weight:300;
+  font-size:clamp(22px,2.6vw,30px);line-height:1.15;color:var(--noir)}
+.dcc-realisation{margin-top:10px;font-family:var(--S);font-weight:800;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--rose)}
+.dcc-role{margin-top:8px;font-family:var(--S);font-weight:800;font-size:10px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--rose)}
+.dcc-date{margin-top:6px;font-size:13.5px;color:#6a5e4a}
+.dcc-texte{margin-top:16px;font-size:15px;line-height:1.7;color:#4c4233}
+.dcc-video{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;
   border:3px solid var(--noir);box-shadow:6px 6px 0 var(--rose);background:#1c1a17;overflow:hidden;
   transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
-#dernieres-sorties .ds-video:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--rose)}
-#dernieres-sorties button.ds-video{cursor:pointer}
-#dernieres-sorties .ds-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-#dernieres-sorties .ds-video .temo-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
-#dernieres-sorties .ds-video:hover .temo-play{transform:translate(-50%,-50%) scale(1.12);background:var(--rose);color:#fff}
-#dernieres-sorties .ds-lien{margin-top:48px;font-family:var(--S);font-weight:800;font-size:13px;
-  letter-spacing:.04em;text-transform:uppercase}
-#dernieres-sorties .ds-lien a{border-bottom:2px solid var(--noir);transition:.2s}
-#dernieres-sorties .ds-lien a:hover{color:var(--rose);border-color:var(--rose)}
+.dcc-video:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--rose)}
+button.dcc-video{cursor:pointer}
+.dcc-cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.dcc-video .temo-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.dcc-video:hover .temo-play{transform:translate(-50%,-50%) scale(1.12);background:var(--rose);color:#fff}
+.dcc-badge{position:absolute;top:10px;left:10px;z-index:3;font-family:var(--S);font-weight:800;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;background:var(--jaune);color:var(--noir);padding:4px 10px}
 </style>
 </head>
 <body>
@@ -1226,13 +1216,13 @@ footer a:hover{color:var(--bleu)}
 <nav id="nav">
   <span class="logo">Yasmina Pastural <b>Training</b></span>
   <div class="nav-links">
-    <a href="#dernieres-sorties" class="nav-link">Dernières sorties</a>
-    <a href="#stage" class="nav-link">Le stage</a>
-    <a href="#semaine" class="nav-link">La semaine</a>
-    <a href="#yasmina" class="nav-link">Yasmina</a>
-    <a href="#filmo" class="nav-link">Filmographie</a>
-    <a href="#presse" class="nav-link">Presse</a>
-    <a href="#communaute" class="nav-link">Communauté</a>
+    <a href="index.html#dernieres-sorties" class="nav-link">Dernières sorties</a>
+    <a href="index.html#stage" class="nav-link">Le stage</a>
+    <a href="index.html#semaine" class="nav-link">La semaine</a>
+    <a href="index.html#yasmina" class="nav-link">Yasmina</a>
+    <a href="index.html#filmo" class="nav-link">Filmographie</a>
+    <a href="index.html#presse" class="nav-link">Presse</a>
+    <a href="index.html#communaute" class="nav-link">Communauté</a>
     <button onclick="location.href='candidater.html'" class="nav-link nav-cta" style="border:none;cursor:pointer">Candidater</button>
   </div>
   <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
@@ -1241,513 +1231,35 @@ footer a:hover{color:var(--bleu)}
 </nav>
 
 <div class="mob" id="mob" aria-hidden="true">
-  <a href="#dernieres-sorties" onclick="closeMob()">Dernières sorties</a>
-  <a href="#stage" onclick="closeMob()">Le stage</a>
-  <a href="#semaine" onclick="closeMob()">La semaine</a>
-  <a href="#yasmina" onclick="closeMob()">Yasmina</a>
-  <a href="#filmo" onclick="closeMob()">Filmographie</a>
-  <a href="#presse" onclick="closeMob()">Presse</a>
-  <a href="#communaute" onclick="closeMob()">Communauté</a>
+  <a href="index.html#dernieres-sorties" onclick="closeMob()">Dernières sorties</a>
+  <a href="index.html#stage" onclick="closeMob()">Le stage</a>
+  <a href="index.html#semaine" onclick="closeMob()">La semaine</a>
+  <a href="index.html#yasmina" onclick="closeMob()">Yasmina</a>
+  <a href="index.html#filmo" onclick="closeMob()">Filmographie</a>
+  <a href="index.html#presse" onclick="closeMob()">Presse</a>
+  <a href="index.html#communaute" onclick="closeMob()">Communauté</a>
   <button onclick="location.href='candidater.html'" class="mcta" style="border:none;cursor:pointer">Candidater →</button>
 </div>
 
-<!-- ═══ HERO ═══ -->
-<section id="hero">
-  <div class="hero-photo" aria-hidden="true">
-    <img src="images/hero-photo.jpg" alt="" loading="eager" fetchpriority="high">
-  </div>
-  <div class="filmstrip" aria-hidden="true"></div>
-  <div class="hero-inner">
-    <span class="hero-badge">★ Formation intensive · Jeu cinéma · Paris</span>
-    <h1 class="hero-h1">
-      <span class="ln">Apprendre à</span>
-      <span class="ln">jouer juste,</span>
-      <span class="ln">devant la caméra.</span>
-    </h1>
-    <p class="hero-sub">Une semaine d'immersion totale avec Yasmina Pastural, coach d'acteurs depuis plus de vingt ans qu'on a pu voir travailler sur les plateaux de Kery James, Mehdi Idir, GCM, Ludovic Colbeau Justin, Mounia Meddour, Claude Zidi Jr... Depuis 2006, elle forme les acteurs à jouer vrai.</p>
-    <div class="hero-acts">
-      <a href="candidater.html" class="btn btn-noir">Candidater au prochain stage</a>
-      <a href="#stage" class="btn btn-white">Découvrir le programme</a>
-    </div>
-  </div>
-  <div class="hero-meta" aria-hidden="true">
-    35H D'IMMERSION · CASTING RÉEL LE VENDREDI<br>
-    SESSION · <b>28 SEPT → 02 OCT 2026</b>
-  </div>
-</section>
-
-<!-- MARQUEE ÉDITO -->
-<div class="marquee" aria-hidden="true">
-  <div class="mq-track">
-    <span>Daniel Prévost <b>✦</b></span><span>Chantal Ladesou <b>✦</b></span>
-    <span>Kery James <b>✦</b></span><span>Grand Corps Malade <b>✦</b></span>
-    <span>Mounia Meddour <b>✦</b></span><span>Amanda Sthers <b>✦</b></span>
-    <span>Nicole Garcia <b>✦</b></span><span>Harvey Keitel <b>✦</b></span>
-    <span>Sylvie Vartan <b>✦</b></span><span>Claude Zidi Jr <b>✦</b></span>
-    <span>Leila Sy <b>✦</b></span><span>Jean Kounen <b>✦</b></span>
-    <span>Alexandre Arcady <b>✦</b></span><span>Elie Wajeman <b>✦</b></span>
-    <span>Daniel Prévost <b>✦</b></span><span>Chantal Ladesou <b>✦</b></span>
-    <span>Kery James <b>✦</b></span><span>Grand Corps Malade <b>✦</b></span>
-    <span>Mounia Meddour <b>✦</b></span><span>Amanda Sthers <b>✦</b></span>
-    <span>Nicole Garcia <b>✦</b></span><span>Harvey Keitel <b>✦</b></span>
-    <span>Sylvie Vartan <b>✦</b></span><span>Claude Zidi Jr <b>✦</b></span>
-    <span>Leila Sy <b>✦</b></span><span>Jean Kounen <b>✦</b></span>
-    <span>Alexandre Arcady <b>✦</b></span><span>Elie Wajeman <b>✦</b></span>
-  </div>
+<div class="mob" id="mob" aria-hidden="true">
+  <a href="index.html#dernieres-sorties" onclick="closeMob()">Dernières sorties</a>
+  <a href="index.html#stage" onclick="closeMob()">Le stage</a>
+  <a href="index.html#semaine" onclick="closeMob()">La semaine</a>
+  <a href="index.html#yasmina" onclick="closeMob()">Yasmina</a>
+  <a href="index.html#filmo" onclick="closeMob()">Filmographie</a>
+  <a href="index.html#presse" onclick="closeMob()">Presse</a>
+  <a href="index.html#communaute" onclick="closeMob()">Communauté</a>
+  <button onclick="location.href='candidater.html'" class="mcta" style="border:none;cursor:pointer">Candidater →</button>
 </div>
 
-<!-- ═══ DERNIÈRES SORTIES ═══ composant isolé : données dans DERNIERES_SORTIES (fin de fichier), style dans #ds-styles -->
-<section id="dernieres-sorties" class="pad">
-  <h2 class="h2-ed ds-page-titre rv">Dernières sorties</h2>
-  <div class="ds-liste rv d1" id="ds-liste"></div>
-  <p class="ds-lien rv d2"><a href="dernier-casting-coache.html">Dernier casting coaché →</a></p>
+<!-- ═══ DERNIER CASTING COACHÉ — page isolée : données dans DCC_CASTINGS, style dans #dcc-styles ═══ -->
+<section id="dcc-hero">
+  <h1 class="h2-ed rv">Dernier casting<br><em>coaché.</em></h1>
+  <p id="dcc-intro" class="rv d1">Contenu à venir.</p>
 </section>
 
-<!-- ═══ 01 · LE STAGE ═══ -->
-<section id="stage" class="pad" style="background:var(--creme);color:var(--noir);border-bottom:3px solid var(--noir)">
-  <span class="lbl lbl-rose rv">Le stage</span>
-  <h2 class="h2-ed rv d1">Une immersion concrète<br>dans le <em>jeu cinéma.</em></h2>
+<div id="dcc-liste" class="rv d2"></div>
 
-  <div class="stage-grid">
-    <div class="stage-body rv d2">
-      <p>Yasmina Pastural a conçu ce stage pour <strong>combler un vide</strong> : entre les cours de jeu classiques et la réalité des plateaux professionnels, il manque un espace pour expérimenter, se tromper, et trouver sa liberté d'acteur devant la caméra.</p>
-      <p>À travers un travail sur la <strong>dramaturgie, les émotions et la connexion à soi</strong>, Yasmina guide chaque participant vers un jeu sincère et incarné, quelles que soient les conditions de tournage.</p>
-      <p>Dans un espace bienveillant et exigeant, on ose la vulnérabilité. On expérimente. On recommence. Et on ressort transformé.</p>
-      <ul class="obj-list">
-        <li>Construire un personnage et travailler sa dramaturgie de l'intérieur</li>
-        <li>Gagner en confiance et en aisance naturelle devant la caméra</li>
-        <li>Faire émerger des émotions justes, sincères, sans forcer</li>
-        <li>Explorer improvisation libre et scènes écrites avec la même liberté</li>
-        <li>Maîtriser sa respiration, apprivoiser le trac et rester ancré</li>
-        <li>Être prêt·e à briller dans un vrai casting professionnel</li>
-      </ul>
-      <p class="stage-tagline">« Repartir plus confiant·e, plus précis·e, et enfin prêt·e pour le plateau. »</p>
-      <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
-        <a href="candidater.html" class="btn btn-noir">Candidater →</a>
-        <a href="#semaine" class="btn btn-white">Programme</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 02 · LA SEMAINE ═══ -->
-<section id="semaine" class="pad" style="background:var(--noir);color:var(--creme);border-top:3px solid var(--jaune);border-bottom:3px solid var(--jaune)">
-  <span class="lbl lbl-jaune rv">La semaine type</span>
-  <h2 class="h2-pop rv d1" style="color:var(--creme)">Cinq jours,<br>une transformation.</h2>
-  <p class="rv d2" style="font-size:15.5px;line-height:1.78;color:var(--gris);max-width:54ch;margin-top:10px">Yasmina a conçu un parcours progressif pour révéler le jeu.</p>
-
-  <div class="days-grid rv d3">
-    <div class="day-c">
-      <div class="day-num">01</div>
-      <div class="day-kick">Lundi · Ouverture</div>
-      <div class="day-title">Libérer le corps</div>
-      <p class="day-desc">Impros libres, création du groupe. Yasmina installe la confiance dès le premier jour. Présence du guest invité.</p>
-    </div>
-    <div class="day-c">
-      <div class="day-num">02</div>
-      <div class="day-kick">Mardi · Présence</div>
-      <div class="day-title">Sincérité du jeu</div>
-      <p class="day-desc">Écoute, ancrage, voix, souffle et présence physique face caméra. Coach vocale.</p>
-    </div>
-    <div class="day-c">
-      <div class="day-num">03</div>
-      <div class="day-kick">Mercredi · Émotions</div>
-      <div class="day-title">Construction du personnage</div>
-      <p class="day-desc">Exploration émotionnelle et dramaturgique à partir du texte. Yoga en fin de journée.</p>
-    </div>
-    <div class="day-c">
-      <div class="day-num">04</div>
-      <div class="day-kick">Jeudi · Dramaturgie</div>
-      <div class="day-title">Se laisser diriger</div>
-      <p class="day-desc">Direction sans perdre sa liberté, se dépasser, séance photo pour le book.</p>
-    </div>
-    <div class="day-c">
-      <div class="day-num">05</div>
-      <div class="day-kick">Vendredi · Casting</div>
-      <div class="day-title">Mise en situation réelle</div>
-      <p class="day-desc">Scène devant un·e directeur·rice de casting, mise en situation, présentation du projet au guest invité.</p>
-    </div>
-  </div>
-
-  <div class="enc-row rv d4" style="margin-top:4px;border:1px solid rgba(255,212,0,.15)">
-    <div class="enc-box">
-      <span class="enc-lbl">Encadrement professionnel</span>
-      <p>Yasmina dirige chaque journée. Une équipe de professionnels du cinéma intervient tout au long de la semaine.</p>
-
-      <div class="itv-list">
-
-        <article class="itv-row">
-          <button class="itv-trigger" type="button" aria-expanded="false">
-            <span class="itv-role">Comédiens</span>
-            <span class="itv-plus"></span>
-          </button>
-          <div class="itv-panel">
-            <div class="itv-panel-in">
-              <h3 class="itv-name">Claudia Tagbo</h3>
-              <p class="itv-bio">Comédienne au sommet de sa carrière. Elle partage son parcours et joue avec le groupe le lundi, une rencontre qui ouvre le jeu dès le premier jour.</p>
-                             <div class="itv-vid-slot" data-intervenant="Claudia Tagbo">
-                <div class="itv-vid-play">▶</div>
-                <span class="itv-vid-label">Vidéo de présentation — à venir</span>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <article class="itv-row">
-          <button class="itv-trigger" type="button" aria-expanded="false">
-            <span class="itv-role">Chant</span>
-            <span class="itv-plus"></span>
-          </button>
-          <div class="itv-panel">
-            <div class="itv-panel-in">
-              <h3 class="itv-name">Feriel Issahnane</h3>
-              <p class="itv-bio">Respiration, rythme, voix, ancrage corporel. Libérer le son, c'est libérer le jeu.</p>
-               <div class="itv-vid-slot" data-intervenant="Feriel Issahnane">
-  <div class="itv-vid-play">▶</div>
-  <span class="itv-vid-label">Vidéo de présentation — à venir</span>
-</div>
-            </div>
-          </div>
-        </article>
-
-        <article class="itv-row">
-          <button class="itv-trigger" type="button" aria-expanded="false">
-            <span class="itv-role">Yoga</span>
-            <span class="itv-plus"></span>
-          </button>
-          <div class="itv-panel">
-            <div class="itv-panel-in">
-              <h3 class="itv-name">Acey Farley</h3>
-              <p class="itv-bio">Yoga le matin : ancrage, gestion du trac, maîtrise du souffle avant d'entrer sur le plateau.</p>
-            <div class="itv-vid-slot" data-intervenant="Acey Farley">
-  <div class="itv-vid-play">▶</div>
-  <span class="itv-vid-label">Vidéo de présentation — à venir</span>
-</div></div>
-          </div>
-        </article>
-
-        <article class="itv-row">
-          <button class="itv-trigger" type="button" aria-expanded="false">
-            <span class="itv-role">Photographe</span>
-            <span class="itv-plus"></span>
-          </button>
-          <div class="itv-panel">
-            <div class="itv-panel-in">
-              <h3 class="itv-name">Thibault Duboucher</h3>
-              <p class="itv-bio">Séance photo individuelle incluse dans le stage : portraits professionnels pour votre dossier artistique.</p>
-            <div class="itv-vid-slot" data-intervenant="Thibault Duboucher">
-  <div class="itv-vid-play">▶</div>
-  <span class="itv-vid-label">Vidéo de présentation — à venir</span>
-</div></div>
-          </div>
-        </article>
-
-        <article class="itv-row">
-          <button class="itv-trigger" type="button" aria-expanded="false">
-            <span class="itv-role">Psychologue</span>
-            <span class="itv-plus"></span>
-          </button>
-          <div class="itv-panel">
-            <div class="itv-panel-in">
-              <h3 class="itv-name">Sophie Brive</h3>
-              <p class="itv-bio">Psychologue de tournage : décoder les blocages et préparer sereinement le casting du vendredi.</p>
-            <div class="itv-vid-slot" data-intervenant="Sophie Brive">
-  <div class="itv-vid-play">▶</div>
-  <span class="itv-vid-label">Vidéo de présentation — à venir</span>
-</div></div>
-          </div>
-        </article>
-
-        <article class="itv-row">
-          <button class="itv-trigger" type="button" aria-expanded="false">
-            <span class="itv-role">Directrice de casting</span>
-            <span class="itv-plus"></span>
-          </button>
-          <div class="itv-panel">
-            <div class="itv-panel-in">
-              <h3 class="itv-name">Julie Gandossi</h3>
-              <p class="itv-bio">Casting réel : retours concrets sur votre jeu, votre présence et votre singularité. Le vendredi qui change tout.</p>
-            <div class="itv-vid-slot" data-intervenant="Julie Gandossi">
-  <div class="itv-vid-play">▶</div>
-  <span class="itv-vid-label">Vidéo de présentation — à venir</span>
-</div></div>
-          </div>
-        </article>
-
-        <!-- POUR AJOUTER UN INTERVENANT : copie un bloc <article class="itv-row">…</article>
-             et change le rôle, le nom et la bio. Rien d'autre à toucher. -->
-
-        <p class="itv-more">D'autres intervenants seront ajoutés au fil des sessions.</p>
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ GALERIE / BACKSTAGE ═══ -->
-<section id="galerie" style="background:var(--creme);color:var(--noir);border-top:3px solid var(--noir);border-bottom:3px solid var(--noir)">
-  <div class="gal-head">
-    <span class="lbl lbl-bleu rv">Dans les coulisses</span>
-    <h2 class="h2-ed rv d1">Une semaine <em>vivante.</em></h2>
-    <p class="rv d2" style="font-size:15px;line-height:1.72;color:#6a5e4a;max-width:52ch;margin-top:10px">Moments de travail, d'échange, de lâcher-prise, tels qu'ils se vivent vraiment.</p>
-    <div class="gal-tabs rv d3" role="tablist">
-      <button class="gal-tab on" role="tab" aria-selected="true" onclick="switchGal('backstage',this)">Vidéos</button>
-      <button class="gal-tab" role="tab" aria-selected="false" onclick="switchGal('photos',this)">Photos</button>
-    </div>
-  </div>
-
-  <div id="gal-photos" style="padding:0 0 28px;display:none">
-    <div class="gal-grid rv d4">
-      <div class="gi gt"><img src="images/face-a-face-studio.jpg" alt="Face-à-face collectif en studio" loading="lazy"></div>
-      <div class="gi gt"><img src="images/yoga-collectif.jpg" alt="Yoga collectif" loading="lazy"></div>
-      <div class="gi"><img src="images/direction-d-acteurs.jpg" alt="Direction d'acteurs" loading="lazy"></div>
-      <div class="gi"><img src="images/cohesion-du-groupe.jpg" alt="Cohésion du groupe" loading="lazy"></div>
-      <div class="gi gt"><img src="images/seance-photo-book.jpg" alt="Séance photo book" loading="lazy"></div>
-      <div class="gi"><img src="images/impro.jpg" alt="Impro" loading="lazy"></div>
-      <div class="gi"><img src="images/cercle-de-travail.jpg" alt="Cercle de travail" loading="lazy"></div>
-      <div class="gi gw"><img src="images/pleniere-studio.jpg" alt="Plénière studio" loading="lazy"></div>
-      <div class="gi"><img src="images/backstage.jpg" alt="Backstage" loading="lazy"></div>
-      <div class="gi"><img src="images/fin-de-stage.jpg" alt="Fin de stage" loading="lazy"></div>
-
-    </div>
-  </div>
-
-  <div id="gal-backstage" class="bs-pane">
-    <span class="bs-label">Sur le plateau</span>
-    <button class="gal-feat" type="button" data-yt="5cMvWxLaZ0Y" aria-label="Lire l'extrait d'acting"></button>
-    <p class="gal-feat-cap"><b>Acting&nbsp;·&nbsp;extrait brut</b> travail face caméra, en conditions réelles de tournage</p>
-  </div>
-</section>
-
-<!-- ═══ 03 · YASMINA ═══ -->
-<section id="yasmina" class="pad" style="background:var(--bleu);color:#fff;border-top:3px solid var(--noir);border-bottom:3px solid var(--noir);position:relative;overflow:hidden">
-  <div style="position:absolute;width:380px;height:380px;border-radius:50%;background:var(--rose-e);right:-80px;bottom:-80px;opacity:.18;filter:blur(4px);pointer-events:none"></div>
-  <span class="lbl lbl-jaune rv">La coach</span>
-  <div class="bio-grid">
-    <div class="rv-l">
-      <div class="portrait-frame">
-        <img src="images/yasmina-pastural-coach-d-acteurs-cinema.jpg" alt="Yasmina Pastural, coach d'acteurs cinéma" loading="lazy">
-      </div>
-      <div class="keitel-card">
-        <img src="images/yasmina-pastural-et-harvey-keitel-madame-2017.jpg" alt="Yasmina Pastural et Harvey Keitel, Madame 2017" loading="lazy">
-        <div class="keitel-txt">
-          <strong>Harvey Keitel · Madame (2017)</strong>
-          Yasmina a coaché Harvey Keitel sur le tournage d'Amanda Sthers, collaboration devenue emblématique de son parcours.
-        </div>
-      </div>
-    </div>
-    <div class="bio-right rv-r d2">
-      <h2>Yasmina<br>Pastural.</h2>
-      <div class="bio-sub-label">Coach acteurs · Formatrice · 2006 →</div>
-      <p class="bio-p">Je suis passionnée de cinéma depuis ma plus tendre enfance. Très jeune, j'ai découvert les films de <strong>Claude Lelouch</strong>, <strong>Alexandre Arcady</strong>, <strong>Cédric Klapisch</strong>, <strong>Martin Scorsese</strong> et <strong>Francis Ford Coppola</strong>. Leur univers a nourri mon imagination et m'a donné très tôt l'envie de raconter des histoires et de faire partie de ce monde.</p>
-      <p class="bio-p">J'ai commencé le théâtre à l'âge de huit ans. Cette passion ne m'a jamais quittée et m'a naturellement menée vers une carrière de comédienne professionnelle à partir de 2003.</p>
-      <p class="bio-p">Un tournant important de mon parcours a été ma rencontre avec <strong>Lola Doillon</strong>, qui préparait son premier long métrage. C'est à cette période que j'ai découvert le coaching d'acteurs et que j'ai compris que l'accompagnement des comédiens était une véritable vocation.</p>
-      <p class="bio-p">Depuis plus de vingt ans, je mets mon expérience au service des acteurs, qu'ils tournent pour la première fois ou qu'ils soient déjà confirmés. J'ai eu la chance de collaborer sur de nombreux films, notamment <em>Les Murs</em> de Christian Faure, <em>Maison de retraite</em> avec Kev Adams, ainsi que de nombreux autres projets, en accompagnant les comédiens dans leur préparation.</p>
-      <p class="bio-p">Au fil des années, j'ai également travaillé avec de nombreux artistes, parmi lesquels <strong>Harvey Keitel</strong> et <strong>Sylvie Vartan</strong>. J'ai produit une centaine de contenus vidéo et de publicités, et j'ai eu l'opportunité de travailler en France, aux États-Unis, au Canada, au Gabon, en Corée du Sud, en Espagne et dans d'autres pays.</p>
-      <p class="bio-p">J'ai participé à des projets très différents, comme <em>Yo Mama</em> ou <em>La Vie scolaire</em>, en accompagnant aussi bien des enfants, des adolescents que des adultes.</p>
-      <p class="bio-p">Ce qui m'anime profondément, c'est la transmission. J'aime révéler le potentiel des comédiens, les aider à prendre confiance, à trouver leur vérité de jeu et à s'épanouir devant la caméra.</p>
-      <p class="bio-p">Aujourd'hui, je propose des trainings d'acteurs destinés aussi bien aux professionnels qu'aux personnes qui souhaitent découvrir le métier de comédien. Mon objectif est de vous accompagner avec exigence, bienveillance et passion dans cette formidable aventure artistique.</p>
-      <div class="stats-grid">
-        <div class="stat-c"><div class="stat-n" data-count="20"><span>0</span><sup>ans</sup></div><div class="stat-l">sur les plateaux</div></div>
-        <div class="stat-c"><div class="stat-n" data-count="15"><span>0</span><sup>+</sup></div><div class="stat-l">acteurs coachés nommés aux César</div></div>
-        <div class="stat-c"><div class="stat-n" data-count="100"><span>0</span><sup>+</sup></div><div class="stat-l">productions accompagnées</div></div>
-        <div class="stat-c"><div class="stat-n" data-count="50"><span>0</span><sup>+</sup></div><div class="stat-l">réalisateurs</div></div>
-      </div>
-      <div class="coached-list">
-        <span class="coached-lbl">Parmi les comédiens coachés</span>
-        <p class="coached-names">Harvey Keitel · Sylvie Vartan · Bakary Diombera · Christa Théret · Finnegan Oldfield · Émile Berling · Thomas Solivérès · Dali Benssalah · Claudia Tagbo · Kery James · Daniel Prévost · Liam Pierron · Samy Seghir · La Fouine · Waly Dia</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 04 · FILMOGRAPHIE ═══ -->
-<section id="filmo" class="pad" style="background:var(--noir);color:var(--creme);padding-bottom:0;border-top:3px solid var(--rose);border-bottom:3px solid var(--rose)">
-  <span class="lbl lbl-rose rv">Filmographie</span>
-  <h2 class="h2-ed rv d1" style="color:var(--creme)">Films sur lesquels<br><em>Yasmina a travaillé.</em></h2>
-  <p class="rv d2" style="font-size:15px;line-height:1.72;color:var(--gris);max-width:54ch;margin-top:10px">Coach acteurs sur les plateaux de ces productions, aux côtés de leurs réalisateurs et comédiens.</p>
-</section>
-
-<div class="pellicule rv">
-  <div class="affiches" role="list">
-    <div class="aff" data-film="Madame"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Amanda Sthers · 2017</span></div></div><div class="aff-name">Madame</div><div class="aff-sub">Harvey Keitel</div></div>
-    <div class="aff" data-film="Casse-tête chinois"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Klapisch · 2013</span></div></div><div class="aff-name">Casse-tête chinois</div><div class="aff-sub">Klapisch</div></div>
-    <div class="aff" data-film="La Vie scolaire"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Grand Corps Malade · 2019</span></div></div><div class="aff-name">La Vie scolaire</div><div class="aff-sub">Grand Corps Malade</div></div>
-    <div class="aff" data-film="Banlieusards"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Kery James · 2019</span></div></div><div class="aff-name">Banlieusards</div><div class="aff-sub">Kery James</div></div>
-    <div class="aff" data-film="Coco Chanel &amp; Igor"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Jan Kounen · 2009</span></div></div><div class="aff-name">Coco Chanel &amp; Igor</div><div class="aff-sub">Jan Kounen</div></div>
-    <div class="aff" data-film="Quand tu seras grand"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Bescond &amp; Métayer · 2023</span></div></div><div class="aff-name">Quand tu seras grand</div><div class="aff-sub">Bescond &amp; Métayer</div></div>
-    <div class="aff" data-film="Dans la brume"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Daniel Roby · 2018</span></div></div><div class="aff-name">Dans la brume</div><div class="aff-sub">Daniel Roby</div></div>
-    <div class="aff" data-film="Roqya"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Roqya</span></div></div><div class="aff-name">Roqya</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Le Blond de la Casbah"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Le Blond de la Casbah</span></div></div><div class="aff-name">Le Blond de la Casbah</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Léo Mattéï"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Léo Mattéï · Série TV</span></div></div><div class="aff-name">Léo Mattéï</div><div class="aff-sub">Série TV</div></div>
-    <div class="aff" data-film="La plus belle pour danser"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">La plus belle pour danser</span></div></div><div class="aff-name">La plus belle pour danser</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Yo Mama"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Yo Mama</span></div></div><div class="aff-name">Yo Mama</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Y a pas de réseau"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Y a pas de réseau</span></div></div><div class="aff-name">Y a pas de réseau</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Maison de retraite 2"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Maison de retraite 2</span></div></div><div class="aff-name">Maison de retraite 2</div><div class="aff-sub">&nbsp;</div></div>
-  </div>
-</div>
-
-<section class="pad" style="background:var(--noir);color:var(--creme);padding-top:0;border-bottom:3px solid var(--rose)">
-  <div class="filmo-split rv">
-    <div>
-      <span class="films-lbl">Filmographie complète</span>
-      <div class="films-cols">
-        <div class="film-row">Quand tu seras grand<small>Bescond & Métayer</small></div>
-        <div class="film-row">Dans la brume<small>Daniel Roby</small></div>
-        <div class="film-row">Saint-Ex<small>Pablo Agüero</small></div>
-        <div class="film-row">Quelques mots d'amour</div>
-        <div class="film-row">Maison de retraite</div>
-        <div class="film-row">Maison de retraite 2</div>
-        <div class="film-row">Y a pas de réseau</div>
-        <div class="film-row">Roqya</div>
-        <div class="film-row">Le Blond de la Casbah</div>
-        <div class="film-row">Yo Mama</div>
-        <div class="film-row">La plus belle pour danser</div>
-        <div class="film-row">Léo Matteï<small>Série TV</small></div>
-        <div class="film-row">Tapie<small>Série</small></div>
-        <div class="film-row">Malika</div>
-        <div class="film-row">Le Panache</div>
-        <div class="film-row">Métamorph</div>
-        <div class="film-row">Engrenages<small>Série</small></div>
-        <div class="film-row">Le crime lui va si bien</div>
-        <div class="film-row">Juste un regard</div>
-        <div class="film-row">Père et fils thérapie</div>
-        <div class="film-row">Braqueurs</div>
-        <div class="film-row">C'est qui les plus forts</div>
-        <div class="film-row">On voulait tout casser</div>
-        <div class="film-row">À toute épreuve</div>
-        <div class="film-row">Les hauts murs</div>
-        <div class="film-row">Et toi t'es sur qui ?</div>
-      </div>
-    </div>
-    <!-- Keitel card à côté -->
-    <div class="keitel-filmo rv-r d2">
-      <img src="images/yasmina-pastural-et-harvey-keitel.jpg" alt="Yasmina Pastural et Harvey Keitel">
-      <div class="keitel-filmo-body">
-        <strong>Harvey Keitel · Madame</strong>
-        <span>Amanda Sthers · 2017</span>
-      </div>
-    </div>
-  </div>
-  <div class="real-sect rv d3">
-    <span class="real-lbl">Réalisateurs</span>
-    <div class="real-tags">
-      <span class="real-tag">Cédric Klapisch</span>
-      <span class="real-tag">Lola Doillon</span>
-      <span class="real-tag">Nicole Garcia</span>
-      <span class="real-tag">Kery James</span>
-      <span class="real-tag">Grand Corps Malade</span>
-      <span class="real-tag">Mounia Meddour</span>
-      <span class="real-tag">Amanda Sthers</span>
-      <span class="real-tag">Claude Zidi Jr</span>
-      <span class="real-tag">Andréa Bescond</span>
-      <span class="real-tag">Jan Kounen</span>
-      <span class="real-tag">Daniel Roby</span>
-      <span class="real-tag">Pablo Agüero</span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 06 · TÉMOIGNAGES ═══ -->
-<section id="temoignages" class="pad" style="background:var(--noir);color:var(--creme);border-top:3px solid var(--jaune)">
-  <span class="lbl lbl-jaune rv">Leurs mots</span>
-  <h2 class="h2-ed rv d1" style="color:var(--creme)">Ce qu'ils<br><em>en retiennent.</em></h2>
-  <div class="temo-grid rv d2">
-    <div class="temo-c temo-feat">
-      <button class="temo-vid vert" type="button" data-yt="nVw1CNUJG68" aria-label="Lire l'interview"></button>
-    </div>
-    <div class="temo-c temo-feat">
-      <button class="temo-vid vert" type="button" data-yt="klPA8eYbf48" aria-label="Lire l'interview"></button>
-    </div>
-    <div class="temo-c soon">
-      <div class="temo-vid"><img class="temo-thumb" src="images/temoignage-thumb-2.jpg" alt=""></div>
-      <div class="temo-body"><p class="temo-q">« Yasmina voit ce que personne ne voit. Elle sait exactement où vous bloquez, et comment en sortir. Ça change tout. »</p><div class="temo-who">Interview 03 · bientôt</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 07 · PRESSE + BACKSTAGE ═══ -->
-<section id="presse" class="pad" style="background:var(--jaune);color:var(--noir);border-top:3px solid var(--noir);border-bottom:3px solid var(--noir)">
-  <span class="lbl lbl-bleu rv">Presse & Tournage</span>
-  <h2 class="h2-ed rv d1">La presse <em>témoigne.</em></h2>
-  <div class="press-grid rv d2">
-    <!-- Article Le Parisien -->
-    <a class="press-c link" href="https://www.leparisien.fr/culture-loisirs/elle-coache-les-gamins-de-la-colo-30-04-2012-1978189.php" target="_blank" rel="noopener">
-      <div class="press-src"><span class="press-logo">Le Parisien</span><span class="press-date">Avr. 2012</span></div>
-      <blockquote class="press-quote">«&nbsp;Elle coache les gamins de la colo&nbsp;»</blockquote>
-      <div class="press-tags"><span class="press-tag">Portrait</span><span class="press-tag">Coaching</span></div>
-      <div class="press-cta">Lire l'article <span class="press-arrow">→</span></div>
-    </a>
-    <!-- Vidéo backstage — emplacement en attente du fichier -->
-    <div class="press-c dim" aria-disabled="true">
-      <div class="press-src"><span class="press-logo">Vidéo</span><span class="press-date">Backstage</span></div>
-      <blockquote class="press-quote">Tournage du stage — extrait à venir.</blockquote>
-      <div class="press-tags"><span class="press-tag">Coulisses</span></div>
-    </div>
-    <!-- TikTok Gaumont Pathé -->
-    <div class="press-c press-tktk" onclick="window.open('https://vm.tiktok.com/ZNRw1TCF6/','_blank')">
-      <div class="tktk-play">▶</div>
-      <p>Reportage Gaumont Pathé · Yasmina Pastural Training</p>
-      <a href="https://vm.tiktok.com/ZNRw1TCF6/" target="_blank" rel="noopener" onclick="event.stopPropagation()">Voir sur TikTok →</a>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 08 · COMMUNAUTÉ ═══ -->
-<section id="communaute" class="pad" style="background:var(--noir);color:var(--creme);border-top:3px solid var(--rose)">
-  <span class="lbl lbl-rose rv">Communauté</span>
-  <h2 class="h2-ed rv d1" style="color:var(--creme)">Rester dans<br><em>la lumière.</em></h2>
-  <p class="rv d2" style="font-size:15.5px;line-height:1.78;color:var(--gris);max-width:52ch;margin-top:10px">Coulisses, conseils de jeu et nouvelles dates — ne ratez aucune place.</p>
-  <div class="soc-grid">
-    <a class="soc-c live rv d1" href="https://www.instagram.com/yasminapastural_training?igsh=ZjRzY21zeWVtZmpw" target="_blank" rel="noopener">
-      <span class="soc-icon">◎</span>
-      <span class="soc-name">Instagram</span>
-      <span class="soc-handle">@yasminapasturaltraining</span>
-      <span class="soc-cta">Suivre →</span>
-    </a>
-    <a class="soc-c live rv d2" href="https://vm.tiktok.com/ZNRw1TCF6/" target="_blank" rel="noopener">
-      <span class="soc-icon">♪</span>
-      <span class="soc-name">TikTok</span>
-      <span class="soc-handle">Voir le reportage</span>
-      <span class="soc-cta">Découvrir →</span>
-    </a>
-    <span class="soc-c soon rv d3">
-      <span class="soc-icon" style="color:rgba(243,238,228,.25)">▷</span>
-      <span class="soc-name">YouTube</span>
-      <span class="soc-handle">Bientôt</span>
-    </span>
-  </div>
-  <div class="nl-block rv d4">
-    <div>
-      <div class="nl-title">La newsletter</div>
-      <div class="nl-sub">Nouvelles dates en avant-première.</div>
-    </div>
-    <div class="nl-form">
-      <input type="email" id="nl-em" placeholder="Votre e-mail" aria-label="E-mail">
-      <button type="button" onclick="doNL()">S'inscrire</button>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SESSION / CTA ═══ -->
-<section id="session" class="pad" style="background:var(--creme);color:var(--noir);border-top:3px solid var(--noir);border-bottom:3px solid var(--noir)">
-  <span class="lbl lbl-noir rv">Prochaine session</span>
-  <h2 class="h2-ed rv d1">Réservez<br><em>votre place.</em></h2>
-  <div class="sess-box rv d2">
-    <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:var(--bleu);top:-120px;left:50%;transform:translateX(-50%);opacity:.18;filter:blur(4px);pointer-events:none"></div>
-    <div style="position:relative;z-index:2">
-      <span class="sess-date">Session · <span>28 Septembre → 2 Octobre 2026</span> · Paris</span>
-      <div class="sess-price">850 €</div>
-      <div class="sess-note">paiement sécurisé · photo de book incluse · sur candidature</div>
-      <p class="sess-desc">Une semaine intensive au cœur du jeu cinéma avec Yasmina Pastural et une équipe de professionnels du cinéma. Groupe restreint.</p>
-      <div class="sess-acts">
-        <a href="candidater.html" class="btn btn-noir">Candidater maintenant</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
   <span class="ft-logo">Yasmina Pastural <b>Training</b></span>
   <div>
@@ -1758,277 +1270,7 @@ footer a:hover{color:var(--bleu)}
   <div><a href="mentions-legales.html">Mentions légales</a>&ensp;·&ensp;<a href="confidentialite.html">Confidentialité</a>&ensp;·&ensp;<a href="mes-donnees.html">Mes données</a>&ensp;·&ensp;<a href="#" data-cookies-open>Cookies</a>&ensp;·&ensp;© 2026</div>
 </footer>
 
-<!-- MODAL CANDIDATURE -->
-<div id="mov" role="dialog" aria-modal="true" aria-label="Candidature au stage">
-  <div id="mbox">
-    <!-- Header sticky -->
-    <div id="mclose">
-      <span class="mclose-logo">Yasmina Pastural <em>Training</em></span>
-      <button id="mclose-btn" onclick="closeMod()" aria-label="Fermer">✕</button>
-    </div>
-    <!-- Contenu inscription -->
-    <div id="mov-inner">
-<!-- MANTRA -->
-<div class="mantra">
-  <p class="mantra-q">« Il n'y a pas d'erreur, que de l'apprentissage. »</p>
-  <span class="mantra-sig">Le mantra du stage · Yasmina Pastural</span>
-</div>
-
-<!-- BODY -->
-<div class="body">
-
-  <!-- DOCUMENTS -->
-  <span class="section-tag j rv">Documents à préparer</span>
-  <h2 class="section-tit rv d1">Ce que Yasmina<br>vous demandera.</h2>
-
-  <!-- Intro mail -->
-  <div class="mail-intro rv d2">
-    <div class="mail-icon">📬</div>
-    <div class="mail-txt">
-      <strong>Après validation de votre candidature</strong>
-      Yasmina vous envoie un mail depuis <strong style="color:var(--C);font-family:var(--SG);font-size:inherit;font-weight:600;text-transform:none;letter-spacing:0">contact@yasminapasturaltraining.com</strong> avec les éléments à lui retourner avant le début du stage. Voici ce qui vous sera demandé.
-    </div>
-  </div>
-
-  <div class="docs-grid rv d3">
-    <div class="doc">
-      <div class="doc-num">01</div>
-      <div class="doc-tit">Questionnaire d'inscription</div>
-      <p class="doc-body">Inclus dans le mail de Yasmina : quelques questions sur votre parcours, vos attentes, ce qui vous amène à ce stage. À compléter et retourner par email avant la première journée.</p>
-      <span class="doc-tag">Fourni par Yasmina</span>
-      <span class="doc-send">À retourner par email</span>
-    </div>
-    <div class="doc">
-      <div class="doc-num">02</div>
-      <div class="doc-tit">Fiche de renseignements</div>
-      <p class="doc-body">Document administratif joint au mail : coordonnées complètes, contact d'urgence, informations médicales si besoin. Nécessaire pour l'organisation du stage.</p>
-      <span class="doc-tag">Fourni par Yasmina</span>
-      <span class="doc-send">À retourner signé</span>
-    </div>
-    <div class="doc">
-      <div class="doc-num">03</div>
-      <div class="doc-tit">Vidéo de présentation</div>
-      <p class="doc-body">Deux minutes libres : qui vous êtes, votre rapport au jeu, pourquoi ce stage maintenant. Pas de mise en scène : c'est vous qu'on veut voir, pas un personnage. Lien YouTube, Vimeo ou Drive.</p>
-      <span class="doc-tag">2 min · sans filtre</span>
-      <span class="doc-send">Lien URL à envoyer</span>
-    </div>
-    <div class="doc">
-      <div class="doc-num">04</div>
-      <div class="doc-tit">CV artistique</div>
-      <p class="doc-body">Votre parcours : formations, expériences scènes/plateau/TV. Même minimal, il est le point de départ du regard de Yasmina sur vous. PDF de préférence.</p>
-      <span class="doc-tag">PDF</span>
-      <span class="doc-send">En pièce jointe</span>
-    </div>
-    <div class="doc">
-      <div class="doc-num">05</div>
-      <div class="doc-tit">Photo récente</div>
-      <p class="doc-body">Naturelle, en bonne lumière, non retouchée. Pas une photo professionnelle, une photo qui vous ressemble. Yasmina veut voir votre présence, pas votre book.</p>
-      <span class="doc-tag">JPG ou PNG</span>
-      <span class="doc-send">En pièce jointe</span>
-    </div>
-    <div class="doc">
-      <div class="doc-num">06</div>
-      <div class="doc-tit">Texte personnel</div>
-      <p class="doc-body">Un texte que vous aimez : scène, monologue, extrait. Quelque chose qui vous touche et que vous avez envie de travailler. Vous l'apportez le premier jour et Yasmina vous guide dessus toute la semaine.</p>
-      <span class="doc-tag">Votre choix · à apporter</span>
-      <span class="doc-send">À apporter en salle</span>
-    </div>
-  </div>
-
-  <!-- À APPORTER -->
-  <div class="apport-block rv d4">
-    <span class="apport-lbl">À apporter chaque matin</span>
-    <div class="apport-grid">
-      <div class="apport-item">
-        <span class="apport-emoji">👗</span>
-        <div class="apport-txt"><strong>Tenue confortable</strong><span>Permettant le mouvement</span></div>
-      </div>
-      <div class="apport-item">
-        <span class="apport-emoji">🧘</span>
-        <div class="apport-txt"><strong>Tapis de yoga</strong><span>Pour les matins</span></div>
-      </div>
-      <div class="apport-item">
-        <span class="apport-emoji">📄</span>
-        <div class="apport-txt"><strong>Votre texte</strong><span>Fil conducteur de la semaine</span></div>
-      </div>
-      <div class="apport-item">
-        <span class="apport-emoji">📓</span>
-        <div class="apport-txt"><strong>Carnet & stylo</strong><span>Pour noter, garder trace</span></div>
-      </div>
-      <div class="apport-item">
-        <span class="apport-emoji">💧</span>
-        <div class="apport-txt"><strong>Bouteille d'eau</strong><span>5 jours intenses</span></div>
-      </div>
-      <div class="apport-item">
-        <span class="apport-emoji">✨</span>
-        <div class="apport-txt"><strong>Bonne disposition</strong><span>Le reste, Yasmina s'en charge</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- PRATIQUE -->
-  <span class="section-tag b rv">Infos pratiques</span>
-  <h2 class="section-tit rv d1">Tout savoir<br>avant d'arriver.</h2>
-  <div class="prat-grid rv d2">
-    <div class="prat-c">
-      <div class="prat-e">📅</div>
-      <div class="prat-tit">Dates & horaires</div>
-      <p class="prat-txt">Du lundi 28 septembre au vendredi 2 octobre 2026. Horaires précis communiqués une semaine avant le début.</p>
-    </div>
-    <div class="prat-c">
-      <div class="prat-e">📍</div>
-      <div class="prat-tit">Lieu</div>
-      <p class="prat-txt">Paris, studio professionnel. L'adresse exacte est communiquée après confirmation de votre inscription.</p>
-    </div>
-    <div class="prat-c">
-      <div class="prat-e">💳</div>
-      <div class="prat-tit">Tarif & paiement</div>
-      <p class="prat-txt">850 € pour la session complète, photo de book incluse. Paiement sécurisé au moment de la candidature.</p>
-    </div>
-    <div class="prat-c">
-      <div class="prat-e">📸</div>
-      <div class="prat-tit">Séance photo incluse</div>
-      <p class="prat-txt">Séance individuelle incluse dans le stage : portraits pros pour votre dossier artistique, comprise dans le tarif.</p>
-    </div>
-    <div class="prat-c">
-      <div class="prat-e">👥</div>
-      <div class="prat-tit">Groupe restreint</div>
-      <p class="prat-txt">Maximum 14 participants. Chaque stagiaire est suivi individuellement par Yasmina tout au long de la semaine.</p>
-    </div>
-    <div class="prat-c">
-      <div class="prat-e">✉️</div>
-      <div class="prat-tit">Contact</div>
-      <p class="prat-txt"><a href="mailto:contact@yasminapasturaltraining.com">contact@yasminapasturaltraining.com</a><br>Réponse sous 48h.</p>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- FORMULAIRE -->
-  <span class="section-tag r rv" id="candidature">Formulaire</span>
-  <h2 class="section-tit rv d1" style="margin-bottom:32px">Votre<br><em style="font-family:var(--F);font-style:italic;font-weight:300;color:var(--J)">candidature.</em></h2>
-
-  <div class="cand-wrap rv d2">
-    <div class="cand-head">
-      <h3 class="cand-h">Rejoindre<br>le <em>stage</em></h3>
-      <p class="cand-sub">Places limitées à 14 participants. Après réception de votre candidature, Yasmina vous contacte sous 48h. En cas de validation, vous recevez un lien de paiement sécurisé.</p>
-    </div>
-
-    <div id="miform-wrap">
-      <!-- 01 Profil -->
-      <div class="step">
-        <div class="step-div"></div>
-        <div class="step-lbl">01 · Votre profil</div>
-        <div class="fr">
-          <div class="fg"><label for="mifp">Prénom <span class="req" aria-hidden="true">*</span></label><input type="text" id="mifp" placeholder="Marie" required autocomplete="given-name"><span class="err-msg">Merci d'indiquer votre prénom.</span></div>
-          <div class="fg"><label for="mifn">Nom <span class="req" aria-hidden="true">*</span></label><input type="text" id="mifn" placeholder="Dupont" required autocomplete="family-name"><span class="err-msg">Merci d'indiquer votre nom.</span></div>
-        </div>
-        <div class="fr">
-          <div class="fg"><label for="mife">E-mail <span class="req" aria-hidden="true">*</span></label><input type="email" id="mife" placeholder="marie@example.com" required autocomplete="email"><span class="err-msg">Adresse e-mail invalide.</span></div>
-          <div class="fg"><label for="mift">Téléphone <span class="req" aria-hidden="true">*</span></label><input type="tel" id="mift" placeholder="+33 6 …" required autocomplete="tel"><span class="err-msg">Merci d'indiquer un numéro joignable.</span></div>
-        </div>
-        <div class="fg"><label for="mifv">Ville</label><input type="text" id="mifv" placeholder="Paris" autocomplete="address-level2"></div>
-      </div>
-
-      <!-- 02 Parcours -->
-      <div class="step">
-        <div class="step-div"></div>
-        <div class="step-lbl">02 · Votre parcours</div>
-        <div class="fg"><label for="miff">Formation(s) suivie(s)</label><input type="text" id="miff" placeholder="Cours Florent, Conservatoire…"></div>
-        <div class="fg"><label for="mifx">Expériences (films, séries, théâtre…)</label><textarea id="mifx" rows="3" placeholder="Courte description de vos projets récents…"></textarea></div>
-        <div class="fg"><label for="mifm">Pourquoi ce stage ? Qu'attendez-vous de cette semaine ? <span class="req" aria-hidden="true">*</span></label><textarea id="mifm" placeholder="Soyez précis·e et sincère ; Yasmina lit chaque candidature avec attention." required></textarea><span class="err-msg">Ce champ nous aide à comprendre votre démarche.</span></div>
-      </div>
-
-      <!-- 03 Docs -->
-      <div class="step">
-        <div class="step-div"></div>
-        <div class="step-lbl">03 · Documents à joindre</div>
-        <div class="fg">
-          <label for="miflink">Lien vidéo de présentation (2 min)</label>
-          <input type="url" id="miflink" placeholder="https://youtu.be/… ou lien Drive">
-        </div>
-        <div class="fg">
-          <label>CV artistique (PDF, max 5 Mo)</label>
-          <div class="upload-zone" id="uzone" onclick="document.getElementById('mifcv').click()" role="button" tabindex="0" aria-label="Déposer votre CV">
-            <div class="uz-icon">↑</div>
-            <div class="uz-main">Déposer ou <u>parcourir</u></div>
-            <div class="uz-sub" id="uzname">PDF · max 5 Mo</div>
-          </div>
-          <input type="file" id="mifcv" accept=".pdf" style="display:none" onchange="handleMIFile(this)">
-        </div>
-      </div>
-
-      <!-- Paiement — encart indépendant, hors étapes -->
-      <div class="pay-block" role="radiogroup" aria-labelledby="pay-lbl">
-        <div class="pay-kicker" id="pay-lbl"><i></i><span>Règlement</span></div>
-        <p class="pay-intro">Le paiement n'est déclenché qu'après validation de votre candidature par Yasmina. Indiquez simplement la formule qui vous convient ; rien n'est débité à ce stade.</p>
-        <div class="pay-row">
-          <div class="po">
-            <input type="radio" name="mipay" id="mipy1" value="1x" checked onchange="upMIAlma()">
-            <label for="mipy1">
-              <span class="po-amt">850 €</span>
-              <span class="po-lbl">En 1 fois</span>
-              <span class="po-total">Paiement unique</span>
-            </label>
-          </div>
-          <div class="po">
-            <input type="radio" name="mipay" id="mipy2" value="2x" onchange="upMIAlma()">
-            <label for="mipy2">
-              <span class="alma-badge">Alma</span>
-              <span class="po-amt">850 €</span>
-              <span class="po-lbl">En 2 fois</span>
-              <span class="po-total">2 × 425 € · sans frais</span>
-            </label>
-          </div>
-          <div class="po">
-            <input type="radio" name="mipay" id="mipy3" value="3x" onchange="upMIAlma()">
-            <label for="mipy3">
-              <span class="alma-badge">Alma</span>
-              <span class="po-amt">850 €</span>
-              <span class="po-lbl">En 3 fois</span>
-              <span class="po-total">3 versements · sans frais</span>
-            </label>
-          </div>
-        </div>
-        <div class="alma-note" id="an">Paiement en plusieurs fois assuré par <strong>Alma</strong>. Aucuns frais supplémentaires : le total reste de 850 €.</div>
-        <p class="pay-secure"><b>Paiement sécurisé</b> · Carte bancaire · Alma · Lien transmis après validation</p>
-      </div>
-
-      <!-- Piege a robots : invisible pour un humain, rempli par les spammeurs -->
-      <div class="hp-field" aria-hidden="true">
-        <label for="mifwebsite">Ne pas remplir</label>
-        <input type="text" id="mifwebsite" name="website" tabindex="-1" autocomplete="off">
-      </div>
-
-      <!-- Acceptation -->
-      <div class="form-alert" id="mifalert" role="alert" aria-live="polite"></div>
-      <label class="check-row">
-        <input type="checkbox" id="mifcheck" required>
-        <span>J'ai pris connaissance du programme et des informations pratiques, et je souhaite candidater à la session du <strong>28 septembre au 2 octobre 2026</strong>.</span>
-      </label>
-
-      <!-- Submit -->
-      <div class="sub-block">
-        <button class="sub-btn" onclick="doMISubmit(event)"><span>Envoyer ma candidature →</span></button>
-        <p class="sub-note">Réponse sous 48h · Places limitées · <a href="mailto:contact@yasminapasturaltraining.com">contact@yasminapasturaltraining.com</a></p>
-      </div>
-    </div>
-
-    <!-- Succès -->
-    <div id="miform-ok">
-      <span class="ok-pulse">✦</span>
-      <div class="ok-tit">Candidature envoyée !</div>
-      <p class="ok-body">Yasmina vous contactera dans les 48h pour un échange téléphonique. En cas de validation, vous recevrez votre lien de paiement sécurisé et le questionnaire d'inscription complet.</p>
-    </div>
-  </div>
-
-</div><!-- /body -->
-    </div>
-  </div>
-</div>
-
+<script src="consentement.js" defer></script>
 <script>
 /* PROGRESS */
 const prog=document.getElementById('prog');
@@ -2038,11 +1280,6 @@ window.addEventListener('scroll',()=>{const h=document.documentElement;prog.styl
 const navEl=document.getElementById('nav');
 window.addEventListener('scroll',()=>navEl.classList.toggle('dark',window.scrollY>60),{passive:true});
 
-/* ACTIVE LINKS */
-const secs=document.querySelectorAll('section[id]');
-const nls=document.querySelectorAll('.nav-link[href^="#"]');
-new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)nls.forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+e.target.id));});},{threshold:.28}).observe && secs.forEach(s=>new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)nls.forEach(a=>a.classList.toggle('act',a.getAttribute('href')==='#'+s.id));});},{threshold:.28}).observe(s));
-
 /* MOBILE */
 const burg=document.getElementById('burger'),mob=document.getElementById('mob');
 function closeMob(){burg.classList.remove('open');mob.classList.remove('open');burg.setAttribute('aria-expanded','false');mob.setAttribute('aria-hidden','true');document.body.style.overflow='';}
@@ -2050,232 +1287,24 @@ burg.addEventListener('click',()=>{const o=burg.classList.toggle('open');mob.cla
 
 /* REVEAL */
 const rvs=document.querySelectorAll('.rv,.rv-l,.rv-r');
-new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.08,rootMargin:'0px 0px -30px 0px'}).observe&&rvs.forEach(el=>new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.08,rootMargin:'0px 0px -30px 0px'}).observe(el));
+rvs.forEach(el=>new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.08,rootMargin:'0px 0px -30px 0px'}).observe(el));
 
-/* COUNTER */
-function countUp(el,t){let s=null;const sp=el.querySelector('span');if(!sp)return;const f=ts=>{if(!s)s=ts;const p=Math.min((ts-s)/1400,1),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;sp.textContent=Math.round(e*t);if(p<1)requestAnimationFrame(f);};requestAnimationFrame(f);}
-document.querySelectorAll('.stat-n[data-count]').forEach(el=>new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){countUp(e.target,+e.target.dataset.count);en[0].target.__io?.unobserve(e.target);}});},{threshold:.5}).observe(el));
-
-/* HERO PARALLAX */
-const hp=document.querySelector('.hero-photo');
-if(hp)window.addEventListener('scroll',()=>{if(window.scrollY<window.innerHeight*1.2)hp.style.transform=`translateY(${window.scrollY*.16}px)`;},{passive:true});
-
-/* GAL TABS */
-/* ===== INTERVENANTS — accordéon ===== */
-document.querySelectorAll('.itv-trigger').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    var row = btn.closest('.itv-row');
-    var open = row.classList.contains('is-open');
-    document.querySelectorAll('.itv-row.is-open').forEach(function(r){
-      r.classList.remove('is-open');
-      r.querySelector('.itv-trigger').setAttribute('aria-expanded','false');
-    });
-    if(!open){
-      row.classList.add('is-open');
-      btn.setAttribute('aria-expanded','true');
-    }
-  });
-});
-function switchGal(t,btn){document.querySelectorAll('.gal-tab').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-selected','false');});btn.classList.add('on');btn.setAttribute('aria-selected','true');document.getElementById('gal-photos').style.display=t==='photos'?'block':'none';document.getElementById('gal-backstage').style.display=t==='backstage'?'block':'none';}
-
-/* VID STRIP AUTOPLAY */
-document.querySelectorAll('.vs-item').forEach(el=>new IntersectionObserver(en=>{en.forEach(e=>{const v=e.target.querySelector('video');if(!v)return;if(e.isIntersecting)v.play().catch(()=>{});else v.pause();});},{threshold:.3}).observe(el));
-
-document.querySelectorAll('.temo-c,.vs-item').forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')el.click();}));
-
-/* MODAL */
-const mOv=document.getElementById('mov');
-function openMod(e){if(e)e.preventDefault();closeMob();mOv.classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('mf-p')?.focus(),100);}
-function closeMod(){mOv.classList.remove('open');document.body.style.overflow='';}
-mOv.addEventListener('click',e=>{if(e.target===mOv)closeMod();});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMod();closeMob();}});
-function upAlma(){const v=document.querySelector('input[name=mpay]:checked')?.value;document.getElementById('an').classList.toggle('show',v!=='1x');}
-function doSub(){const r=['mf-p','mf-n','mf-e','mf-m'];let ok=true;r.forEach(id=>{const el=document.getElementById(id);el.classList.remove('mo-err');if(!el.value.trim()){el.classList.add('mo-err');ok=false;}});const em=document.getElementById('mf-e');if(em.value&&!em.value.includes('@')){em.classList.add('mo-err');ok=false;}if(!ok)return;document.getElementById('mwrap').style.display='none';document.getElementById('mok').style.display='block';}
-
-/* NEWSLETTER */
-function doNL(){const el=document.getElementById('nl-em');if(!el.value.trim()||!el.value.includes('@')){el.style.borderColor='var(--rose)';el.focus();return;}el.style.borderColor='';el.value='';el.placeholder='Merci, inscrit·e !';}
-
-/* ESC sur le modal */
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMod();}});
-
-/* ── INSCRIPTION DANS MODAL ── */
-/* PROGRESS */
-/* REVEAL */
-document.querySelectorAll('.rv').forEach(el=>new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.07,rootMargin:'0px 0px -28px 0px'}).observe(el));
-
-/* TILT docs + pratique */
-document.querySelectorAll('.doc,.prat-c').forEach(c=>{
-  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(900px) rotateX(${-y*3}deg) rotateY(${x*3}deg) translateZ(3px)`;});
-  c.addEventListener('mouseleave',()=>{c.style.transform='';});
-});
-
-/* FILE */
-function handleMIFile(i){const f=i.files[0];if(!f)return;const el=document.getElementById('uzname');el.textContent=f.name+' ('+(f.size/1024/1024).toFixed(1)+' Mo)';el.style.color='var(--J)';document.getElementById('uzone').style.borderColor='var(--J)';}
-document.getElementById('uzone').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')document.getElementById('mifcv').click();});
-
-/* ALMA */
-function upMIAlma(){const v=document.querySelector('input[name=mipay]:checked')?.value;document.getElementById('an').classList.toggle('on',v!=='1x');}
-
-/* SUBMIT */
-/* Envoi de la candidature vers la fonction serverless /api/candidature,
-   qui relaie par SMTP Zoho : notification a Yasmina + accuse de reception au candidat.
-   Mettre EMAIL_ENDPOINT a null pour repasser en mode demo (aucun envoi). */
-const EMAIL_ENDPOINT = '/api/candidature';
-
-function miSetErr(el, bad){
-  if(!el) return;
-  el.classList.toggle('fg-err', bad);
-  el.setAttribute('aria-invalid', bad ? 'true' : 'false');
-  const grp = el.closest('.fg');
-  if(grp) grp.classList.toggle('has-err', bad);
-}
-
-function miValidate(){
-  const errs = [];
-  const need = [
-    ['mifp','votre prénom'],
-    ['mifn','votre nom'],
-    ['mife','votre e-mail'],
-    ['mift','votre téléphone'],
-    ['mifm','vos motivations']
-  ];
-  need.forEach(([id,lbl])=>{
-    const el = document.getElementById(id);
-    if(!el) return;
-    const bad = el.value.trim() === '';
-    miSetErr(el, bad);
-    if(bad) errs.push(lbl);
-  });
-
-  const em = document.getElementById('mife');
-  if(em && em.value.trim() !== '' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em.value.trim())){
-    miSetErr(em, true);
-    errs.push('un e-mail valide');
-  }
-
-  const tel = document.getElementById('mift');
-  if(tel && tel.value.trim() !== '' && (tel.value.replace(/\D/g,'').length < 9)){
-    miSetErr(tel, true);
-    errs.push('un téléphone valide');
-  }
-
-  const ck = document.getElementById('mifcheck');
-  const ckBad = ck && !ck.checked;
-  if(ck){
-    ck.setAttribute('aria-invalid', ckBad ? 'true' : 'false');
-    ck.closest('.check-row')?.classList.toggle('fg-err', !!ckBad);
-  }
-  if(ckBad) errs.push("votre accord sur les informations pratiques");
-
-  return errs;
-}
-
-function doMISubmit(e){
-  e.preventDefault();
-  const alert = document.getElementById('mifalert');
-  const errs = miValidate();
-
-  if(errs.length){
-    if(alert){
-      alert.textContent = 'Il manque ' + (errs.length > 1
-        ? errs.slice(0,-1).join(', ') + ' et ' + errs[errs.length-1]
-        : errs[0]) + ' pour envoyer votre candidature.';
-      alert.classList.add('on');
-    }
-    const first = document.querySelector('.fg-err');
-    if(first){ first.scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>first.focus?.(), 350); }
-    return;
-  }
-
-  if(alert){ alert.classList.remove('on'); alert.textContent = ''; }
-
-  const payload = {
-    prenom:      document.getElementById('mifp').value.trim(),
-    nom:         document.getElementById('mifn').value.trim(),
-    email:       document.getElementById('mife').value.trim(),
-    telephone:   document.getElementById('mift').value.trim(),
-    ville:       document.getElementById('mifv')?.value.trim() || '',
-    formation:   document.getElementById('miff')?.value.trim() || '',
-    experiences: document.getElementById('mifx')?.value.trim() || '',
-    motivation:  document.getElementById('mifm').value.trim(),
-    videoUrl:    document.getElementById('miflink')?.value.trim() || '',
-    cvNom:       document.getElementById('mifcv')?.files?.[0]?.name || '',
-    paiement:    document.querySelector('input[name=mipay]:checked')?.value || '1x',
-    session:     '28 septembre-2 octobre 2026',
-    website:     document.getElementById('mifwebsite')?.value || ''
-  };
-
-  const showOk = () => {
-    document.getElementById('miform-wrap').style.display = 'none';
-    const ok2 = document.getElementById('miform-ok');
-    ok2.style.display = 'block';
-    ok2.scrollIntoView({behavior:'smooth', block:'center'});
-  };
-
-  if(!EMAIL_ENDPOINT){
-    console.warn('[candidature] Aucun endpoint configure — la candidature suivante n\'a ete envoyee a personne :', payload);
-    showOk();
-    return;
-  }
-
-  const btn = document.querySelector('.sub-btn');
-  if(btn){ btn.disabled = true; btn.classList.add('is-sending'); btn.querySelector('span').textContent = 'Envoi en cours…'; }
-
-  /* Le CV part en piece jointe : on le lit en base64 avant l'envoi. */
-  const cvFile = document.getElementById('mifcv')?.files?.[0];
-  const withCv = cvFile && cvFile.size <= 3.5 * 1024 * 1024
-    ? new Promise(r => { const fr = new FileReader();
-        fr.onload = () => r(fr.result); fr.onerror = () => r(''); fr.readAsDataURL(cvFile); })
-    : Promise.resolve('');
-
-  withCv.then(cvData => { payload.cvData = cvData; return fetch(EMAIL_ENDPOINT, {
-    method: 'POST',
-    headers: {'Content-Type':'application/json'},
-    body: JSON.stringify(payload)
-  }); })
-  .then(r => { if(!r.ok) throw new Error('HTTP ' + r.status); return r.json().catch(()=>({})); })
-  .then(showOk)
-  .catch(err => {
-    console.error('[candidature] echec envoi', err);
-    if(btn){ btn.disabled = false; btn.classList.remove('is-sending'); btn.querySelector('span').textContent = 'Envoyer ma candidature →'; }
-    if(alert){
-      alert.innerHTML = "L'envoi a échoué. Réessayez dans un instant, ou écrivez directement à <a href=\"mailto:contact@yasminapasturaltraining.com\">contact@yasminapasturaltraining.com</a>.";
-      alert.classList.add('on');
-      alert.scrollIntoView({behavior:'smooth', block:'center'});
-    }
-  });
-}
-
-/* Efface l'erreur des qu'on corrige le champ */
-['mifp','mifn','mife','mift','mifm'].forEach(id=>{
-  const el = document.getElementById(id);
-  if(el) el.addEventListener('input', ()=>{ if(el.value.trim() !== '') miSetErr(el, false); });
-});
-document.getElementById('mifcheck')?.addEventListener('change', function(){
-  this.closest('.check-row')?.classList.toggle('fg-err', !this.checked);
-});
-
-document.addEventListener('keydown',e=>{});
-
-/* Keydown upload zone modal */
-(function(){
-  const z=document.getElementById('mifzone');
-  if(z) z.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')document.getElementById('mifcv').click();});
-})();
-
-</script>
-<script src="consentement.js" defer></script>
-<script>
-/* Vignettes vidéo — chaque ID YouTube a sa propre photo de couverture
-   dédiée. Pas de photo fournie -> fond neutre déjà en CSS ([data-yt]),
-   jamais une photo empruntée à une autre vidéo, jamais la miniature
-   YouTube auto-récupérée (i.ytimg.com). Le consentement n'est demandé
-   qu'au clic sur la vignette, pas au chargement. */
-const COVER_MAP = {
-  '5cMvWxLaZ0Y': 'images/couverture-video-acting.png', // Sur le plateau · extrait acting
-  'nVw1CNUJG68': 'images/couverture-interview-01.webp', // Témoignage · ITW1
-  'klPA8eYbf48': 'images/couverture-interview-02.webp', // Témoignage · stagiaire
-};
+/* Castings — ajouter une entrée = ajouter un objet à ce tableau, rien d'autre.
+   titre/realisateur/role/date/texte optionnels (vide = non affiché),
+   youtube/couverture (système data-yt + COVER_MAP + consentement.js). */
+const COVER_MAP = {};
+const DCC_CASTINGS = [
+  {
+    titre: '',
+    realisateur: '',
+    role: '',
+    date: '',
+    texte: '',
+    youtube: '',
+    couverture: null,
+    exemple: true,
+  },
+];
 (function(){
   function embarquer(f,id){
     var fr=document.createElement('iframe');
@@ -2285,105 +1314,38 @@ const COVER_MAP = {
     fr.style.cssText='position:absolute;inset:0;width:100%;height:100%;border:0';
     f.innerHTML='';f.appendChild(fr);
   }
-  function monter(){
-    document.querySelectorAll('[data-yt]').forEach(function(f){
-      var id=(f.dataset.yt||'').trim();
-      if(!id||f.dataset.monte==='1')return;
-      f.dataset.monte='1';
-      var cover=COVER_MAP[id];
-      if(cover){
-        var img=document.createElement('img');
-        img.className='yt-thumb';img.alt='';img.loading='lazy';img.src=cover;
-        f.appendChild(img);
-      }
-      var play=document.createElement('div');play.className='temo-play';
-      f.appendChild(play);
-      f.addEventListener('click',function(){
-        if(!window.yptConsentement){embarquer(f,id);return;}
-        window.yptConsentement.demanderPourVideo(f,function(){embarquer(f,id);});
-      },{once:true});
-    });
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',monter);
-  else monter();
-})();
-
-/* Affiches de films — seules les affiches explicitement autorisées s'affichent.
-   null = cadre neutre. Pour réactiver une affiche autorisée : 'Titre': 'images/fichier.jpg' */
-const POSTER_MAP = {
-  'Madame': null,
-  'Casse-tête chinois': null,
-  'La Vie scolaire': null,
-  'Banlieusards': null,
-  'Coco Chanel & Igor': null,
-  'Quand tu seras grand': null,
-  'Dans la brume': null,
-  'Roqya': null,
-  'Le Blond de la Casbah': null,
-  'Léo Mattéï': null,
-  'La plus belle pour danser': null,
-  'Yo Mama': null,
-  'Y a pas de réseau': null,
-  'Maison de retraite 2': null,
-};
-(function(){
-  document.querySelectorAll('.aff[data-film]').forEach(function(a){
-    var f=POSTER_MAP[a.dataset.film];
-    if(!f)return;
-    var img=document.createElement('img');
-    img.src=f;img.alt=a.dataset.film;img.loading='lazy';
-    a.querySelector('.aff-img').prepend(img);
-  });
-})();
-</script>
-<script>
-/* Dernières sorties — ajouter une production = ajouter un objet à ce tableau, rien d'autre.
-   titre, realisateur : nom du film et réalisateur, affiché sous le titre.
-   role, date, texte  : lignes optionnelles, petit texte libre. Tout champ vide n'est pas affiché.
-   affiche    : photo d'affiche DÉDIÉE à ce film (null = cadre neutre ; droits non
-                confirmés pour l'instant, même logique prudente que POSTER_MAP en filmographie).
-   youtube    : ID de la bande-annonce (vide = pas de vidéo, cadre neutre)
-   couverture : photo de couverture DÉDIÉE à cette vidéo (null = fond neutre ;
-                jamais la miniature YouTube automatique, jamais une photo empruntée)
-   La vidéo passe par le système existant : data-yt + COVER_MAP + consentement.js. */
-const DERNIERES_SORTIES = [
-  {
-    titre: "Quelques mots d'amour",
-    realisateur: 'Rudi Rosenberg',
-    role: '',
-    date: '',
-    texte: "Sarcelles, 1995. Erika élève seule ses deux enfants. Sa fille Abigaëlle se persuade que son père, qu'elle n'a jamais connu, l'aime en silence quelque part. Lorsqu'elle se met en tête de le retrouver, Erika se sent obligée de l'aider, tout en cherchant à la protéger. En grandissant, la quête d'Abigaëlle se transforme en obsession, entraînant avec elle sa mère, sa meilleure amie, et tous ceux qui comptent.",
-    affiche: null,
-    youtube: 'kBJGhdd0AeU',   // Quelques mots d'amour — bande-annonce (AD VITAM)
-    couverture: 'images/couverture-quelques-mots-damour.jpg',
-  },
-];
-(function(){
-  var liste=document.getElementById('ds-liste');
+  var liste=document.getElementById('dcc-liste');
   if(!liste)return;
   function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt)n.textContent=txt;return n;}
-  DERNIERES_SORTIES.forEach(function(s){
-    var carte=el('article','ds-carte');
-    var affiche=el('div','ds-affiche');
-    if(s.affiche){var ai=el('img');ai.src=s.affiche;ai.alt=s.titre||'';ai.loading='lazy';affiche.appendChild(ai);}
-    var infos=el('div','ds-infos');
-    if(s.titre)infos.appendChild(el('h3','ds-film',s.titre));
-    if(s.realisateur)infos.appendChild(el('p','ds-realisation',s.realisateur));
-    if(s.role)infos.appendChild(el('p','ds-role',s.role));
-    if(s.date)infos.appendChild(el('p','ds-date',s.date));
-    if(s.texte){infos.appendChild(el('span','ds-syn-lbl','Synopsis'));infos.appendChild(el('p','ds-texte',s.texte));}
+  DCC_CASTINGS.forEach(function(s){
+    var carte=el('article','dcc-carte');
+    var infos=el('div','dcc-infos');
+    if(s.titre)infos.appendChild(el('h3','dcc-film',s.titre));
+    if(s.realisateur)infos.appendChild(el('p','dcc-realisation',s.realisateur));
+    if(s.role)infos.appendChild(el('p','dcc-role',s.role));
+    if(s.date)infos.appendChild(el('p','dcc-date',s.date));
+    if(s.texte)infos.appendChild(el('p','dcc-texte',s.texte));
     var video;
     if(s.youtube){
-      if(!(s.youtube in COVER_MAP))COVER_MAP[s.youtube]=s.couverture||null;
-      video=el('button','ds-video');
+      COVER_MAP[s.youtube]=s.couverture||null;
+      video=el('button','dcc-video');
       video.type='button';
       video.dataset.yt=s.youtube;
+      video.dataset.monte='1';
       video.setAttribute('aria-label','Lire la bande-annonce'+(s.titre?' : '+s.titre:''));
+      var cover=COVER_MAP[s.youtube];
+      if(cover){var img=el('img','dcc-cover');img.alt='';img.loading='lazy';img.src=cover;video.appendChild(img);}
+      var play=el('div','temo-play');
+      video.appendChild(play);
+      video.addEventListener('click',function(){
+        if(!window.yptConsentement){embarquer(video,s.youtube);return;}
+        window.yptConsentement.demanderPourVideo(video,function(){embarquer(video,s.youtube);});
+      },{once:true});
     }else{
-      video=el('div','ds-video');
-      if(s.couverture){var img=el('img','ds-cover');img.src=s.couverture;img.alt='';img.loading='lazy';video.appendChild(img);}
+      video=el('div','dcc-video');
+      if(s.couverture){var img2=el('img','dcc-cover');img2.src=s.couverture;img2.alt='';img2.loading='lazy';video.appendChild(img2);}
     }
-    carte.appendChild(affiche);
+    if(s.exemple)video.appendChild(el('span','dcc-badge','Exemple'));
     carte.appendChild(infos);
     carte.appendChild(video);
     liste.appendChild(carte);
@@ -2392,4 +1354,3 @@ const DERNIERES_SORTIES = [
 </script>
 </body>
 </html>
-
