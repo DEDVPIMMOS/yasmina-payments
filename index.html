@@ -1193,13 +1193,16 @@ footer a:hover{color:var(--bleu)}
   background:#ece6d8;overflow:hidden}
 #dernieres-sorties .ds-affiche img{width:100%;height:100%;object-fit:cover}
 #dernieres-sorties .ds-film{font-family:var(--F);font-style:italic;font-weight:300;
-  font-size:clamp(22px,2.6vw,30px);line-height:1.15;color:var(--noir)}
-#dernieres-sorties .ds-realisation{margin-top:10px;font-family:var(--S);font-weight:800;font-size:11px;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--rose)}
-#dernieres-sorties .ds-role{margin-top:8px;font-family:var(--S);font-weight:800;font-size:10px;
-  letter-spacing:.14em;text-transform:uppercase;color:var(--rose)}
+  font-size:clamp(32px,4.2vw,52px);line-height:1.1;color:var(--noir)}
+/* Sobre, volontairement : cette page tranche avec les codes POP (gras,
+   majuscules, rose) utilisés ailleurs sur le site. */
+#dernieres-sorties .ds-realisation{margin-top:12px;font-family:var(--A);font-weight:400;
+  font-size:15px;color:#4c4233}
+#dernieres-sorties .ds-role{margin-top:8px;font-family:var(--A);font-weight:400;font-size:14px;color:#4c4233}
 #dernieres-sorties .ds-date{margin-top:6px;font-size:13.5px;color:#6a5e4a}
-#dernieres-sorties .ds-texte{margin-top:16px;font-size:15px;line-height:1.7;color:#4c4233}
+#dernieres-sorties .ds-syn-lbl{display:block;margin-top:22px;font-family:var(--A);font-weight:600;
+  font-size:12px;letter-spacing:.03em;color:#6a5e4a}
+#dernieres-sorties .ds-texte{margin-top:8px;font-size:15px;line-height:1.7;color:#4c4233}
 /* Bande-annonce — cadre simple, pas d'étiquette dessus */
 #dernieres-sorties .ds-video{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;
   border:3px solid var(--noir);box-shadow:6px 6px 0 var(--rose);background:#1c1a17;overflow:hidden;
@@ -2270,8 +2273,8 @@ document.addEventListener('keydown',e=>{});
    qu'au clic sur la vignette, pas au chargement. */
 const COVER_MAP = {
   '5cMvWxLaZ0Y': 'images/couverture-video-acting.png', // Sur le plateau · extrait acting
-  'nVw1CNUJG68': null,                                  // Témoignage · photo à fournir
-  'klPA8eYbf48': null,                                  // Témoignage · photo à fournir
+  'nVw1CNUJG68': 'images/couverture-interview-01.webp', // Témoignage · ITW1
+  'klPA8eYbf48': 'images/couverture-interview-02.webp', // Témoignage · stagiaire
 };
 (function(){
   function embarquer(f,id){
@@ -2349,10 +2352,10 @@ const DERNIERES_SORTIES = [
     realisateur: 'Rudi Rosenberg',
     role: '',
     date: '',
-    texte: '',
+    texte: "Sarcelles, 1995. Erika élève seule ses deux enfants. Sa fille Abigaëlle se persuade que son père, qu'elle n'a jamais connu, l'aime en silence quelque part. Lorsqu'elle se met en tête de le retrouver, Erika se sent obligée de l'aider, tout en cherchant à la protéger. En grandissant, la quête d'Abigaëlle se transforme en obsession, entraînant avec elle sa mère, sa meilleure amie, et tous ceux qui comptent.",
     affiche: null,
     youtube: 'kBJGhdd0AeU',   // Quelques mots d'amour — bande-annonce (AD VITAM)
-    couverture: null,
+    couverture: 'images/couverture-quelques-mots-damour.jpg',
   },
 ];
 (function(){
@@ -2368,7 +2371,7 @@ const DERNIERES_SORTIES = [
     if(s.realisateur)infos.appendChild(el('p','ds-realisation',s.realisateur));
     if(s.role)infos.appendChild(el('p','ds-role',s.role));
     if(s.date)infos.appendChild(el('p','ds-date',s.date));
-    if(s.texte)infos.appendChild(el('p','ds-texte',s.texte));
+    if(s.texte){infos.appendChild(el('span','ds-syn-lbl','Synopsis'));infos.appendChild(el('p','ds-texte',s.texte));}
     var video;
     if(s.youtube){
       if(!(s.youtube in COVER_MAP))COVER_MAP[s.youtube]=s.couverture||null;
