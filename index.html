@@ -370,6 +370,28 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
   opacity:0;transition:.3s}
 .aff:hover .aff-ov{opacity:1}
 .aff-meta{font-family:var(--S);font-size:9.5px;color:var(--jaune-e);letter-spacing:.06em;text-transform:uppercase}
+/* Cartes de film — tant qu'aucune affiche officielle n'est autorisée (voir POSTER_MAP).
+   Typographie pure aux couleurs du site ; l'affiche autorisée prend la place de la carte. */
+.aff{position:relative}
+.aff-card{position:absolute;inset:0;display:flex;flex-direction:column;padding:14px 13px 13px 22px;
+  background:var(--c-bg);color:var(--c-fg);overflow:hidden}
+.aff-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:8px;
+  background:repeating-linear-gradient(to bottom,var(--noir) 0 9px,transparent 9px 17px)}
+.aff-n{font-family:var(--S);font-weight:800;font-size:10px;letter-spacing:.14em;opacity:.7}
+.aff-t{flex:1;display:flex;align-items:center;font-family:var(--S);font-weight:800;font-size:22px;
+  line-height:.98;letter-spacing:-.01em;text-transform:uppercase;overflow-wrap:break-word}
+.aff-d{font-family:var(--SG);font-weight:600;font-size:10px;line-height:1.55;letter-spacing:.08em;
+  text-transform:uppercase;border-top:2px solid currentColor;padding-top:8px}
+.aff:nth-child(4n+1){--c-bg:var(--jaune);--c-fg:var(--noir)}
+.aff:nth-child(4n+2){--c-bg:var(--rose);--c-fg:var(--noir)}
+.aff:nth-child(4n+3){--c-bg:var(--creme);--c-fg:var(--noir)}
+.aff:nth-child(4n){--c-bg:var(--bleu);--c-fg:#fff}
+.aff:nth-child(4n+2):hover .aff-img{box-shadow:5px 5px 0 var(--jaune)}
+/* sans affiche : la carte porte déjà titre + infos, on garde les légendes pour les lecteurs d'écran */
+.aff:not(.has-poster) .aff-ov{display:none}
+.aff:not(.has-poster) .aff-name,.aff:not(.has-poster) .aff-sub{position:absolute;width:1px;height:1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.aff.has-poster .aff-card{display:none}
 .aff-name{font-size:13px;font-weight:600;margin-top:8px;color:var(--creme)}
 .aff-sub{font-family:var(--S);font-size:9px;color:var(--gris);margin-top:2px;text-transform:uppercase;letter-spacing:.07em}
 /* Filmo texte + Keitel photo côte à côte */
@@ -1570,20 +1592,20 @@ footer a:hover{color:var(--bleu)}
 
 <div class="pellicule rv">
   <div class="affiches" role="list">
-    <div class="aff" data-film="Madame"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Amanda Sthers · 2017</span></div></div><div class="aff-name">Madame</div><div class="aff-sub">Harvey Keitel</div></div>
-    <div class="aff" data-film="Casse-tête chinois"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Klapisch · 2013</span></div></div><div class="aff-name">Casse-tête chinois</div><div class="aff-sub">Klapisch</div></div>
-    <div class="aff" data-film="La Vie scolaire"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Grand Corps Malade · 2019</span></div></div><div class="aff-name">La Vie scolaire</div><div class="aff-sub">Grand Corps Malade</div></div>
-    <div class="aff" data-film="Banlieusards"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Kery James · 2019</span></div></div><div class="aff-name">Banlieusards</div><div class="aff-sub">Kery James</div></div>
-    <div class="aff" data-film="Coco Chanel &amp; Igor"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Jan Kounen · 2009</span></div></div><div class="aff-name">Coco Chanel &amp; Igor</div><div class="aff-sub">Jan Kounen</div></div>
-    <div class="aff" data-film="Quand tu seras grand"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Bescond &amp; Métayer · 2023</span></div></div><div class="aff-name">Quand tu seras grand</div><div class="aff-sub">Bescond &amp; Métayer</div></div>
-    <div class="aff" data-film="Dans la brume"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Daniel Roby · 2018</span></div></div><div class="aff-name">Dans la brume</div><div class="aff-sub">Daniel Roby</div></div>
-    <div class="aff" data-film="Roqya"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Roqya</span></div></div><div class="aff-name">Roqya</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Le Blond de la Casbah"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Le Blond de la Casbah</span></div></div><div class="aff-name">Le Blond de la Casbah</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Léo Mattéï"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Léo Mattéï · Série TV</span></div></div><div class="aff-name">Léo Mattéï</div><div class="aff-sub">Série TV</div></div>
-    <div class="aff" data-film="La plus belle pour danser"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">La plus belle pour danser</span></div></div><div class="aff-name">La plus belle pour danser</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Yo Mama"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Yo Mama</span></div></div><div class="aff-name">Yo Mama</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Y a pas de réseau"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Y a pas de réseau</span></div></div><div class="aff-name">Y a pas de réseau</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Maison de retraite 2"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Maison de retraite 2</span></div></div><div class="aff-name">Maison de retraite 2</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Madame"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">01</span><strong class="aff-t">Madame</strong><span class="aff-d">Amanda Sthers<br>2017<br>Harvey Keitel</span></div><div class="aff-ov"><span class="aff-meta">Amanda Sthers · 2017</span></div></div><div class="aff-name">Madame</div><div class="aff-sub">Harvey Keitel</div></div>
+    <div class="aff" data-film="Casse-tête chinois"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">02</span><strong class="aff-t">Casse-tête chinois</strong><span class="aff-d">Cédric Klapisch<br>2013</span></div><div class="aff-ov"><span class="aff-meta">Klapisch · 2013</span></div></div><div class="aff-name">Casse-tête chinois</div><div class="aff-sub">Klapisch</div></div>
+    <div class="aff" data-film="La Vie scolaire"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">03</span><strong class="aff-t">La Vie scolaire</strong><span class="aff-d">Grand Corps Malade<br>2019</span></div><div class="aff-ov"><span class="aff-meta">Grand Corps Malade · 2019</span></div></div><div class="aff-name">La Vie scolaire</div><div class="aff-sub">Grand Corps Malade</div></div>
+    <div class="aff" data-film="Banlieusards"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">04</span><strong class="aff-t">Banlieusards</strong><span class="aff-d">Kery James<br>2019</span></div><div class="aff-ov"><span class="aff-meta">Kery James · 2019</span></div></div><div class="aff-name">Banlieusards</div><div class="aff-sub">Kery James</div></div>
+    <div class="aff" data-film="Coco Chanel &amp; Igor"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">05</span><strong class="aff-t">Coco Chanel &amp; Igor</strong><span class="aff-d">Jan Kounen<br>2009</span></div><div class="aff-ov"><span class="aff-meta">Jan Kounen · 2009</span></div></div><div class="aff-name">Coco Chanel &amp; Igor</div><div class="aff-sub">Jan Kounen</div></div>
+    <div class="aff" data-film="Quand tu seras grand"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">06</span><strong class="aff-t">Quand tu seras grand</strong><span class="aff-d">Bescond &amp; Métayer<br>2023</span></div><div class="aff-ov"><span class="aff-meta">Bescond &amp; Métayer · 2023</span></div></div><div class="aff-name">Quand tu seras grand</div><div class="aff-sub">Bescond &amp; Métayer</div></div>
+    <div class="aff" data-film="Dans la brume"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">07</span><strong class="aff-t">Dans la brume</strong><span class="aff-d">Daniel Roby<br>2018</span></div><div class="aff-ov"><span class="aff-meta">Daniel Roby · 2018</span></div></div><div class="aff-name">Dans la brume</div><div class="aff-sub">Daniel Roby</div></div>
+    <div class="aff" data-film="Roqya"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">08</span><strong class="aff-t">Roqya</strong></div><div class="aff-ov"><span class="aff-meta">Roqya</span></div></div><div class="aff-name">Roqya</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Le Blond de la Casbah"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">09</span><strong class="aff-t">Le Blond de la Casbah</strong></div><div class="aff-ov"><span class="aff-meta">Le Blond de la Casbah</span></div></div><div class="aff-name">Le Blond de la Casbah</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Léo Matteï"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">10</span><strong class="aff-t">Léo Matteï</strong><span class="aff-d">Série TV</span></div><div class="aff-ov"><span class="aff-meta">Léo Matteï · Série TV</span></div></div><div class="aff-name">Léo Matteï</div><div class="aff-sub">Série TV</div></div>
+    <div class="aff" data-film="La plus belle pour danser"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">11</span><strong class="aff-t">La plus belle pour danser</strong></div><div class="aff-ov"><span class="aff-meta">La plus belle pour danser</span></div></div><div class="aff-name">La plus belle pour danser</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Yo Mama"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">12</span><strong class="aff-t">Yo Mama</strong></div><div class="aff-ov"><span class="aff-meta">Yo Mama</span></div></div><div class="aff-name">Yo Mama</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Y a pas de réseau"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">13</span><strong class="aff-t">Y a pas de réseau</strong></div><div class="aff-ov"><span class="aff-meta">Y a pas de réseau</span></div></div><div class="aff-name">Y a pas de réseau</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Maison de retraite 2"><div class="aff-img"><div class="aff-card" aria-hidden="true"><span class="aff-n">14</span><strong class="aff-t">Maison de retraite 2</strong></div><div class="aff-ov"><span class="aff-meta">Maison de retraite 2</span></div></div><div class="aff-name">Maison de retraite 2</div><div class="aff-sub">&nbsp;</div></div>
   </div>
 </div>
 
@@ -2320,7 +2342,7 @@ const POSTER_MAP = {
   'Dans la brume': null,
   'Roqya': null,
   'Le Blond de la Casbah': null,
-  'Léo Mattéï': null,
+  'Léo Matteï': null,
   'La plus belle pour danser': null,
   'Yo Mama': null,
   'Y a pas de réseau': null,
@@ -2333,7 +2355,17 @@ const POSTER_MAP = {
     var img=document.createElement('img');
     img.src=f;img.alt=a.dataset.film;img.loading='lazy';
     a.querySelector('.aff-img').prepend(img);
+    a.classList.add('has-poster');
   });
+  /* Cartes sans affiche : le titre rétrécit jusqu'à tenir dans la carte (quelle que soit la police chargée) */
+  function ajusterTitres(){
+    document.querySelectorAll('.aff-t').forEach(function(t){
+      var s=22;t.style.fontSize=s+'px';
+      while(t.scrollWidth>t.clientWidth+1&&s>12){s-=1;t.style.fontSize=s+'px';}
+    });
+  }
+  ajusterTitres();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(ajusterTitres);
 })();
 </script>
 <script>
