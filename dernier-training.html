@@ -1186,22 +1186,19 @@ footer a:hover{color:var(--bleu)}
 #dcc-intro{max-width:62ch;margin-top:18px;font-size:15.5px;line-height:1.72;color:#4c4233}
 #dcc-liste{display:grid;gap:56px;background:var(--creme);padding:48px 40px 90px}
 @media(max-width:720px){#dcc-liste{padding:30px 22px 60px}}
-.dcc-carte{display:flex;flex-direction:column;gap:34px;max-width:1080px;margin:0 auto;width:100%}
-/* Rangée média : vidéo + photos. Vidéo verticale (9:16) à gauche, photos en grille 2x2
-   à droite, étirée à la hauteur de la vidéo. Sans photos : la vidéo seule, pleine largeur. */
-.dcc-media{display:grid;grid-template-columns:1fr;gap:34px;align-items:stretch}
-.dcc-media.avec-photos{grid-template-columns:auto 1fr}
-.dcc-video.dcc-video-vert{width:clamp(220px,25vw,300px);aspect-ratio:9/16}
-.dcc-photos{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:22px;min-height:0}
-.dcc-photo{position:relative;overflow:hidden;min-height:0;margin:0;
+.dcc-carte{display:grid;grid-template-columns:1fr 1.35fr;gap:48px;align-items:start;width:100%}
+@media(max-width:820px){.dcc-carte{grid-template-columns:1fr;gap:30px}}
+/* Colonne de droite : menu Vidéos / Photos (mêmes .gal-tabs que « Une semaine vivante ») */
+.dcc-media-col .gal-tabs{margin-top:0}
+.dcc-panneau{margin-top:28px}
+.dcc-panneau[hidden]{display:none}
+.dcc-vide{font-size:15.5px;line-height:1.72;color:#4c4233}
+.dcc-video.dcc-video-vert{width:min(300px,100%);aspect-ratio:9/16}
+.dcc-photos{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.dcc-photo{position:relative;overflow:hidden;aspect-ratio:4/3;margin:0;
   border:3px solid var(--noir);box-shadow:5px 5px 0 var(--bleu);background:#ece6d8}
 .dcc-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-@media(max-width:720px){
-  .dcc-media.avec-photos{grid-template-columns:1fr}
-  .dcc-video.dcc-video-vert{width:min(300px,100%);margin:0 auto}
-  .dcc-photos{gap:16px}
-  .dcc-photo{aspect-ratio:4/3}
-}
+@media(max-width:520px){.dcc-photos{gap:16px}}
 .dcc-film{font-family:var(--F);font-style:italic;font-weight:300;
   font-size:clamp(22px,2.6vw,30px);line-height:1.15;color:var(--noir)}
 .dcc-realisation{margin-top:10px;font-family:var(--S);font-weight:800;font-size:11px;
@@ -1339,14 +1336,7 @@ const DCC_CASTINGS = [
   var liste=document.getElementById('dcc-liste');
   if(!liste)return;
   function el(tag,cls,txt){var n=document.createElement(tag);if(cls)n.className=cls;if(txt)n.textContent=txt;return n;}
-  DCC_CASTINGS.forEach(function(s){
-    var carte=el('article','dcc-carte');
-    var infos=el('div','dcc-infos');
-    if(s.titre)infos.appendChild(el('h3','dcc-film',s.titre));
-    if(s.realisateur)infos.appendChild(el('p','dcc-realisation',s.realisateur));
-    if(s.role)infos.appendChild(el('p','dcc-role',s.role));
-    if(s.date)infos.appendChild(el('p','dcc-date',s.date));
-    if(s.texte)infos.appendChild(el('p','dcc-texte',s.texte));
+  function creerVideo(s){
     var video;
     if(s.youtube){
       COVER_MAP[s.youtube]=s.couverture||null;
@@ -1354,11 +1344,10 @@ const DCC_CASTINGS = [
       video.type='button';
       video.dataset.yt=s.youtube;
       video.dataset.monte='1';
-      video.setAttribute('aria-label','Lire la bande-annonce'+(s.titre?' : '+s.titre:''));
+      video.setAttribute('aria-label','Lire la vidéo'+(s.titre?' : '+s.titre:''));
       var cover=COVER_MAP[s.youtube];
       if(cover){var img=el('img','dcc-cover');img.alt='';img.loading='lazy';img.src=cover;video.appendChild(img);}
-      var play=el('div','temo-play');
-      video.appendChild(play);
+      video.appendChild(el('div','temo-play'));
       video.addEventListener('click',function(){
         if(!window.yptConsentement){embarquer(video,s.youtube);return;}
         window.yptConsentement.demanderPourVideo(video,function(){embarquer(video,s.youtube);});
@@ -1369,20 +1358,55 @@ const DCC_CASTINGS = [
     }
     if(s.exemple)video.appendChild(el('span','dcc-badge','Exemple'));
     if(s.format==='vertical')video.classList.add('dcc-video-vert');
-    var media=el('div','dcc-media');
-    media.appendChild(video);
-    if(s.photos&&s.photos.length){
-      media.classList.add('avec-photos');
+    return video;
+  }
+  DCC_CASTINGS.forEach(function(s){
+    var carte=el('article','dcc-carte');
+
+    /* Gauche : contenu écrit (vide = non affiché ; si tout est vide, mention « à venir ») */
+    var infos=el('div','dcc-infos');
+    if(s.titre)infos.appendChild(el('h3','dcc-film',s.titre));
+    if(s.realisateur)infos.appendChild(el('p','dcc-realisation',s.realisateur));
+    if(s.role)infos.appendChild(el('p','dcc-role',s.role));
+    if(s.date)infos.appendChild(el('p','dcc-date',s.date));
+    if(s.texte)infos.appendChild(el('p','dcc-texte',s.texte));
+    if(!infos.children.length)infos.appendChild(el('p','dcc-vide','Contenu à venir.'));
+    carte.appendChild(infos);
+
+    /* Droite : menu Vidéos / Photos */
+    var col=el('div','dcc-media-col');
+    var pv=el('div','dcc-panneau');
+    pv.appendChild(creerVideo(s));
+    var photos=s.photos&&s.photos.length?s.photos:null;
+    if(photos){
+      var pp=el('div','dcc-panneau');pp.hidden=true;
       var grille=el('div','dcc-photos');
-      s.photos.forEach(function(src){
+      photos.forEach(function(src){
         var fig=el('figure','dcc-photo');
         var im=el('img');im.src=src;im.alt='Photo du dernier training';im.loading='lazy';
         fig.appendChild(im);grille.appendChild(fig);
       });
-      media.appendChild(grille);
+      pp.appendChild(grille);
+      var tabs=el('div','gal-tabs');tabs.setAttribute('role','tablist');
+      var tv=el('button','gal-tab on','Vidéos'),tp=el('button','gal-tab','Photos');
+      tv.type=tp.type='button';tv.setAttribute('role','tab');tp.setAttribute('role','tab');
+      tv.setAttribute('aria-selected','true');tp.setAttribute('aria-selected','false');
+      function aller(versPhotos){
+        tv.classList.toggle('on',!versPhotos);tp.classList.toggle('on',versPhotos);
+        tv.setAttribute('aria-selected',String(!versPhotos));tp.setAttribute('aria-selected',String(versPhotos));
+        pv.hidden=versPhotos;pp.hidden=!versPhotos;
+        /* on quitte l'onglet Vidéos : la vidéo lancée est arrêtée (retour à la couverture) */
+        if(versPhotos&&pv.querySelector('iframe')){pv.innerHTML='';pv.appendChild(creerVideo(s));}
+      }
+      tv.addEventListener('click',function(){aller(false);});
+      tp.addEventListener('click',function(){aller(true);});
+      tabs.appendChild(tv);tabs.appendChild(tp);
+      col.appendChild(tabs);
+      col.appendChild(pv);col.appendChild(pp);
+    }else{
+      col.appendChild(pv);
     }
-    if(infos.children.length)carte.appendChild(infos);
-    carte.appendChild(media);
+    carte.appendChild(col);
     liste.appendChild(carte);
   });
 })();
