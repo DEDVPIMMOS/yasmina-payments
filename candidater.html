@@ -7,216 +7,222 @@
   <meta name="description" content="Candidatez au stage intensif de jeu cinéma avec Yasmina Pastural — 5 jours, du 9 novembre au 13 novembre 2026, Paris.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300;1,9..144,500&family=Archivo:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://js.stripe.com/v3/"></script>
   <style>
   :root{
-    /* identité du site : POP */
-    --jaune:#ffd400; --rose:#ff4d97; --bleu:#1f4fff;
-    --noir:#0c0b0a; --creme:#f3eee4; --jaune-e:#ffd23f;
-    --gris:#a9a297; --gris-f:#6b6458; --feuille:#fffdf8;
+    --jaune:#ffd400; --noir:#0c0b0a; --creme:#f3eee4; --papier:#fffbe0;
+    --gris:#a9a297; --gris-f:#6b6458; --texte2:#35302a; --clair:#cfc8bb;
     --err:#c8103f;
-    --S:'Syne',sans-serif; --F:'Fraunces',serif; --A:'Archivo',system-ui,sans-serif; --SG:'Space Grotesk',sans-serif;
-    --ease:cubic-bezier(.22,1,.36,1); --dur:200ms;
+    --S:'Syne',sans-serif; --A:'Archivo',system-ui,sans-serif;
+    --r:4px; --ease:cubic-bezier(.22,1,.36,1); --dur:180ms;
+    --gut:clamp(1.15rem,4.5vw,3.5rem);
   }
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-  body{font-family:var(--A);color:var(--noir);line-height:1.6;background:var(--creme);
+  body{font-family:var(--A);color:var(--noir);line-height:1.5;background:var(--noir);
     -webkit-font-smoothing:antialiased;overflow-x:hidden}
   ::selection{background:var(--noir);color:var(--jaune)}
-  :focus-visible{outline:3px solid var(--bleu);outline-offset:3px}
+  :focus-visible{outline:3px solid var(--noir);outline-offset:3px}
   img{max-width:100%;display:block}
   a{color:inherit}
-  h1,h2{font-family:var(--F);font-weight:300;color:inherit}
-  h1 em,h2 em{font-style:italic;font-weight:500}
-
-  .pad{padding:clamp(3.5rem,7vw,6rem) clamp(1.15rem,5vw,2.5rem)}
-  .inner{max-width:1280px;margin:0 auto}
-  .kicker{display:inline-block;font-family:var(--S);font-weight:800;font-size:12px;
-    letter-spacing:.05em;text-transform:uppercase;line-height:1.3;padding:8px 14px;
-    border:3px solid var(--noir);background:var(--creme);color:var(--noir)}
-  .k-rose{background:var(--rose);border-color:var(--rose)}
-  .k-jaune{background:var(--jaune)}
-
-  /* ── Barre ── */
-  .topbar{position:sticky;top:0;z-index:60;display:flex;flex-wrap:wrap;align-items:center;
-    justify-content:space-between;gap:12px;padding:16px clamp(1.15rem,5vw,2.5rem);
-    background:var(--jaune);border-bottom:3px solid var(--noir)}
-  .logo{font-family:var(--S);font-weight:800;font-size:17px;text-transform:uppercase;
-    letter-spacing:-.01em;text-decoration:none;line-height:1.2;color:var(--noir)}
-  .logo b{color:var(--bleu)}
-  .back{font-family:var(--S);font-weight:700;font-size:12px;letter-spacing:.04em;text-transform:uppercase;
-    color:var(--noir);text-decoration:none;padding:8px 14px;border:2px solid var(--noir);
-    transition:background var(--dur) var(--ease),color var(--dur) var(--ease)}
-  .back:hover{background:var(--noir);color:var(--jaune)}
+  .inner{max-width:1128px;margin:0 auto}
 
   /* ── Hero ── */
   .s-hero{background:var(--jaune)}
-  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2.5rem,5vw,3.5rem);align-items:center}
-  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
-  h1{font-size:clamp(3.6rem,10vw,7rem);line-height:.92;letter-spacing:-.03em;margin:26px 0 0}
-  h1 em{color:var(--bleu)}
-  .lede{font-size:clamp(17px,1.9vw,20px);line-height:1.55;max-width:34em;margin-top:26px}
-  .cta{display:inline-flex;align-items:center;margin-top:34px;padding:16px 30px;
-    font-family:var(--S);font-weight:800;font-size:15px;text-decoration:none;
-    background:var(--noir);color:var(--jaune);box-shadow:6px 6px 0 var(--rose);
-    transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
-  .cta:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--rose)}
+  .top{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;
+    padding:22px var(--gut)}
+  .logo{font-family:var(--S);font-weight:800;font-size:17px;text-transform:uppercase;
+    letter-spacing:-.01em;text-decoration:none;line-height:1.2}
+  .back{font-size:14px;font-weight:700;text-decoration:none;border-bottom:2px solid var(--noir);padding-bottom:2px}
+  .back:hover{border-bottom-width:4px;padding-bottom:0}
+  .hero{padding:36px var(--gut) clamp(3rem,7vw,5.5rem)}
+  .hero-grid{display:flex;flex-wrap:wrap;gap:clamp(2rem,4.5vw,3.5rem);align-items:center}
+  .hero-txt{flex:1 1 520px;min-width:0;max-width:100%}
+  .hero-pic{flex:0 0 420px;max-width:100%}
+  @media(max-width:1000px){.hero-pic{flex:1 1 100%}}
+  .tag{display:inline-block;padding:9px 14px;background:var(--noir);color:var(--jaune);
+    font-family:var(--S);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;line-height:1.35}
+  h1{margin:26px 0 0;font-family:var(--S);font-weight:800;font-size:clamp(2.9rem,8.2vw,5.5rem);
+    line-height:1.04;letter-spacing:-.005em;text-transform:uppercase}
+  .lede{margin-top:30px;max-width:520px;font-size:clamp(18px,1.9vw,21px);line-height:1.5;font-weight:500}
+  .cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:22px 28px;margin-top:38px}
+  .cta{display:inline-flex;align-items:center;padding:22px 38px;background:var(--noir);color:var(--jaune);
+    font-family:var(--S);font-weight:800;font-size:19px;text-decoration:none;border-radius:var(--r);
+    transition:transform var(--dur) var(--ease)}
+  .cta:hover{transform:translateY(-3px)}
+  .cta-price{font-family:var(--S);font-weight:800;font-size:15px;line-height:1.3}
+  .cta-price b{font-size:30px;letter-spacing:-.02em;font-weight:800}
+  .frame{aspect-ratio:6/5;overflow:hidden;border:3px solid var(--noir);background:#e9e4d8}
+  .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 62%;filter:grayscale(1) contrast(1.12)}
 
-  .price{padding:clamp(1.5rem,3.4vw,2rem);background:var(--noir);color:var(--creme);
-    border:3px solid var(--noir);box-shadow:10px 10px 0 var(--rose)}
-  .price-amt{font-family:var(--S);font-weight:800;font-size:clamp(4rem,9vw,6rem);line-height:1;color:var(--jaune)}
-  .price-sub{font-family:var(--SG);font-weight:600;font-size:12px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--gris);margin-top:10px}
-  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:28px}
-  @media(max-width:480px){.price-grid{grid-template-columns:1fr}}
-  .pill{padding:16px;border:2px solid rgba(243,238,228,.28)}
-  .pill:last-child{border-color:var(--jaune)}
-  .pill b{display:block;font-family:var(--S);font-weight:800;font-size:15px}
-  .pill span{display:block;margin-top:6px;font-size:13px;line-height:1.5;color:#cfc8bb}
-  .price-note{margin-top:24px;padding-top:16px;border-top:1px solid rgba(243,238,228,.25);
-    font-family:var(--SG);font-weight:500;font-size:12px;color:var(--gris)}
+  /* ── Bandeau ── */
+  .faits{background:var(--noir);padding:0 var(--gut)}
+  .faits-in{max-width:1128px;margin:0 auto;display:flex;flex-wrap:wrap}
+  .fait{flex:1 1 240px;padding:38px 28px 40px 0;margin-right:28px;border-right:1px solid rgba(243,238,228,.2)}
+  .fait:last-child{border-right:0;margin-right:0}
+  @media(max-width:700px){.fait{flex:1 1 100%;margin-right:0;border-right:0;padding:22px 0;
+    border-bottom:1px solid rgba(243,238,228,.2)}.fait:last-child{border-bottom:0}}
+  .fait b{display:block;font-family:var(--S);font-weight:800;font-size:21px;color:var(--jaune)}
+  .fait span{display:block;margin-top:8px;font-size:15px;line-height:1.5;color:var(--clair)}
 
-  /* ── Les cinq jours ── */
-  .s-days{background:var(--noir);color:var(--creme);border-top:3px solid var(--noir)}
-  h2{font-size:clamp(2.4rem,6vw,4.5rem);line-height:1.04;letter-spacing:-.02em;margin-top:20px}
-  .s-days h2 em{color:var(--jaune-e);font-weight:300}
-  .sec-sub{font-size:clamp(16px,1.7vw,18px);line-height:1.55;max-width:34em;margin-top:20px}
-  .days{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:24px;margin-top:clamp(2rem,4vw,3.25rem)}
-  .day{padding:26px 22px 30px;background:var(--creme);color:var(--noir);box-shadow:7px 7px 0 var(--c);
-    transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
-  .day:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--c)}
-  .day-n{font-family:var(--SG);font-weight:600;font-size:12px;letter-spacing:.16em;color:var(--gris-f)}
-  .day-t{font-family:var(--S);font-weight:800;font-size:22px;line-height:1.08;margin-top:14px}
-  .day-d{font-size:14.5px;line-height:1.58;color:#2a2724;margin-top:14px}
-  .d1,.d4{--c:var(--jaune)} .d2,.d5{--c:var(--rose)} .d3{--c:var(--bleu)}
+  /* ── Programme ── */
+  .s-prog{background:var(--creme);padding:clamp(3.5rem,8vw,6.5rem) var(--gut)}
+  .prog-grid{display:flex;flex-wrap:wrap;gap:clamp(2.5rem,5vw,4rem);align-items:flex-start}
+  .prog-main{flex:1 1 560px;min-width:0}
+  .label{display:flex;align-items:center;gap:12px;font-family:var(--S);font-weight:800;font-size:13px;
+    letter-spacing:.08em;text-transform:uppercase}
+  .label i{width:36px;height:4px;background:var(--jaune);border:1px solid var(--noir);display:inline-block}
+  h2{margin:18px 0 0;font-family:var(--S);font-weight:800;font-size:clamp(2.1rem,5vw,3.5rem);
+    line-height:1.1;letter-spacing:-.005em}
+  .jours{margin-top:44px;border-bottom:2px solid var(--noir)}
+  .jour{display:flex;gap:22px;padding:26px 0;border-top:2px solid var(--noir)}
+  .jour-n{flex:none;width:54px;height:54px;background:var(--noir);color:var(--jaune);display:inline-flex;
+    align-items:center;justify-content:center;font-family:var(--S);font-weight:800;font-size:20px}
+  .jour-t{font-family:var(--S);font-weight:800;font-size:clamp(19px,2.2vw,23px);line-height:1.15}
+  .jour-d{margin-top:8px;font-size:16.5px;line-height:1.6;color:var(--texte2)}
+  @media(max-width:560px){.jour{gap:16px}.jour-n{width:44px;height:44px;font-size:17px}}
+  .prog-pics{flex:0 1 400px;min-width:300px;display:flex;flex-direction:column;gap:40px;padding-bottom:14px}
+  @media(max-width:1000px){.prog-pics{flex:1 1 100%;min-width:0}}
+  .pic{overflow:hidden;border:3px solid var(--noir);box-shadow:12px 12px 0 var(--jaune)}
+  .pic img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1)}
+  .pic.p1{aspect-ratio:4/3}
+  .pic.p2{align-self:flex-end;width:78%;aspect-ratio:1/1}
+  .pic.p2 img{object-position:50% 55%}
+  .pic.p3{align-self:flex-start;width:90%;aspect-ratio:4/3}
+  .pic.p3 img{object-position:50% 62%}
+  @media(max-width:560px){.pic{box-shadow:8px 8px 0 var(--jaune)}.prog-pics{gap:30px;padding-right:8px}}
 
   /* ── Dossier + règlement ── */
-  .s-form{background:var(--creme)}
-  .s-form h2 em{color:var(--bleu)}
-  .wrap{max-width:880px;margin:0 auto}
-  .sheet{margin-top:clamp(2rem,4vw,3rem);background:var(--feuille);border:3px solid var(--noir);
-    box-shadow:10px 10px 0 var(--rose)}
-  .sheet-in{padding:clamp(1.4rem,4.4vw,2.9rem)}
+  .s-form{background:var(--noir);color:var(--creme);padding:clamp(3.5rem,8vw,6.5rem) var(--gut) clamp(4rem,8vw,7rem)}
+  .s-form h2{margin:0}
+  .sec-sub{margin-top:20px;max-width:640px;font-size:clamp(17px,1.8vw,19px);line-height:1.55;color:var(--clair)}
+  .sec-sub b{color:var(--jaune);font-weight:700}
+  .form-grid{display:flex;flex-wrap:wrap;gap:40px;margin-top:52px;align-items:flex-start}
+  .sheet{flex:1 1 640px;min-width:0;padding:clamp(1.4rem,4.4vw,3rem);background:#fff;color:var(--noir);border-radius:var(--r)}
 
-  fieldset{border:0;margin-bottom:2.75rem;padding-bottom:2.75rem;border-bottom:3px solid var(--noir)}
-  fieldset.last{margin-bottom:0;padding-bottom:0;border-bottom:0}
-  legend{display:flex;align-items:baseline;gap:14px;width:100%;margin-bottom:1.5rem}
-  .step-n{font-family:var(--S);font-weight:800;font-size:14px;color:var(--rose)}
-  .step-t{font-family:var(--S);font-weight:800;font-size:clamp(1.3rem,3vw,1.65rem);color:var(--noir)}
+  fieldset{border:0;margin:0;padding:0;min-width:0}
+  .sep{height:2px;background:var(--noir);margin:44px 0}
+  legend{display:flex;align-items:center;gap:14px;width:100%;margin-bottom:26px;padding:0}
+  .step-n{width:34px;height:34px;background:var(--noir);color:var(--jaune);display:inline-flex;align-items:center;
+    justify-content:center;font-family:var(--S);font-weight:800;font-size:15px;flex:none}
+  .step-t{font-family:var(--S);font-weight:800;font-size:clamp(21px,3vw,26px)}
 
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-  @media(max-width:560px){.row{grid-template-columns:1fr;gap:0}}
+  .row{display:flex;flex-wrap:wrap;gap:0 20px}
+  .row>.fg{flex:1 1 240px;min-width:0}
   .fg{margin-bottom:20px}
-  label{display:block;font-family:var(--SG);font-weight:600;font-size:11px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--noir);margin-bottom:8px}
-  label .opt{font-weight:500;color:var(--gris-f);letter-spacing:.06em;text-transform:none}
+  .fg:last-child{margin-bottom:0}
+  label,.lab{display:block;font-family:var(--A);font-weight:700;font-size:14px;color:var(--noir);margin-bottom:8px}
+  label .opt,.lab .opt{font-weight:400;color:var(--gris-f)}
 
   input[type=text],input[type=email],input[type=tel],input[type=url],textarea{
-    width:100%;padding:14px 16px;border-radius:0;border:3px solid var(--noir);
+    width:100%;padding:14px 15px;border-radius:var(--r);border:2px solid var(--noir);
     background:#fff;font-family:var(--A);font-weight:500;font-size:16px;color:var(--noir);line-height:1.5;
-    -webkit-appearance:none;appearance:none;
-    transition:box-shadow var(--dur) var(--ease),transform var(--dur) var(--ease)}
-  input::placeholder,textarea::placeholder{color:#8a8478}
-  input:focus,textarea:focus{outline:none;box-shadow:4px 4px 0 var(--jaune);transform:translate(-2px,-2px)}
-  textarea{resize:vertical;min-height:120px}
-  [aria-invalid="true"]{border-color:var(--err)!important;box-shadow:4px 4px 0 rgba(200,16,63,.25)!important}
+    -webkit-appearance:none;appearance:none;transition:box-shadow var(--dur) var(--ease)}
+  input::placeholder,textarea::placeholder{color:#8a8478;font-weight:400}
+  input:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px var(--jaune)}
+  textarea{resize:vertical;min-height:112px}
+  [aria-invalid="true"]{border-color:var(--err)!important;box-shadow:0 0 0 4px rgba(200,16,63,.18)!important}
 
-  .civ{display:flex;max-width:300px}
+  .civ{display:inline-flex;border:2px solid var(--noir);border-radius:var(--r);overflow:hidden}
   .civ input{position:absolute;opacity:0;width:0;height:0}
-  .civ label{margin:0;cursor:pointer;flex:0 0 auto;padding:12px 26px;border:3px solid var(--noir);background:#fff;
-    font-family:var(--S);font-weight:800;font-size:14px;letter-spacing:0;text-transform:none;color:var(--noir);
+  .civ label{margin:0;cursor:pointer;padding:11px 30px;font-size:15px;font-weight:700;background:#fff;color:var(--noir);
     transition:background var(--dur) var(--ease),color var(--dur) var(--ease)}
-  .civ label+input+label{border-left:0}
-  .civ label:hover{background:var(--creme)}
+  .civ label:hover{background:var(--papier)}
   .civ input:checked+label{background:var(--noir);color:var(--jaune)}
-  .civ input:focus-visible+label{outline:3px solid var(--bleu);outline-offset:3px}
+  .civ input:focus-visible+label{outline:3px solid var(--jaune);outline-offset:-3px}
 
-  .file{position:relative;border:3px dashed var(--noir);background:#fff;padding:14px 16px;
-    display:flex;align-items:center;gap:14px;cursor:pointer;
-    transition:background var(--dur) var(--ease)}
-  .file:hover{background:#fff8c8}
+  .file{position:relative;display:flex;align-items:center;gap:12px;padding:14px;border:2px dashed var(--noir);
+    border-radius:var(--r);background:var(--papier);cursor:pointer;transition:background var(--dur) var(--ease)}
+  .file:hover{background:#fff3a8}
   .file input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-  .file-txt{display:flex;align-items:center;gap:14px;min-width:0;flex-wrap:wrap}
-  .file-txt b{flex:none;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-    padding:8px 12px;background:var(--noir);color:var(--jaune);font-family:var(--S);font-weight:800;font-size:12px}
-  .file-txt span{font-size:13px;color:var(--gris-f)}
-  .file.ok{border-style:solid;background:#fff8c8}
-  .file.ok .file-txt b{background:var(--bleu);color:#fff}
+  .file-txt{display:flex;align-items:center;gap:12px;min-width:0;flex-wrap:wrap}
+  .file-txt b{flex:none;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:9px 13px;
+    background:var(--noir);color:var(--jaune);border-radius:3px;font-family:var(--S);font-weight:800;font-size:12.5px}
+  .file-txt span{font-size:13px;line-height:1.4;color:var(--texte2)}
+  .file.ok{border-style:solid;background:#fff3a8}
+  .file:focus-within{outline:3px solid var(--noir);outline-offset:3px}
 
-  .hint{display:flex;justify-content:space-between;gap:12px;font-family:var(--SG);font-weight:500;
-    font-size:12px;color:var(--gris-f);margin-top:8px}
+  .hint{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--gris-f);margin-top:8px}
   .count{font-variant-numeric:tabular-nums;flex:none}
-  .count.near{color:var(--err);font-weight:600}
-  .error{display:none;font-size:13px;font-weight:600;color:var(--err);margin-top:8px}
+  .count.near{color:var(--err);font-weight:700}
+  .error{display:none;font-size:13.5px;font-weight:700;color:var(--err);margin-top:8px}
   .error.show{display:block}
   .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-  /* ── Bloc règlement ── */
-  .pay-top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
-    padding:22px 26px;background:var(--noir);color:var(--creme)}
-  .pay-top .l{display:block;font-family:var(--SG);font-weight:600;font-size:11px;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--gris);margin:0 0 4px}
-  .pay-amt{font-family:var(--S);font-weight:800;font-size:clamp(2.2rem,5vw,2.75rem);line-height:1;color:var(--jaune)}
-  .brands{display:flex;flex-wrap:wrap;gap:8px}
-  .brands span{padding:6px 10px;border:2px solid rgba(243,238,228,.4);
-    font-family:var(--SG);font-weight:600;font-size:11px;letter-spacing:.08em}
-  .pay-lock{margin-top:20px;font-family:var(--SG);font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase}
-  .pay-body{margin-top:10px;padding:20px;border:3px solid var(--noir);background:#fff;min-height:130px}
-  .pay-foot{margin-top:12px;font-size:13px;line-height:1.5;color:var(--gris-f)}
-
-  .sk-row{display:flex;align-items:center;gap:12px;padding:14px;border:2px solid var(--noir);
+  /* ── Règlement ── */
+  .pay-body{border:2px solid var(--noir);border-radius:var(--r);background:#fff;padding:16px;min-height:120px}
+  .sk-row{display:flex;align-items:center;gap:12px;padding:14px;border:2px solid var(--noir);border-radius:var(--r);
     background:#fff;margin-bottom:8px}
-  .sk-dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--noir);flex:none}
-  .sk-line{height:8px;background:linear-gradient(90deg,#e6e0d3,#f6f2e9,#e6e0d3);
+  .sk-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--noir);flex:none}
+  .sk-line{height:8px;border-radius:2px;background:linear-gradient(90deg,#e6e0d3,#f6f2e9,#e6e0d3);
     background-size:200% 100%;animation:sh 1.5s linear infinite}
   @keyframes sh{to{background-position:-200% 0}}
-  .sk-msg{font-family:var(--SG);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--gris-f);text-align:center;padding-top:6px}
+  .sk-msg{font-size:13px;font-weight:600;color:var(--gris-f);text-align:center;padding-top:6px}
+  .pay-note{margin-top:12px;font-size:13px;line-height:1.5;color:var(--texte2)}
 
-  .btn{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;
-    font-family:var(--S);font-weight:800;font-size:18px;padding:20px 28px;border:0;border-radius:0;
-    cursor:pointer;color:var(--jaune);background:var(--noir);box-shadow:7px 7px 0 var(--rose);margin-top:36px;
-    transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),opacity var(--dur) var(--ease)}
-  .btn:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--rose)}
-  .btn:disabled{cursor:progress;opacity:.6;box-shadow:none;transform:translate(7px,7px)}
-  .spin{width:16px;height:16px;border:3px solid rgba(255,212,0,.35);border-top-color:var(--jaune);
-    border-radius:50%;animation:sp .7s linear infinite;display:none;flex:none}
-  .btn.busy .spin{display:block}
-  @keyframes sp{to{transform:rotate(360deg)}}
-  .legal{font-size:13px;line-height:1.6;color:var(--gris-f);margin-top:20px;text-align:center}
-
-  /* ── Information et consentement ── */
-  .rgpd{margin-top:32px}
-  .rgpd-check{display:flex;align-items:flex-start;gap:14px;cursor:pointer;
-    font-family:var(--A);font-size:15px;line-height:1.5;color:var(--noir);
-    text-transform:none;letter-spacing:0;font-weight:400;margin:0}
-  .rgpd-check input{flex:none;width:24px;height:24px;margin:0;cursor:pointer;
-    -webkit-appearance:none;appearance:none;border:3px solid var(--noir);border-radius:0;background:#fff;
-    transition:background var(--dur) var(--ease)}
+  .rgpd{margin-top:30px}
+  .rgpd-check{display:flex;align-items:flex-start;gap:12px;cursor:pointer;font-family:var(--A);font-size:15px;line-height:1.5;
+    color:var(--noir);font-weight:400;margin:0}
+  .rgpd-check input{flex:none;width:24px;height:24px;margin:0;cursor:pointer;-webkit-appearance:none;appearance:none;
+    border:2px solid var(--noir);border-radius:3px;background:#fff;transition:background var(--dur) var(--ease)}
   .rgpd-check input:checked{background:var(--noir) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%23ffd400' stroke-width='3.2'/%3E%3C/svg%3E") center/100% no-repeat}
   .rgpd-check a{color:var(--noir);text-decoration:underline;text-underline-offset:3px}
-  .rgpd-info{margin:16px 0 0 38px;font-size:13px;line-height:1.55;color:var(--gris-f)}
-  .rgpd .error{margin-left:38px}
+  .rgpd-info{margin:14px 0 0 36px;font-size:13px;line-height:1.55;color:var(--gris-f)}
+  .rgpd .error{margin-left:36px}
+
+  .btn{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;height:68px;margin-top:34px;
+    font-family:var(--S);font-weight:800;font-size:20px;border:0;border-radius:var(--r);cursor:pointer;
+    color:var(--jaune);background:var(--noir);
+    transition:transform var(--dur) var(--ease),opacity var(--dur) var(--ease),background var(--dur) var(--ease)}
+  .btn:hover:not(:disabled){transform:translateY(-2px)}
+  .btn:focus-visible{outline:3px solid var(--jaune);outline-offset:3px;box-shadow:0 0 0 6px var(--noir)}
+  .btn:disabled{cursor:progress;opacity:.65}
+  .btn .lock{flex:none}
+  .spin{width:18px;height:18px;border:3px solid rgba(255,212,0,.35);border-top-color:var(--jaune);
+    border-radius:50%;animation:sp .7s linear infinite;display:none;flex:none}
+  .btn.busy .spin{display:block}
+  .btn.busy .lock{display:none}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .legal{font-size:13px;line-height:1.6;color:var(--gris-f);margin-top:14px;text-align:center}
+
+  .status{display:none;padding:18px 20px;margin-bottom:28px;font-size:15px;line-height:1.55;border-radius:var(--r);
+    border:2px solid var(--noir)}
+  .status.show{display:block}
+  .status strong{font-family:var(--S);font-weight:800;font-size:18px;display:block;margin-bottom:4px}
+  .status-ok{background:var(--jaune)}
+  .status-ko{background:#fff;border-color:var(--err)}
+  .status-ko strong{color:var(--err)}
+  .status-code{font-size:12px;opacity:.75;display:block;margin-top:8px}
+
+  /* ── Récapitulatif ── */
+  .recap{flex:0 1 360px;min-width:300px;padding:32px;background:var(--jaune);color:var(--noir);border-radius:var(--r);
+    position:sticky;top:24px}
+  @media(max-width:1000px){.recap{flex:1 1 100%;position:static;order:-1}}
+  .recap .k{font-family:var(--S);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .recap .t{margin-top:10px;font-family:var(--S);font-weight:800;font-size:28px;line-height:1.1}
+  .recap .d1{margin-top:8px;font-size:15.5px;font-weight:600}
+  .recap .d2{margin-top:2px;font-size:15.5px}
+  .recap hr{border:0;height:2px;background:var(--noir);margin:24px 0}
+  .incl{display:flex;flex-direction:column;gap:14px;list-style:none}
+  .incl li{display:flex;gap:12px;align-items:flex-start}
+  .incl .ck{flex:none;margin-top:1px;width:22px;height:22px;border-radius:50%;background:var(--noir);
+    display:inline-flex;align-items:center;justify-content:center}
+  .incl b{display:block;font-size:15.5px;font-weight:700}
+  .incl span{display:block;margin-top:2px;font-size:13.5px;line-height:1.45}
+  .recap .tot{font-size:14px;font-weight:700}
+  .recap .amt{margin-top:2px;font-family:var(--S);font-weight:800;font-size:clamp(3.2rem,6vw,4.25rem);line-height:1.05;letter-spacing:-.01em}
+  .recap .sec{margin-top:18px;display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600}
+  .recap .how{margin-top:8px;font-size:13.5px;line-height:1.45}
 
   /* ── Pied de page ── */
-  .site-foot{display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:space-between;align-items:center;
-    padding:26px clamp(1.15rem,5vw,2.5rem);background:var(--noir);color:var(--creme);
-    font-family:var(--SG);font-weight:500;font-size:13px}
+  .site-foot{display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:space-between;padding:28px var(--gut);
+    background:var(--noir);border-top:1px solid rgba(243,238,228,.2);font-size:13.5px;color:var(--gris)}
   .site-foot nav{display:flex;flex-wrap:wrap;gap:8px 24px}
   .site-foot a{color:var(--creme);text-decoration:none}
   .site-foot a:hover{color:var(--jaune)}
-  .site-foot span{color:var(--gris)}
 
-  .status{display:none;padding:18px 20px;margin-bottom:28px;font-size:15px;line-height:1.55;
-    border:3px solid var(--noir)}
-  .status.show{display:block}
-  .status strong{font-family:var(--S);font-weight:800;font-size:17px;display:block;margin-bottom:4px}
-  .status-ok{background:var(--jaune);box-shadow:6px 6px 0 var(--noir)}
-  .status-ko{background:#fff;border-color:var(--err);box-shadow:6px 6px 0 var(--err)}
-  .status-ko strong{color:var(--err)}
-  .status-code{font-family:var(--SG);font-size:11px;opacity:.75;display:block;margin-top:8px}
-
+  [hidden]{display:none!important}
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
     html{scroll-behavior:auto}
@@ -225,172 +231,162 @@
 </head>
 <body>
 
-<header class="topbar">
-  <a class="logo" href="index.html">Yasmina Pastural <b>Training</b></a>
-  <a class="back" href="index.html">← Retour au site</a>
-</header>
-
 <!-- ═══ HERO ═══ -->
-<section class="pad s-hero">
-  <div class="inner hero-grid">
-    <div>
-      <span class="kicker">9 novembre → 13 novembre 2026 · Paris</span>
-      <h1>Prenez<br><em>la place.</em></h1>
-      <p class="lede">Les groupes sont volontairement réduits. Déposez votre dossier et réglez votre session en une seule fois, ici même.</p>
-      <a href="#candidature" class="cta">Déposer mon dossier →</a>
-    </div>
+<div class="s-hero">
+  <header class="top">
+    <a class="logo" href="index.html">Yasmina Pastural Training</a>
+    <a class="back" href="index.html">← Retour au site</a>
+  </header>
 
-    <div class="price">
-      <div>
-        <div class="price-amt">850 €</div>
-        <div class="price-sub">Session complète · 5 jours · groupe restreint</div>
-        <div class="price-grid">
-          <div class="pill"><b>5 jours pleins</b><span>Du lundi au vendredi, en studio à Paris</span></div>
-          <div class="pill"><b>Book photo</b><span>Séance individuelle avec un photographe</span></div>
-          <div class="pill"><b>Casting réel</b><span>Devant une directrice de casting en activité</span></div>
-          <div class="pill"><b>6 intervenants</b><span>Jeu, chant, yoga, préparation mentale</span></div>
+  <section class="hero">
+    <div class="inner hero-grid">
+      <div class="hero-txt">
+        <span class="tag">Stage intensif · Paris · 9 → 13 novembre 2026</span>
+        <h1>Prenez<br>la place.</h1>
+        <p class="lede">Les groupes sont volontairement réduits. Déposez votre dossier et réglez votre session en une seule fois, ici même.</p>
+        <div class="cta-row">
+          <a href="#candidature" class="cta">Déposer mon dossier →</a>
+          <div class="cta-price"><b>850 €</b><br>session complète · groupe restreint</div>
         </div>
-        <div class="price-note">◆ Règlement sécurisé plus bas sur cette page</div>
       </div>
+      <div class="hero-pic">
+        <div class="frame"><img src="images/face-a-face-studio.jpg" alt="Le groupe en studio, face à face, avant un exercice" width="1200" height="1000"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ CE QUI EST INCLUS ═══ -->
+<div class="faits">
+  <div class="faits-in">
+    <div class="fait"><b>5 jours pleins</b><span>Du lundi au vendredi, en studio à Paris</span></div>
+    <div class="fait"><b>Book photo</b><span>Séance individuelle avec un photographe</span></div>
+    <div class="fait"><b>Casting réel</b><span>Devant une directrice de casting en activité</span></div>
+    <div class="fait"><b>6 intervenants</b><span>Jeu, chant, yoga, préparation mentale</span></div>
+  </div>
+</div>
+
+<!-- ═══ PROGRAMME ═══ -->
+<section class="s-prog">
+  <div class="inner prog-grid">
+    <div class="prog-main">
+      <div class="label"><i></i>Ce que vous en repartez</div>
+      <h2>Cinq jours,<br>cinq déclics.</h2>
+      <div class="jours">
+        <div class="jour"><span class="jour-n">01</span><div><div class="jour-t">Vous arrêtez de jouer</div>
+          <p class="jour-d">La première journée sert à faire tomber ce que vous croyez devoir montrer. On travaille sans texte, sans enjeu.</p></div></div>
+        <div class="jour"><span class="jour-n">02</span><div><div class="jour-t">La caméra cesse d'être un juge</div>
+          <p class="jour-d">Vous apprenez ce qu'elle voit vraiment, et ce qu'elle ne pardonne pas. Le corps et le souffle avant le texte.</p></div></div>
+        <div class="jour"><span class="jour-n">03</span><div><div class="jour-t">Vous habitez quelqu'un d'autre</div>
+          <p class="jour-d">Construire un personnage sans le plaquer sur soi. C'est la journée où la plupart des stagiaires basculent.</p></div></div>
+        <div class="jour"><span class="jour-n">04</span><div><div class="jour-t">Vous encaissez une direction</div>
+          <p class="jour-d">Être dirigé sans se perdre, refaire une prise autrement, tenir malgré la fatigue. Votre book se tourne le même jour.</p></div></div>
+        <div class="jour"><span class="jour-n">05</span><div><div class="jour-t">Vous passez pour de vrai</div>
+          <p class="jour-d">Un casting véritable, pas une simulation. Vous repartez avec un retour professionnel sur votre singularité.</p></div></div>
+      </div>
+    </div>
+    <div class="prog-pics">
+      <div class="pic p1"><img src="images/seance-photo-book.jpg" alt="Séance de travail face caméra avec Yasmina Pastural" loading="lazy"></div>
+      <div class="pic p2"><img src="images/impro.jpg" alt="Un stagiaire au clavier pendant un atelier, le groupe autour" loading="lazy"></div>
+      <div class="pic p3"><img src="images/pleniere-studio.jpg" alt="Le groupe en cercle dans la salle du studio" loading="lazy"></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CINQ JOURS ═══ -->
-<section class="pad s-days">
+<!-- ═══ DOSSIER + RÈGLEMENT ═══ -->
+<section class="s-form" id="candidature">
   <div class="inner">
-    <span class="kicker k-rose">Ce que vous en repartez</span>
-    <h2>Cinq jours, cinq <em>déclics.</em></h2>
-    <div class="days">
-      <div class="day d1">
-        <div class="day-n">JOUR 01</div>
-        <div class="day-t">Vous arrêtez de jouer</div>
-        <p class="day-d">La première journée sert à faire tomber ce que vous croyez devoir montrer. On travaille sans texte, sans enjeu.</p>
-      </div>
-      <div class="day d2">
-        <div class="day-n">JOUR 02</div>
-        <div class="day-t">La caméra cesse d'être un juge</div>
-        <p class="day-d">Vous apprenez ce qu'elle voit vraiment, et ce qu'elle ne pardonne pas. Le corps et le souffle avant le texte.</p>
-      </div>
-      <div class="day d3">
-        <div class="day-n">JOUR 03</div>
-        <div class="day-t">Vous habitez quelqu'un d'autre</div>
-        <p class="day-d">Construire un personnage sans le plaquer sur soi. C'est la journée où la plupart des stagiaires basculent.</p>
-      </div>
-      <div class="day d4">
-        <div class="day-n">JOUR 04</div>
-        <div class="day-t">Vous encaissez une direction</div>
-        <p class="day-d">Être dirigé sans se perdre, refaire une prise autrement, tenir malgré la fatigue. Votre book se tourne le même jour.</p>
-      </div>
-      <div class="day d5">
-        <div class="day-n">JOUR 05</div>
-        <div class="day-t">Vous passez pour de vrai</div>
-        <p class="day-d">Un casting véritable, pas une simulation. Vous repartez avec un retour professionnel sur votre singularité.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <h2>Dossier + règlement.</h2>
+    <p class="sec-sub"><b>Tout se fait ici.</b> Cinq minutes suffisent. Votre dossier part chez Yasmina, votre place est réglée dans la foulée.</p>
 
-<!-- ═══ CANDIDATURE ═══ -->
-<section class="pad s-form" id="candidature">
-  <div class="wrap">
-    <span class="kicker k-jaune">Dossier + règlement</span>
-    <h2>Tout se fait <em>ici.</em></h2>
-    <p class="sec-sub">Cinq minutes suffisent. Votre dossier part chez Yasmina, votre place est réglée dans la foulée.</p>
+    <div class="form-grid">
+      <div class="sheet">
+        <div id="etat-ok" class="status status-ok">
+          <strong>Inscription confirmée</strong>
+          Votre place est réservée et votre dossier transmis à Yasmina. Le reçu part par e-mail — pensez à vérifier vos spams.
+        </div>
+        <div id="etat-ko" class="status status-ko"></div>
 
-  <div class="sheet">
-    <div class="sheet-in">
-      <div id="etat-ok" class="status status-ok">
-        <strong>Inscription confirmée</strong>
-        Votre place est réservée et votre dossier transmis à Yasmina. Le reçu part par e-mail — pensez à vérifier vos spams.
-      </div>
-      <div id="etat-ko" class="status status-ko"></div>
-
-      <form id="form" novalidate>
-        <fieldset>
-          <legend><span class="step-n">01</span><span class="step-t">Vous</span></legend>
-          <div class="fg">
-            <label>Civilité</label>
-            <div class="civ">
-              <input type="radio" name="civilite" id="civ-m" value="M" checked><label for="civ-m">M.</label>
-              <input type="radio" name="civilite" id="civ-mme" value="Mme"><label for="civ-mme">Mme</label>
-            </div>
-          </div>
-          <div class="row">
+        <form id="form" novalidate>
+          <fieldset>
+            <legend><span class="step-n">1</span><span class="step-t">Vous</span></legend>
             <div class="fg">
-              <label for="f-prenom">Prénom</label>
-              <input type="text" id="f-prenom" name="prenom" required maxlength="100" autocomplete="given-name">
-              <div class="error" id="err-prenom"></div>
-            </div>
-            <div class="fg">
-              <label for="f-nom">Nom</label>
-              <input type="text" id="f-nom" name="nom" required maxlength="100" autocomplete="family-name">
-              <div class="error" id="err-nom"></div>
-            </div>
-          </div>
-          <div class="fg">
-            <label for="f-email">E-mail</label>
-            <input type="email" id="f-email" name="email" required maxlength="255" autocomplete="email" placeholder="prenom@exemple.fr">
-            <div class="error" id="err-email"></div>
-          </div>
-          <div class="row">
-            <div class="fg">
-              <label for="f-tel">Téléphone <span class="opt">facultatif</span></label>
-              <input type="tel" id="f-tel" name="telephone" maxlength="20" autocomplete="tel">
-            </div>
-            <div class="fg">
-              <label for="f-ville">Ville <span class="opt">facultatif</span></label>
-              <input type="text" id="f-ville" name="ville" maxlength="100" autocomplete="address-level2">
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend><span class="step-n">02</span><span class="step-t">Votre dossier</span></legend>
-          <div class="fg">
-            <label for="f-motiv">Pourquoi ce stage</label>
-            <textarea id="f-motiv" name="motivation" required maxlength="450" data-count
-              placeholder="Où vous en êtes, ce que vous venez débloquer…"></textarea>
-            <div class="hint"><span>Quelques phrases suffisent</span><span class="count"></span></div>
-            <div class="error" id="err-motivation"></div>
-          </div>
-          <div class="fg">
-            <label for="f-video">Vidéo de présentation <span class="opt">lien YouTube, Drive, Vimeo</span></label>
-            <input type="url" id="f-video" name="videoUrl" required placeholder="https://youtube.com/watch?v=...">
-            <div class="hint"><span>1 à 2 min · parlez de vous</span></div>
-            <div class="error" id="err-videoUrl"></div>
-          </div>
-          <div class="row">
-            <div class="fg">
-              <label for="f-cv">Votre CV</label>
-              <div class="file" id="w-cv">
-                <div class="file-txt"><b id="l-cv">Choisir un fichier</b><span>PDF · JPG · PNG — 2 Mo max</span></div>
-                <input type="file" id="f-cv" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" required>
+              <span class="lab" id="lab-civ">Civilité</span>
+              <div class="civ" role="radiogroup" aria-labelledby="lab-civ">
+                <input type="radio" name="civilite" id="civ-m" value="M" checked><label for="civ-m">M.</label>
+                <input type="radio" name="civilite" id="civ-mme" value="Mme"><label for="civ-mme">Mme</label>
               </div>
-              <div class="error" id="err-cvFile"></div>
+            </div>
+            <div class="row">
+              <div class="fg">
+                <label for="f-prenom">Prénom</label>
+                <input type="text" id="f-prenom" name="prenom" required maxlength="100" autocomplete="given-name">
+                <div class="error" id="err-prenom"></div>
+              </div>
+              <div class="fg">
+                <label for="f-nom">Nom</label>
+                <input type="text" id="f-nom" name="nom" required maxlength="100" autocomplete="family-name">
+                <div class="error" id="err-nom"></div>
+              </div>
             </div>
             <div class="fg">
-              <label for="f-photo">Votre photo</label>
-              <div class="file" id="w-photo">
-                <div class="file-txt"><b id="l-photo">Choisir une photo</b><span>Portrait — redimensionnée seule</span></div>
-                <input type="file" id="f-photo" accept="image/jpeg,image/png,image/webp" required>
-              </div>
-              <div class="error" id="err-photoFile"></div>
+              <label for="f-email">E-mail</label>
+              <input type="email" id="f-email" name="email" required maxlength="255" autocomplete="email" placeholder="prenom@exemple.fr">
+              <div class="error" id="err-email"></div>
             </div>
-          </div>
-        </fieldset>
+            <div class="row">
+              <div class="fg">
+                <label for="f-tel">Téléphone <span class="opt">facultatif</span></label>
+                <input type="tel" id="f-tel" name="telephone" maxlength="20" autocomplete="tel">
+              </div>
+              <div class="fg">
+                <label for="f-ville">Ville <span class="opt">facultatif</span></label>
+                <input type="text" id="f-ville" name="ville" maxlength="100" autocomplete="address-level2">
+              </div>
+            </div>
+          </fieldset>
 
-        <fieldset class="last">
-          <legend><span class="step-n">03</span><span class="step-t">Règlement</span></legend>
-          <div class="pay">
-            <div class="pay-top">
-              <div>
-                <span class="l">Montant à régler</span>
-                <span class="pay-amt">850,00 €</span>
-              </div>
-              <div class="brands" aria-hidden="true"><span>CB</span><span>VISA</span><span>Mastercard</span><span>Apple Pay</span></div>
+          <div class="sep"></div>
+
+          <fieldset>
+            <legend><span class="step-n">2</span><span class="step-t">Votre dossier</span></legend>
+            <div class="fg">
+              <label for="f-motiv">Pourquoi ce stage</label>
+              <textarea id="f-motiv" name="motivation" required maxlength="450" data-count
+                placeholder="Où vous en êtes, ce que vous venez débloquer…"></textarea>
+              <div class="hint"><span>Quelques phrases suffisent</span><span class="count"></span></div>
+              <div class="error" id="err-motivation"></div>
             </div>
-            <div class="pay-lock">◆ Paiement sécurisé Stripe</div>
+            <div class="fg">
+              <label for="f-video">Vidéo de présentation <span class="opt">lien YouTube, Drive, Vimeo</span></label>
+              <input type="url" id="f-video" name="videoUrl" required placeholder="https://youtube.com/watch?v=...">
+              <div class="hint"><span>1 à 2 min · parlez de vous</span></div>
+              <div class="error" id="err-videoUrl"></div>
+            </div>
+            <div class="row">
+              <div class="fg">
+                <label for="f-cv">Votre CV</label>
+                <div class="file" id="w-cv">
+                  <div class="file-txt"><b id="l-cv">Choisir un fichier</b><span>PDF · JPG · PNG — 2 Mo max</span></div>
+                  <input type="file" id="f-cv" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" required>
+                </div>
+                <div class="error" id="err-cvFile"></div>
+              </div>
+              <div class="fg">
+                <label for="f-photo">Votre photo</label>
+                <div class="file" id="w-photo">
+                  <div class="file-txt"><b id="l-photo">Choisir une photo</b><span>Portrait — redimensionnée seule</span></div>
+                  <input type="file" id="f-photo" accept="image/jpeg,image/png,image/webp" required>
+                </div>
+                <div class="error" id="err-photoFile"></div>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="sep"></div>
+
+          <fieldset>
+            <legend><span class="step-n">3</span><span class="step-t">Règlement</span></legend>
             <div class="pay-body">
               <div id="payment-element">
                 <div class="sk-row"><span class="sk-dot"></span><span class="sk-line" style="width:44%"></span></div>
@@ -399,42 +395,62 @@
                 <div class="sk-msg">Chargement des moyens de paiement…</div>
               </div>
             </div>
-            <p class="pay-foot">Vos coordonnées bancaires sont saisies directement chez Stripe — ce site ne les voit jamais.</p>
+            <p class="pay-note kl" data-klarna>Avec Klarna, vous finalisez sur le site de Klarna, qui valide votre demande, puis vous revenez ici.</p>
+            <p class="pay-note">Vos coordonnées bancaires sont saisies directement chez Stripe — ce site ne les voit jamais.</p>
+            <div class="error" id="err-paiement"></div>
+          </fieldset>
+
+          <div class="hp" aria-hidden="true">
+            <label for="f-web">Ne pas remplir</label>
+            <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
           </div>
-          <div class="error" id="err-paiement"></div>
-        </fieldset>
 
-        <div class="hp" aria-hidden="true">
-          <label for="f-web">Ne pas remplir</label>
-          <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
-        </div>
+          <div class="rgpd">
+            <label class="rgpd-check" for="f-rgpd">
+              <input type="checkbox" id="f-rgpd" required>
+              <span>
+                J'ai lu la <a href="confidentialite.html" target="_blank" rel="noopener">politique de
+                confidentialité</a> et j'accepte que mon dossier soit traité pour l'examen de ma
+                candidature et l'organisation du stage.
+              </span>
+            </label>
+            <div class="error" id="err-rgpd"></div>
+            <p class="rgpd-info">
+              Vos pièces sont transmises à Yasmina Pastural et conservées 12 mois si votre
+              candidature n'est pas retenue, 3 ans après le stage si elle l'est. Le paiement est
+              opéré par Stripe ; aucune donnée bancaire n'atteint ce site. Vous pouvez à tout
+              moment demander l'accès, la rectification ou l'effacement de vos données.
+            </p>
+          </div>
 
-        <div class="rgpd">
-          <label class="rgpd-check" for="f-rgpd">
-            <input type="checkbox" id="f-rgpd" required>
-            <span>
-              J'ai lu la <a href="confidentialite.html" target="_blank" rel="noopener">politique de
-              confidentialité</a> et j'accepte que mon dossier soit traité pour l'examen de ma
-              candidature et l'organisation du stage.
-            </span>
-          </label>
-          <div class="error" id="err-rgpd"></div>
-          <p class="rgpd-info">
-            Vos pièces sont transmises à Yasmina Pastural et conservées 12 mois si votre
-            candidature n'est pas retenue, 3 ans après le stage si elle l'est. Le paiement est
-            opéré par Stripe ; aucune donnée bancaire n'atteint ce site. Vous pouvez à tout
-            moment demander l'accès, la rectification ou l'effacement de vos données.
-          </p>
-        </div>
+          <button type="submit" class="btn" id="btn">
+            <span class="spin" aria-hidden="true"></span>
+            <svg class="lock" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            <span id="btnTxt">Payer 850 € et candidater</span>
+          </button>
+          <p class="legal">En validant, votre dossier est transmis à Yasmina Pastural Training et le règlement est encaissé.</p>
+        </form>
+      </div>
 
-        <button type="submit" class="btn" id="btn">
-          <span class="spin" aria-hidden="true"></span>
-          <span id="btnTxt">Payer 850 € et candidater</span>
-        </button>
-        <p class="legal">En validant, votre dossier est transmis à Yasmina Pastural Training et le règlement est encaissé.</p>
-      </form>
+      <aside class="recap" aria-label="Récapitulatif">
+        <div class="k">Votre place</div>
+        <div class="t">Session complète · 5 jours</div>
+        <div class="d1">9 → 13 novembre 2026 · Paris</div>
+        <div class="d2">Groupe restreint</div>
+        <hr>
+        <ul class="incl">
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>5 jours pleins</b><span>Du lundi au vendredi, en studio à Paris</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Book photo</b><span>Séance individuelle avec un photographe</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Casting réel</b><span>Devant une directrice de casting en activité</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>6 intervenants</b><span>Jeu, chant, yoga, préparation mentale</span></div></li>
+        </ul>
+        <hr>
+        <div class="tot">Total à régler</div>
+        <div class="amt">850 €</div>
+        <div class="sec"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0c0b0a" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Règlement sécurisé par Stripe</div>
+        <div class="how"><span data-klarna-off>Par carte ou Apple Pay.</span><span data-klarna hidden>Par carte, Apple Pay ou en 3 ou 4 fois avec Klarna.</span></div>
+      </aside>
     </div>
-  </div>
   </div>
 </section>
 
@@ -454,6 +470,11 @@
 // En ligne l'adresse relative suffit ; ouverte hors HTTP la page vise la production.
 var API = (/^https?:$/.test(location.protocol) ? '' : 'https://yptraining.vercel.app') + '/api/candidature';
 var LIBELLE = 'Payer 850 € et candidater';
+/* Klarna : mettre false tant que Klarna n'est pas activé dans le dashboard Stripe
+   (Stripe ne l'affiche qu'une fois activé ; ce drapeau règle seulement les mentions de la page). */
+var KLARNA = true;
+document.querySelectorAll('[data-klarna]').forEach(function (e) { e.hidden = !KLARNA; });
+document.querySelectorAll('[data-klarna-off]').forEach(function (e) { e.hidden = KLARNA; });
 var MAX_OCTETS = 2 * 1024 * 1024;
 var fichiers = { cvFile: null, photoFile: null };
 var stripe = null, elements = null;
@@ -544,25 +565,28 @@ function echec(msg, code) {
     stripe = Stripe(cfg.publishableKey);
     elements = stripe.elements({
       mode: 'payment', amount: 85000, currency: 'eur',
-      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&display=swap' }],
+      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap' }],
       appearance: {
         theme: 'flat',
         variables: {
           colorPrimary: '#0C0B0A', colorBackground: '#FFFFFF', colorText: '#0C0B0A',
-          colorTextSecondary: '#6B6458', colorDanger: '#C8103F',
+          colorTextSecondary: '#35302A', colorDanger: '#C8103F',
           fontFamily: 'Archivo, system-ui, sans-serif',
-          borderRadius: '0px', spacingUnit: '4.5px', fontSizeBase: '15px'
+          borderRadius: '4px', spacingUnit: '4.5px', fontSizeBase: '15px', fontWeightMedium: '700'
         },
         rules: {
-          '.Tab, .AccordionItem': { border: '2px solid #0C0B0A', boxShadow: 'none', backgroundColor: '#FFFFFF' },
-          '.Tab:hover, .AccordionItem:hover': { borderColor: '#0C0B0A', backgroundColor: '#FFF8C8' },
-          '.Tab--selected, .AccordionItem--selected': {
-            borderColor: '#0C0B0A', backgroundColor: '#FFD400',
-            boxShadow: '4px 4px 0 #FF4D97'
+          '.AccordionItem, .Tab': { border: '2px solid #0C0B0A', boxShadow: 'none', backgroundColor: '#FFFFFF' },
+          '.AccordionItem:hover, .Tab:hover': { borderColor: '#0C0B0A', backgroundColor: '#FFFBE0' },
+          '.AccordionItem--selected, .Tab--selected': {
+            borderColor: '#0C0B0A', backgroundColor: '#FFFBE0', boxShadow: 'none'
           },
           '.Input': { border: '2px solid #0C0B0A', boxShadow: 'none', backgroundColor: '#FFFFFF' },
-          '.Input:focus': { borderColor: '#0C0B0A', boxShadow: '3px 3px 0 #FFD400' },
-          '.Label': { fontSize: '11px', letterSpacing: '.1em', textTransform: 'uppercase', color: '#0C0B0A' }
+          '.Input:focus': { borderColor: '#0C0B0A', boxShadow: '0 0 0 4px #FFD400' },
+          '.Input--invalid': { borderColor: '#C8103F', boxShadow: '0 0 0 4px rgba(200,16,63,.18)' },
+          '.Label': { fontSize: '14px', fontWeight: '700', color: '#0C0B0A' },
+          '.RadioIcon': { width: '20px' },
+          '.RadioIconOuter': { stroke: '#0C0B0A', strokeWidth: '2' },
+          '.RadioIconInner': { fill: '#0C0B0A' }
         }
       }
     });
