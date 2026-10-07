@@ -51,8 +51,10 @@
     font-family:var(--S);font-weight:800;font-size:19px;text-decoration:none;border-radius:var(--r);
     transition:transform var(--dur) var(--ease)}
   .cta:hover{transform:translateY(-3px)}
-  .cta-price{font-family:var(--S);font-weight:800;font-size:15px;line-height:1.3}
-  .cta-price b{font-size:30px;letter-spacing:-.02em;font-weight:800}
+  .eur{font-family:var(--A);font-weight:700;font-variant-numeric:lining-nums tabular-nums;letter-spacing:-.02em;white-space:nowrap}
+  .cta-price{display:flex;flex-direction:column;line-height:1.2}
+  .cta-price .eur{font-size:34px}
+  .cta-sub{font-size:14px;font-weight:600;margin-top:2px}
   .frame{aspect-ratio:6/5;overflow:hidden;border:3px solid var(--noir);background:#e9e4d8}
   .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 62%;filter:grayscale(1) contrast(1.12)}
 
@@ -172,7 +174,7 @@
   .rgpd .error{margin-left:36px}
 
   .btn{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;height:68px;margin-top:34px;
-    font-family:var(--S);font-weight:800;font-size:20px;border:0;border-radius:var(--r);cursor:pointer;
+    font-family:var(--A);font-weight:700;font-size:19px;letter-spacing:.005em;border:0;border-radius:var(--r);cursor:pointer;
     color:var(--jaune);background:var(--noir);
     transition:transform var(--dur) var(--ease),opacity var(--dur) var(--ease),background var(--dur) var(--ease)}
   .btn:hover:not(:disabled){transform:translateY(-2px)}
@@ -200,7 +202,7 @@
     position:sticky;top:24px}
   @media(max-width:1000px){.recap{flex:1 1 100%;position:static;order:-1}}
   .recap .k{font-family:var(--S);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
-  .recap .t{margin-top:10px;font-family:var(--S);font-weight:800;font-size:28px;line-height:1.1}
+  .recap .t{margin-top:10px;font-family:var(--S);font-weight:800;font-size:24px;line-height:1.15}
   .recap .d1{margin-top:8px;font-size:15.5px;font-weight:600}
   .recap .d2{margin-top:2px;font-size:15.5px}
   .recap hr{border:0;height:2px;background:var(--noir);margin:24px 0}
@@ -211,7 +213,7 @@
   .incl b{display:block;font-size:15.5px;font-weight:700}
   .incl span{display:block;margin-top:2px;font-size:13.5px;line-height:1.45}
   .recap .tot{font-size:14px;font-weight:700}
-  .recap .amt{margin-top:2px;font-family:var(--S);font-weight:800;font-size:clamp(3.2rem,6vw,4.25rem);line-height:1.05;letter-spacing:-.01em}
+  .recap .amt{margin-top:4px;font-size:clamp(2.6rem,5vw,3.25rem);line-height:1.05}
   .recap .sec{margin-top:18px;display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600}
   .recap .how{margin-top:8px;font-size:13.5px;line-height:1.45}
 
@@ -243,10 +245,10 @@
       <div class="hero-txt">
         <span class="tag">Stage intensif · Paris · 9 → 13 novembre 2026</span>
         <h1>Prenez<br>la place.</h1>
-        <p class="lede">Les groupes sont volontairement réduits. Déposez votre dossier et réglez votre session en une seule fois, ici même.</p>
+        <p class="lede">Une semaine intensive au cœur du jeu cinéma avec Yasmina Pastural et une équipe de professionnels du cinéma. Groupe restreint.</p>
         <div class="cta-row">
-          <a href="#candidature" class="cta">Déposer mon dossier →</a>
-          <div class="cta-price"><b>850 €</b><br>session complète · groupe restreint</div>
+          <a href="#candidature" class="cta">Candidater →</a>
+          <div class="cta-price"><span class="eur">850&nbsp;€</span><span class="cta-sub">la session complète</span></div>
         </div>
       </div>
       <div class="hero-pic">
@@ -259,10 +261,10 @@
 <!-- ═══ CE QUI EST INCLUS ═══ -->
 <div class="faits">
   <div class="faits-in">
-    <div class="fait"><b>5 jours pleins</b><span>Du lundi au vendredi, en studio à Paris</span></div>
-    <div class="fait"><b>Book photo</b><span>Séance individuelle avec un photographe</span></div>
-    <div class="fait"><b>Casting réel</b><span>Devant une directrice de casting en activité</span></div>
-    <div class="fait"><b>6 intervenants</b><span>Jeu, chant, yoga, préparation mentale</span></div>
+    <div class="fait"><b>5 jours</b><span>Du lundi au vendredi, en studio professionnel à Paris</span></div>
+    <div class="fait"><b>Séance photo incluse</b><span>Séance individuelle : portraits pros pour votre dossier artistique</span></div>
+    <div class="fait"><b>Casting réel</b><span>Le vendredi, scène devant un·e directeur·rice de casting</span></div>
+    <div class="fait"><b>14 participants maximum</b><span>Chaque stagiaire est suivi individuellement par Yasmina</span></div>
   </div>
 </div>
 
@@ -270,7 +272,7 @@
 <section class="s-prog">
   <div class="inner prog-grid">
     <div class="prog-main">
-      <div class="label"><i></i>Ce que vous en repartez</div>
+      <div class="label"><i></i>Le programme</div>
       <h2>Cinq jours,<br>cinq déclics.</h2>
       <div class="jours">
         <div class="jour"><span class="jour-n">01</span><div><div class="jour-t">Vous arrêtez de jouer</div>
@@ -296,8 +298,8 @@
 <!-- ═══ DOSSIER + RÈGLEMENT ═══ -->
 <section class="s-form" id="candidature">
   <div class="inner">
-    <h2>Dossier + règlement.</h2>
-    <p class="sec-sub"><b>Tout se fait ici.</b> Cinq minutes suffisent. Votre dossier part chez Yasmina, votre place est réglée dans la foulée.</p>
+    <h2>Candidature et règlement</h2>
+    <p class="sec-sub">Renseignez vos coordonnées, joignez votre dossier, puis réglez la session en ligne. Tout se fait sur cette page.</p>
 
     <div class="form-grid">
       <div class="sheet">
@@ -309,7 +311,7 @@
 
         <form id="form" novalidate>
           <fieldset>
-            <legend><span class="step-n">1</span><span class="step-t">Vous</span></legend>
+            <legend><span class="step-n">1</span><span class="step-t">Vos coordonnées</span></legend>
             <div class="fg">
               <span class="lab" id="lab-civ">Civilité</span>
               <div class="civ" role="radiogroup" aria-labelledby="lab-civ">
@@ -330,8 +332,8 @@
               </div>
             </div>
             <div class="fg">
-              <label for="f-email">E-mail</label>
-              <input type="email" id="f-email" name="email" required maxlength="255" autocomplete="email" placeholder="prenom@exemple.fr">
+              <label for="f-email">Adresse e-mail</label>
+              <input type="email" id="f-email" name="email" required maxlength="255" autocomplete="email">
               <div class="error" id="err-email"></div>
             </div>
             <div class="row">
@@ -349,33 +351,32 @@
           <div class="sep"></div>
 
           <fieldset>
-            <legend><span class="step-n">2</span><span class="step-t">Votre dossier</span></legend>
+            <legend><span class="step-n">2</span><span class="step-t">Votre candidature</span></legend>
             <div class="fg">
-              <label for="f-motiv">Pourquoi ce stage</label>
-              <textarea id="f-motiv" name="motivation" required maxlength="450" data-count
-                placeholder="Où vous en êtes, ce que vous venez débloquer…"></textarea>
-              <div class="hint"><span>Quelques phrases suffisent</span><span class="count"></span></div>
+              <label for="f-motiv">Lettre de motivation</label>
+              <textarea id="f-motiv" name="motivation" required maxlength="450" data-count></textarea>
+              <div class="hint"><span>450 caractères maximum</span><span class="count"></span></div>
               <div class="error" id="err-motivation"></div>
             </div>
             <div class="fg">
-              <label for="f-video">Vidéo de présentation <span class="opt">lien YouTube, Drive, Vimeo</span></label>
-              <input type="url" id="f-video" name="videoUrl" required placeholder="https://youtube.com/watch?v=...">
-              <div class="hint"><span>1 à 2 min · parlez de vous</span></div>
+              <label for="f-video">Vidéo de présentation</label>
+              <input type="url" id="f-video" name="videoUrl" required placeholder="https://">
+              <div class="hint"><span>Lien vers votre vidéo (YouTube, Vimeo, Google Drive…)</span></div>
               <div class="error" id="err-videoUrl"></div>
             </div>
             <div class="row">
               <div class="fg">
-                <label for="f-cv">Votre CV</label>
+                <label for="f-cv">CV</label>
                 <div class="file" id="w-cv">
-                  <div class="file-txt"><b id="l-cv">Choisir un fichier</b><span>PDF · JPG · PNG — 2 Mo max</span></div>
+                  <div class="file-txt"><b id="l-cv">Choisir un fichier</b><span>PDF, JPG ou PNG · 2 Mo maximum</span></div>
                   <input type="file" id="f-cv" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" required>
                 </div>
                 <div class="error" id="err-cvFile"></div>
               </div>
               <div class="fg">
-                <label for="f-photo">Votre photo</label>
+                <label for="f-photo">Photo</label>
                 <div class="file" id="w-photo">
-                  <div class="file-txt"><b id="l-photo">Choisir une photo</b><span>Portrait — redimensionnée seule</span></div>
+                  <div class="file-txt"><b id="l-photo">Choisir une photo</b><span>JPG, PNG ou WebP</span></div>
                   <input type="file" id="f-photo" accept="image/jpeg,image/png,image/webp" required>
                 </div>
                 <div class="error" id="err-photoFile"></div>
@@ -395,8 +396,8 @@
                 <div class="sk-msg">Chargement des moyens de paiement…</div>
               </div>
             </div>
-            <p class="pay-note kl" data-klarna>Avec Klarna, vous finalisez sur le site de Klarna, qui valide votre demande, puis vous revenez ici.</p>
-            <p class="pay-note">Vos coordonnées bancaires sont saisies directement chez Stripe — ce site ne les voit jamais.</p>
+            <p class="pay-note" data-klarna>Si vous choisissez Klarna, vous êtes redirigé vers le site de Klarna pour finaliser, puis ramené sur cette page.</p>
+            <p class="pay-note">Le paiement est opéré par Stripe. Vos données bancaires sont saisies dans les champs sécurisés de Stripe et ne transitent pas par ce site.</p>
             <div class="error" id="err-paiement"></div>
           </fieldset>
 
@@ -426,29 +427,29 @@
           <button type="submit" class="btn" id="btn">
             <span class="spin" aria-hidden="true"></span>
             <svg class="lock" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
-            <span id="btnTxt">Payer 850 € et candidater</span>
+            <span id="btnTxt">Payer 850&nbsp;€ et candidater</span>
           </button>
-          <p class="legal">En validant, votre dossier est transmis à Yasmina Pastural Training et le règlement est encaissé.</p>
+          <p class="legal">En validant, votre dossier est transmis à Yasmina Pastural Training et le paiement est effectué.</p>
         </form>
       </div>
 
       <aside class="recap" aria-label="Récapitulatif">
-        <div class="k">Votre place</div>
-        <div class="t">Session complète · 5 jours</div>
-        <div class="d1">9 → 13 novembre 2026 · Paris</div>
-        <div class="d2">Groupe restreint</div>
+        <div class="k">Récapitulatif</div>
+        <div class="t">Stage intensif de jeu cinéma</div>
+        <div class="d1">Du 9 au 13 novembre 2026</div>
+        <div class="d2">Paris · groupe restreint</div>
         <hr>
         <ul class="incl">
-          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>5 jours pleins</b><span>Du lundi au vendredi, en studio à Paris</span></div></li>
-          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Book photo</b><span>Séance individuelle avec un photographe</span></div></li>
-          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Casting réel</b><span>Devant une directrice de casting en activité</span></div></li>
-          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>6 intervenants</b><span>Jeu, chant, yoga, préparation mentale</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Séance photo individuelle</b><span>Comprise dans le tarif</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Casting le vendredi</b><span>Devant un·e directeur·rice de casting</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>14 participants maximum</b><span>Suivi individuel par Yasmina</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Lieu</b><span>Paris, studio professionnel. Adresse communiquée après confirmation</span></div></li>
         </ul>
         <hr>
         <div class="tot">Total à régler</div>
-        <div class="amt">850 €</div>
-        <div class="sec"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0c0b0a" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Règlement sécurisé par Stripe</div>
-        <div class="how"><span data-klarna-off>Par carte ou Apple Pay.</span><span data-klarna hidden>Par carte, Apple Pay ou en 3 ou 4 fois avec Klarna.</span></div>
+        <div class="amt eur">850&nbsp;€</div>
+        <div class="sec"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0c0b0a" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Paiement sécurisé par Stripe</div>
+        <div class="how" data-klarna hidden>Paiement en 3 ou 4 fois possible avec Klarna.</div>
       </aside>
     </div>
   </div>
@@ -469,7 +470,7 @@
 <script>
 // En ligne l'adresse relative suffit ; ouverte hors HTTP la page vise la production.
 var API = (/^https?:$/.test(location.protocol) ? '' : 'https://yptraining.vercel.app') + '/api/candidature';
-var LIBELLE = 'Payer 850 € et candidater';
+var LIBELLE = 'Payer 850\u00a0€ et candidater';
 /* Klarna : mettre false tant que Klarna n'est pas activé dans le dashboard Stripe
    (Stripe ne l'affiche qu'une fois activé ; ce drapeau règle seulement les mentions de la page). */
 var KLARNA = true;
