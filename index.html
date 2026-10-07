@@ -138,6 +138,7 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
 .hero-h1 .ln:nth-child(1){animation-delay:.3s}
 .hero-h1 .ln:nth-child(2){animation-delay:.44s;font-family:var(--F);font-style:italic;font-weight:300;color:var(--jaune)}
 .hero-h1 .ln:nth-child(3){animation-delay:.58s;color:transparent;-webkit-text-stroke:1.5px var(--creme);font-family:var(--SG);font-weight:700;font-size:clamp(28px,5.5vw,72px);line-height:1.4;letter-spacing:-.01em}
+.hero-h1 .ln:nth-child(4){animation-delay:.72s;color:var(--creme);-webkit-text-stroke:0;font-family:var(--SG);font-weight:700;font-size:clamp(28px,5.5vw,72px);line-height:1.2;letter-spacing:-.01em}
 .hero-sub{margin-top:28px;font-size:clamp(15px,1.8vw,18px);line-height:1.65;color:#cfc8ba;
   max-width:52ch;opacity:0;animation:popUp .8s .8s var(--ease) forwards;font-family:var(--SG);font-weight:400}
 .hero-acts{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;opacity:0;animation:popUp .8s 1s var(--ease) forwards}
@@ -360,16 +361,41 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
 .affiches::-webkit-scrollbar{height:3px}
 .affiches::-webkit-scrollbar-thumb{background:var(--jaune)}
 .aff{flex:0 0 auto;width:174px;scroll-snap-align:start}
-.aff-img{overflow:hidden;aspect-ratio:2/3;background:#1c1a17;border:1px solid rgba(255,93,143,.22);
+.aff-img{overflow:hidden;aspect-ratio:2/3;background:#1c1a17;border:1px solid rgba(243,238,228,.18);
   position:relative;transition:.4s var(--ease)}
 .aff-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease)}
-.aff:hover .aff-img{transform:translateY(-6px);box-shadow:5px 5px 0 var(--rose)}
+.aff:hover .aff-img{transform:translateY(-6px);box-shadow:5px 5px 0 rgba(243,238,228,.35)}
 .aff:hover .aff-img img{transform:scale(1.05)}
 .aff-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,11,10,.9) 0%,transparent 55%);
   display:flex;flex-direction:column;justify-content:flex-end;padding:12px;
   opacity:0;transition:.3s}
 .aff:hover .aff-ov{opacity:1}
 .aff-meta{font-family:var(--S);font-size:9.5px;color:var(--jaune-e);letter-spacing:.06em;text-transform:uppercase}
+/* Cartes de film — tant qu'aucune affiche officielle n'est autorisée (voir POSTER_MAP).
+   Carte « clap de tournage » en noir et crème ; l'affiche autorisée prend la place de la carte. */
+.aff{position:relative}
+.aff-card{position:absolute;inset:0;background:var(--noir);overflow:hidden}
+.aff-clap-a,.aff-clap-b{position:absolute;left:0;width:100%;height:18px;box-sizing:border-box;border:2px solid var(--creme)}
+.aff-clap-a{top:20px;transform-origin:0 100%;transform:rotate(var(--rot,-5deg));
+  background:repeating-linear-gradient(135deg,var(--creme) 0 10px,var(--noir) 10px 20px)}
+.aff-clap-b{top:40px;background:repeating-linear-gradient(45deg,var(--creme) 0 10px,var(--noir) 10px 20px)}
+.aff-body{position:absolute;left:0;right:0;top:58px;bottom:0;display:flex;flex-direction:column;
+  background:var(--creme);color:var(--noir)}
+.aff-r{border-top:2px solid var(--noir);padding:4px 10px 5px}
+.aff-film{flex:1;min-height:0;border-top:0;display:flex;flex-direction:column;justify-content:space-between;padding:8px 10px}
+.aff-l{display:block;font-family:var(--SG);font-weight:600;font-size:7px;line-height:1.3;letter-spacing:.16em;
+  text-transform:uppercase;color:#6b6458}
+.aff-v{display:block;font-family:var(--SG);font-weight:600;font-size:10.5px;line-height:1.3;letter-spacing:.06em;
+  text-transform:uppercase;margin-top:1px}
+.aff-t{display:block;font-family:var(--S);font-weight:800;font-size:22px;line-height:.98;letter-spacing:-.01em;
+  text-transform:uppercase}
+.aff-coach{background:var(--noir);color:var(--creme)}
+.aff-coach .aff-l{color:#a9a297}
+/* sans affiche : la carte porte déjà titre + infos, on garde les légendes pour les lecteurs d'écran */
+.aff:not(.has-poster) .aff-ov{display:none}
+.aff:not(.has-poster) .aff-name,.aff:not(.has-poster) .aff-sub{position:absolute;width:1px;height:1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.aff.has-poster .aff-card{display:none}
 .aff-name{font-size:13px;font-weight:600;margin-top:8px;color:var(--creme)}
 .aff-sub{font-family:var(--S);font-size:9px;color:var(--gris);margin-top:2px;text-transform:uppercase;letter-spacing:.07em}
 /* Filmo texte + Keitel photo côte à côte */
@@ -1227,10 +1253,10 @@ footer a:hover{color:var(--bleu)}
   <span class="logo">Yasmina Pastural <b>Training</b></span>
   <div class="nav-links">
     <a href="#dernieres-sorties" class="nav-link">Dernières sorties</a>
-    <a href="#stage" class="nav-link">Le stage</a>
-    <a href="#semaine" class="nav-link">La semaine</a>
     <a href="#yasmina" class="nav-link">Yasmina</a>
     <a href="#filmo" class="nav-link">Filmographie</a>
+    <a href="#stage" class="nav-link">Le stage</a>
+    <a href="#semaine" class="nav-link">La semaine</a>
     <a href="#presse" class="nav-link">Presse</a>
     <a href="#communaute" class="nav-link">Communauté</a>
     <button onclick="location.href='candidater.html'" class="nav-link nav-cta" style="border:none;cursor:pointer">Candidater</button>
@@ -1242,10 +1268,10 @@ footer a:hover{color:var(--bleu)}
 
 <div class="mob" id="mob" aria-hidden="true">
   <a href="#dernieres-sorties" onclick="closeMob()">Dernières sorties</a>
-  <a href="#stage" onclick="closeMob()">Le stage</a>
-  <a href="#semaine" onclick="closeMob()">La semaine</a>
   <a href="#yasmina" onclick="closeMob()">Yasmina</a>
   <a href="#filmo" onclick="closeMob()">Filmographie</a>
+  <a href="#stage" onclick="closeMob()">Le stage</a>
+  <a href="#semaine" onclick="closeMob()">La semaine</a>
   <a href="#presse" onclick="closeMob()">Presse</a>
   <a href="#communaute" onclick="closeMob()">Communauté</a>
   <button onclick="location.href='candidater.html'" class="mcta" style="border:none;cursor:pointer">Candidater →</button>
@@ -1262,7 +1288,8 @@ footer a:hover{color:var(--bleu)}
     <h1 class="hero-h1">
       <span class="ln">Apprendre à</span>
       <span class="ln">jouer juste,</span>
-      <span class="ln">devant la caméra.</span>
+      <span class="ln">devant la caméra</span>
+      <span class="ln">avec Yasmina Pastural.</span>
     </h1>
     <p class="hero-sub">Une semaine d'immersion totale avec Yasmina Pastural, coach d'acteurs depuis plus de vingt ans qu'on a pu voir travailler sur les plateaux de Kery James, Mehdi Idir, GCM, Ludovic Colbeau Justin, Mounia Meddour, Claude Zidi Jr... Depuis 2006, elle forme les acteurs à jouer vrai.</p>
     <div class="hero-acts">
@@ -1272,7 +1299,7 @@ footer a:hover{color:var(--bleu)}
   </div>
   <div class="hero-meta" aria-hidden="true">
     35H D'IMMERSION · CASTING RÉEL LE VENDREDI<br>
-    SESSION · <b>28 SEPT → 02 OCT 2026</b>
+    SESSION · <b>9 NOV → 13 NOV 2026</b>
   </div>
 </section>
 
@@ -1300,7 +1327,136 @@ footer a:hover{color:var(--bleu)}
 <section id="dernieres-sorties" class="pad">
   <h2 class="h2-ed ds-page-titre rv">Dernières sorties</h2>
   <div class="ds-liste rv d1" id="ds-liste"></div>
-  <p class="ds-lien rv d2"><a href="dernier-casting-coache.html">Dernier casting coaché →</a></p>
+  <p class="ds-lien rv d2"><a href="dernier-training.html">Dernier training →</a></p>
+</section>
+
+<!-- ═══ 03 · YASMINA ═══ -->
+<section id="yasmina" class="pad" style="background:var(--bleu);color:#fff;border-top:3px solid var(--noir);border-bottom:3px solid var(--noir);position:relative;overflow:hidden">
+  <div style="position:absolute;width:380px;height:380px;border-radius:50%;background:var(--rose-e);right:-80px;bottom:-80px;opacity:.18;filter:blur(4px);pointer-events:none"></div>
+  <span class="lbl lbl-jaune rv">La coach</span>
+  <div class="bio-grid">
+    <div class="rv-l">
+      <div class="portrait-frame">
+        <img src="images/yasmina-pastural-coach-d-acteurs-cinema.jpg" alt="Yasmina Pastural, coach d'acteurs cinéma" loading="lazy">
+      </div>
+      <div class="keitel-card">
+        <img src="images/yasmina-pastural-et-harvey-keitel-madame-2017.jpg" alt="Yasmina Pastural et Harvey Keitel, Madame 2017" loading="lazy">
+        <div class="keitel-txt">
+          <strong>Harvey Keitel · Madame (2017)</strong>
+          Yasmina a coaché Harvey Keitel sur le tournage d'Amanda Sthers, collaboration devenue emblématique de son parcours.
+        </div>
+      </div>
+    </div>
+    <div class="bio-right rv-r d2">
+      <h2>Yasmina<br>Pastural.</h2>
+      <div class="bio-sub-label">Coach acteurs · Formatrice · 2006 →</div>
+      <p class="bio-p">Je suis passionnée de cinéma depuis ma plus tendre enfance. Très jeune, j'ai découvert les films de <strong>Claude Lelouch</strong>, <strong>Alexandre Arcady</strong>, <strong>Cédric Klapisch</strong>, <strong>Martin Scorsese</strong> et <strong>Francis Ford Coppola</strong>. Leur univers a nourri mon imagination et m'a donné très tôt l'envie de raconter des histoires et de faire partie de ce monde.</p>
+      <p class="bio-p">J'ai commencé le théâtre à l'âge de huit ans. Cette passion ne m'a jamais quittée et m'a naturellement menée vers une carrière de comédienne professionnelle à partir de 2003.</p>
+      <p class="bio-p">Un tournant important de mon parcours a été ma rencontre avec <strong>Lola Doillon</strong>, qui préparait son premier long métrage. C'est à cette période que j'ai découvert le coaching d'acteurs et que j'ai compris que l'accompagnement des comédiens était une véritable vocation.</p>
+      <p class="bio-p">Depuis plus de vingt ans, je mets mon expérience au service des acteurs, qu'ils tournent pour la première fois ou qu'ils soient déjà confirmés. J'ai eu la chance de collaborer sur de nombreux films, notamment <em>Les Murs</em> de Christian Faure, <em>Maison de retraite</em> avec Kev Adams, ainsi que de nombreux autres projets, en accompagnant les comédiens dans leur préparation.</p>
+      <p class="bio-p">Au fil des années, j'ai également travaillé avec de nombreux artistes, parmi lesquels <strong>Harvey Keitel</strong> et <strong>Sylvie Vartan</strong>. J'ai produit une centaine de contenus vidéo et de publicités, et j'ai eu l'opportunité de travailler en France, aux États-Unis, au Canada, au Gabon, en Corée du Sud, en Espagne et dans d'autres pays.</p>
+      <p class="bio-p">J'ai participé à des projets très différents, comme <em>Yo Mama</em> ou <em>La Vie scolaire</em>, en accompagnant aussi bien des enfants, des adolescents que des adultes.</p>
+      <p class="bio-p">Ce qui m'anime profondément, c'est la transmission. J'aime révéler le potentiel des comédiens, les aider à prendre confiance, à trouver leur vérité de jeu et à s'épanouir devant la caméra.</p>
+      <p class="bio-p">Aujourd'hui, je propose des trainings d'acteurs destinés aussi bien aux professionnels qu'aux personnes qui souhaitent découvrir le métier de comédien. Mon objectif est de vous accompagner avec exigence, bienveillance et passion dans cette formidable aventure artistique.</p>
+      <div class="stats-grid">
+        <div class="stat-c"><div class="stat-n" data-count="20"><span>0</span><sup>ans</sup></div><div class="stat-l">sur les plateaux</div></div>
+        <div class="stat-c"><div class="stat-n" data-count="15"><span>0</span><sup>+</sup></div><div class="stat-l">acteurs coachés nommés aux César</div></div>
+        <div class="stat-c"><div class="stat-n" data-count="100"><span>0</span><sup>+</sup></div><div class="stat-l">productions accompagnées</div></div>
+        <div class="stat-c"><div class="stat-n" data-count="50"><span>0</span><sup>+</sup></div><div class="stat-l">réalisateurs</div></div>
+      </div>
+      <div class="coached-list">
+        <span class="coached-lbl">Parmi les comédiens coachés</span>
+        <p class="coached-names">Harvey Keitel · Sylvie Vartan · Bakary Diombera · Christa Théret · Finnegan Oldfield · Émile Berling · Thomas Solivérès · Dali Benssalah · Claudia Tagbo · Kery James · Daniel Prévost · Liam Pierron · Samy Seghir · La Fouine · Waly Dia</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 04 · FILMOGRAPHIE ═══ -->
+<section id="filmo" class="pad" style="background:var(--noir);color:var(--creme);padding-bottom:0;border-top:3px solid var(--rose);border-bottom:3px solid var(--rose)">
+  <span class="lbl lbl-rose rv">Filmographie</span>
+  <h2 class="h2-ed rv d1" style="color:var(--creme)">Films sur lesquels<br><em>Yasmina a travaillé.</em></h2>
+  <p class="rv d2" style="font-size:15px;line-height:1.72;color:var(--gris);max-width:54ch;margin-top:10px">Coach acteurs sur les plateaux de ces productions, aux côtés de leurs réalisateurs et comédiens.</p>
+</section>
+
+<div class="pellicule rv">
+  <div class="affiches" role="list">
+    <div class="aff" data-film="Maison de retraite 2"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-4deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Maison de retraite 2</strong></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Maison de retraite 2</span></div></div><div class="aff-name">Maison de retraite 2</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Madame"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-7deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Madame</strong></div><div class="aff-r"><span class="aff-l">Réalisation</span><span class="aff-v">Amanda Sthers</span></div><div class="aff-r"><span class="aff-l">Année</span><span class="aff-v">2017</span></div><div class="aff-r"><span class="aff-l">Avec</span><span class="aff-v">Harvey Keitel</span></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Amanda Sthers · 2017</span></div></div><div class="aff-name">Madame</div><div class="aff-sub">Harvey Keitel</div></div>
+    <div class="aff" data-film="Casse-tête chinois"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-4deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Casse-tête chinois</strong></div><div class="aff-r"><span class="aff-l">Réalisation</span><span class="aff-v">Cédric Klapisch</span></div><div class="aff-r"><span class="aff-l">Année</span><span class="aff-v">2013</span></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Klapisch · 2013</span></div></div><div class="aff-name">Casse-tête chinois</div><div class="aff-sub">Klapisch</div></div>
+    <div class="aff" data-film="La Vie scolaire"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-9deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">La Vie scolaire</strong></div><div class="aff-r"><span class="aff-l">Réalisation</span><span class="aff-v">Grand Corps Malade</span></div><div class="aff-r"><span class="aff-l">Année</span><span class="aff-v">2019</span></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Grand Corps Malade · 2019</span></div></div><div class="aff-name">La Vie scolaire</div><div class="aff-sub">Grand Corps Malade</div></div>
+    <div class="aff" data-film="Banlieusards"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-5deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Banlieusards</strong></div><div class="aff-r"><span class="aff-l">Réalisation</span><span class="aff-v">Kery James</span></div><div class="aff-r"><span class="aff-l">Année</span><span class="aff-v">2019</span></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Kery James · 2019</span></div></div><div class="aff-name">Banlieusards</div><div class="aff-sub">Kery James</div></div>
+    <div class="aff" data-film="Coco Chanel &amp; Igor"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-7deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Coco Chanel &amp; Igor</strong></div><div class="aff-r"><span class="aff-l">Réalisation</span><span class="aff-v">Jan Kounen</span></div><div class="aff-r"><span class="aff-l">Année</span><span class="aff-v">2009</span></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Jan Kounen · 2009</span></div></div><div class="aff-name">Coco Chanel &amp; Igor</div><div class="aff-sub">Jan Kounen</div></div>
+    <div class="aff" data-film="Quand tu seras grand"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-4deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Quand tu seras grand</strong></div><div class="aff-r"><span class="aff-l">Réalisation</span><span class="aff-v">Bescond &amp; Métayer</span></div><div class="aff-r"><span class="aff-l">Année</span><span class="aff-v">2023</span></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Bescond &amp; Métayer · 2023</span></div></div><div class="aff-name">Quand tu seras grand</div><div class="aff-sub">Bescond &amp; Métayer</div></div>
+    <div class="aff" data-film="Dans la brume"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-9deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Dans la brume</strong></div><div class="aff-r"><span class="aff-l">Réalisation</span><span class="aff-v">Daniel Roby</span></div><div class="aff-r"><span class="aff-l">Année</span><span class="aff-v">2018</span></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Daniel Roby · 2018</span></div></div><div class="aff-name">Dans la brume</div><div class="aff-sub">Daniel Roby</div></div>
+    <div class="aff" data-film="Roqya"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-5deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Roqya</strong></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Roqya</span></div></div><div class="aff-name">Roqya</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Le Blond de la Casbah"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-7deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Le Blond de la Casbah</strong></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Le Blond de la Casbah</span></div></div><div class="aff-name">Le Blond de la Casbah</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Léo Matteï"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-4deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Léo Matteï</strong></div><div class="aff-r"><span class="aff-l">Format</span><span class="aff-v">Série TV</span></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Léo Matteï · Série TV</span></div></div><div class="aff-name">Léo Matteï</div><div class="aff-sub">Série TV</div></div>
+    <div class="aff" data-film="La plus belle pour danser"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-9deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">La plus belle pour danser</strong></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">La plus belle pour danser</span></div></div><div class="aff-name">La plus belle pour danser</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Yo Mama"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-5deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Yo Mama</strong></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Yo Mama</span></div></div><div class="aff-name">Yo Mama</div><div class="aff-sub">&nbsp;</div></div>
+    <div class="aff" data-film="Y a pas de réseau"><div class="aff-img"><div class="aff-card" aria-hidden="true" style="--rot:-7deg"><i class="aff-clap-a"></i><i class="aff-clap-b"></i><div class="aff-body"><div class="aff-r aff-film"><span class="aff-l">Film</span><strong class="aff-t">Y a pas de réseau</strong></div><div class="aff-r aff-coach"><span class="aff-l">Coach acteurs</span><span class="aff-v">Yasmina Pastural</span></div></div></div><div class="aff-ov"><span class="aff-meta">Y a pas de réseau</span></div></div><div class="aff-name">Y a pas de réseau</div><div class="aff-sub">&nbsp;</div></div>
+  </div>
+</div>
+
+<section class="pad" style="background:var(--noir);color:var(--creme);padding-top:0;border-bottom:3px solid var(--rose)">
+  <div class="filmo-split rv">
+    <div>
+      <span class="films-lbl">Filmographie complète</span>
+      <div class="films-cols">
+        <div class="film-row">Quand tu seras grand<small>Bescond & Métayer</small></div>
+        <div class="film-row">Dans la brume<small>Daniel Roby</small></div>
+        <div class="film-row">Saint-Ex<small>Pablo Agüero</small></div>
+        <div class="film-row">Quelques mots d'amour</div>
+        <div class="film-row">Maison de retraite</div>
+        <div class="film-row">Maison de retraite 2</div>
+        <div class="film-row">Y a pas de réseau</div>
+        <div class="film-row">Roqya</div>
+        <div class="film-row">Le Blond de la Casbah</div>
+        <div class="film-row">Yo Mama</div>
+        <div class="film-row">La plus belle pour danser</div>
+        <div class="film-row">Léo Matteï<small>Série TV</small></div>
+        <div class="film-row">Tapie<small>Série</small></div>
+        <div class="film-row">Malika</div>
+        <div class="film-row">Le Panache</div>
+        <div class="film-row">Métamorph</div>
+        <div class="film-row">Engrenages<small>Série</small></div>
+        <div class="film-row">Le crime lui va si bien</div>
+        <div class="film-row">Juste un regard</div>
+        <div class="film-row">Père et fils thérapie</div>
+        <div class="film-row">Braqueurs</div>
+        <div class="film-row">C'est qui les plus forts</div>
+        <div class="film-row">On voulait tout casser</div>
+        <div class="film-row">À toute épreuve</div>
+        <div class="film-row">Les hauts murs</div>
+        <div class="film-row">Et toi t'es sur qui ?</div>
+      </div>
+    </div>
+    <!-- Keitel card à côté -->
+    <div class="keitel-filmo rv-r d2">
+      <img src="images/yasmina-pastural-et-harvey-keitel.jpg" alt="Yasmina Pastural et Harvey Keitel">
+      <div class="keitel-filmo-body">
+        <strong>Harvey Keitel · Madame</strong>
+        <span>Amanda Sthers · 2017</span>
+      </div>
+    </div>
+  </div>
+  <div class="real-sect rv d3">
+    <span class="real-lbl">Réalisateurs</span>
+    <div class="real-tags">
+      <span class="real-tag">Cédric Klapisch</span>
+      <span class="real-tag">Lola Doillon</span>
+      <span class="real-tag">Nicole Garcia</span>
+      <span class="real-tag">Kery James</span>
+      <span class="real-tag">Grand Corps Malade</span>
+      <span class="real-tag">Mounia Meddour</span>
+      <span class="real-tag">Amanda Sthers</span>
+      <span class="real-tag">Claude Zidi Jr</span>
+      <span class="real-tag">Andréa Bescond</span>
+      <span class="real-tag">Jan Kounen</span>
+      <span class="real-tag">Daniel Roby</span>
+      <span class="real-tag">Pablo Agüero</span>
+    </div>
+  </div>
 </section>
 
 <!-- ═══ 01 · LE STAGE ═══ -->
@@ -1519,135 +1675,6 @@ footer a:hover{color:var(--bleu)}
   </div>
 </section>
 
-<!-- ═══ 03 · YASMINA ═══ -->
-<section id="yasmina" class="pad" style="background:var(--bleu);color:#fff;border-top:3px solid var(--noir);border-bottom:3px solid var(--noir);position:relative;overflow:hidden">
-  <div style="position:absolute;width:380px;height:380px;border-radius:50%;background:var(--rose-e);right:-80px;bottom:-80px;opacity:.18;filter:blur(4px);pointer-events:none"></div>
-  <span class="lbl lbl-jaune rv">La coach</span>
-  <div class="bio-grid">
-    <div class="rv-l">
-      <div class="portrait-frame">
-        <img src="images/yasmina-pastural-coach-d-acteurs-cinema.jpg" alt="Yasmina Pastural, coach d'acteurs cinéma" loading="lazy">
-      </div>
-      <div class="keitel-card">
-        <img src="images/yasmina-pastural-et-harvey-keitel-madame-2017.jpg" alt="Yasmina Pastural et Harvey Keitel, Madame 2017" loading="lazy">
-        <div class="keitel-txt">
-          <strong>Harvey Keitel · Madame (2017)</strong>
-          Yasmina a coaché Harvey Keitel sur le tournage d'Amanda Sthers, collaboration devenue emblématique de son parcours.
-        </div>
-      </div>
-    </div>
-    <div class="bio-right rv-r d2">
-      <h2>Yasmina<br>Pastural.</h2>
-      <div class="bio-sub-label">Coach acteurs · Formatrice · 2006 →</div>
-      <p class="bio-p">Je suis passionnée de cinéma depuis ma plus tendre enfance. Très jeune, j'ai découvert les films de <strong>Claude Lelouch</strong>, <strong>Alexandre Arcady</strong>, <strong>Cédric Klapisch</strong>, <strong>Martin Scorsese</strong> et <strong>Francis Ford Coppola</strong>. Leur univers a nourri mon imagination et m'a donné très tôt l'envie de raconter des histoires et de faire partie de ce monde.</p>
-      <p class="bio-p">J'ai commencé le théâtre à l'âge de huit ans. Cette passion ne m'a jamais quittée et m'a naturellement menée vers une carrière de comédienne professionnelle à partir de 2003.</p>
-      <p class="bio-p">Un tournant important de mon parcours a été ma rencontre avec <strong>Lola Doillon</strong>, qui préparait son premier long métrage. C'est à cette période que j'ai découvert le coaching d'acteurs et que j'ai compris que l'accompagnement des comédiens était une véritable vocation.</p>
-      <p class="bio-p">Depuis plus de vingt ans, je mets mon expérience au service des acteurs, qu'ils tournent pour la première fois ou qu'ils soient déjà confirmés. J'ai eu la chance de collaborer sur de nombreux films, notamment <em>Les Murs</em> de Christian Faure, <em>Maison de retraite</em> avec Kev Adams, ainsi que de nombreux autres projets, en accompagnant les comédiens dans leur préparation.</p>
-      <p class="bio-p">Au fil des années, j'ai également travaillé avec de nombreux artistes, parmi lesquels <strong>Harvey Keitel</strong> et <strong>Sylvie Vartan</strong>. J'ai produit une centaine de contenus vidéo et de publicités, et j'ai eu l'opportunité de travailler en France, aux États-Unis, au Canada, au Gabon, en Corée du Sud, en Espagne et dans d'autres pays.</p>
-      <p class="bio-p">J'ai participé à des projets très différents, comme <em>Yo Mama</em> ou <em>La Vie scolaire</em>, en accompagnant aussi bien des enfants, des adolescents que des adultes.</p>
-      <p class="bio-p">Ce qui m'anime profondément, c'est la transmission. J'aime révéler le potentiel des comédiens, les aider à prendre confiance, à trouver leur vérité de jeu et à s'épanouir devant la caméra.</p>
-      <p class="bio-p">Aujourd'hui, je propose des trainings d'acteurs destinés aussi bien aux professionnels qu'aux personnes qui souhaitent découvrir le métier de comédien. Mon objectif est de vous accompagner avec exigence, bienveillance et passion dans cette formidable aventure artistique.</p>
-      <div class="stats-grid">
-        <div class="stat-c"><div class="stat-n" data-count="20"><span>0</span><sup>ans</sup></div><div class="stat-l">sur les plateaux</div></div>
-        <div class="stat-c"><div class="stat-n" data-count="15"><span>0</span><sup>+</sup></div><div class="stat-l">acteurs coachés nommés aux César</div></div>
-        <div class="stat-c"><div class="stat-n" data-count="100"><span>0</span><sup>+</sup></div><div class="stat-l">productions accompagnées</div></div>
-        <div class="stat-c"><div class="stat-n" data-count="50"><span>0</span><sup>+</sup></div><div class="stat-l">réalisateurs</div></div>
-      </div>
-      <div class="coached-list">
-        <span class="coached-lbl">Parmi les comédiens coachés</span>
-        <p class="coached-names">Harvey Keitel · Sylvie Vartan · Bakary Diombera · Christa Théret · Finnegan Oldfield · Émile Berling · Thomas Solivérès · Dali Benssalah · Claudia Tagbo · Kery James · Daniel Prévost · Liam Pierron · Samy Seghir · La Fouine · Waly Dia</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ 04 · FILMOGRAPHIE ═══ -->
-<section id="filmo" class="pad" style="background:var(--noir);color:var(--creme);padding-bottom:0;border-top:3px solid var(--rose);border-bottom:3px solid var(--rose)">
-  <span class="lbl lbl-rose rv">Filmographie</span>
-  <h2 class="h2-ed rv d1" style="color:var(--creme)">Films sur lesquels<br><em>Yasmina a travaillé.</em></h2>
-  <p class="rv d2" style="font-size:15px;line-height:1.72;color:var(--gris);max-width:54ch;margin-top:10px">Coach acteurs sur les plateaux de ces productions, aux côtés de leurs réalisateurs et comédiens.</p>
-</section>
-
-<div class="pellicule rv">
-  <div class="affiches" role="list">
-    <div class="aff" data-film="Madame"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Amanda Sthers · 2017</span></div></div><div class="aff-name">Madame</div><div class="aff-sub">Harvey Keitel</div></div>
-    <div class="aff" data-film="Casse-tête chinois"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Klapisch · 2013</span></div></div><div class="aff-name">Casse-tête chinois</div><div class="aff-sub">Klapisch</div></div>
-    <div class="aff" data-film="La Vie scolaire"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Grand Corps Malade · 2019</span></div></div><div class="aff-name">La Vie scolaire</div><div class="aff-sub">Grand Corps Malade</div></div>
-    <div class="aff" data-film="Banlieusards"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Kery James · 2019</span></div></div><div class="aff-name">Banlieusards</div><div class="aff-sub">Kery James</div></div>
-    <div class="aff" data-film="Coco Chanel &amp; Igor"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Jan Kounen · 2009</span></div></div><div class="aff-name">Coco Chanel &amp; Igor</div><div class="aff-sub">Jan Kounen</div></div>
-    <div class="aff" data-film="Quand tu seras grand"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Bescond &amp; Métayer · 2023</span></div></div><div class="aff-name">Quand tu seras grand</div><div class="aff-sub">Bescond &amp; Métayer</div></div>
-    <div class="aff" data-film="Dans la brume"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Daniel Roby · 2018</span></div></div><div class="aff-name">Dans la brume</div><div class="aff-sub">Daniel Roby</div></div>
-    <div class="aff" data-film="Roqya"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Roqya</span></div></div><div class="aff-name">Roqya</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Le Blond de la Casbah"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Le Blond de la Casbah</span></div></div><div class="aff-name">Le Blond de la Casbah</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Léo Mattéï"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Léo Mattéï · Série TV</span></div></div><div class="aff-name">Léo Mattéï</div><div class="aff-sub">Série TV</div></div>
-    <div class="aff" data-film="La plus belle pour danser"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">La plus belle pour danser</span></div></div><div class="aff-name">La plus belle pour danser</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Yo Mama"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Yo Mama</span></div></div><div class="aff-name">Yo Mama</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Y a pas de réseau"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Y a pas de réseau</span></div></div><div class="aff-name">Y a pas de réseau</div><div class="aff-sub">&nbsp;</div></div>
-    <div class="aff" data-film="Maison de retraite 2"><div class="aff-img"><div class="aff-ov"><span class="aff-meta">Maison de retraite 2</span></div></div><div class="aff-name">Maison de retraite 2</div><div class="aff-sub">&nbsp;</div></div>
-  </div>
-</div>
-
-<section class="pad" style="background:var(--noir);color:var(--creme);padding-top:0;border-bottom:3px solid var(--rose)">
-  <div class="filmo-split rv">
-    <div>
-      <span class="films-lbl">Filmographie complète</span>
-      <div class="films-cols">
-        <div class="film-row">Quand tu seras grand<small>Bescond & Métayer</small></div>
-        <div class="film-row">Dans la brume<small>Daniel Roby</small></div>
-        <div class="film-row">Saint-Ex<small>Pablo Agüero</small></div>
-        <div class="film-row">Quelques mots d'amour</div>
-        <div class="film-row">Maison de retraite</div>
-        <div class="film-row">Maison de retraite 2</div>
-        <div class="film-row">Y a pas de réseau</div>
-        <div class="film-row">Roqya</div>
-        <div class="film-row">Le Blond de la Casbah</div>
-        <div class="film-row">Yo Mama</div>
-        <div class="film-row">La plus belle pour danser</div>
-        <div class="film-row">Léo Matteï<small>Série TV</small></div>
-        <div class="film-row">Tapie<small>Série</small></div>
-        <div class="film-row">Malika</div>
-        <div class="film-row">Le Panache</div>
-        <div class="film-row">Métamorph</div>
-        <div class="film-row">Engrenages<small>Série</small></div>
-        <div class="film-row">Le crime lui va si bien</div>
-        <div class="film-row">Juste un regard</div>
-        <div class="film-row">Père et fils thérapie</div>
-        <div class="film-row">Braqueurs</div>
-        <div class="film-row">C'est qui les plus forts</div>
-        <div class="film-row">On voulait tout casser</div>
-        <div class="film-row">À toute épreuve</div>
-        <div class="film-row">Les hauts murs</div>
-        <div class="film-row">Et toi t'es sur qui ?</div>
-      </div>
-    </div>
-    <!-- Keitel card à côté -->
-    <div class="keitel-filmo rv-r d2">
-      <img src="images/yasmina-pastural-et-harvey-keitel.jpg" alt="Yasmina Pastural et Harvey Keitel">
-      <div class="keitel-filmo-body">
-        <strong>Harvey Keitel · Madame</strong>
-        <span>Amanda Sthers · 2017</span>
-      </div>
-    </div>
-  </div>
-  <div class="real-sect rv d3">
-    <span class="real-lbl">Réalisateurs</span>
-    <div class="real-tags">
-      <span class="real-tag">Cédric Klapisch</span>
-      <span class="real-tag">Lola Doillon</span>
-      <span class="real-tag">Nicole Garcia</span>
-      <span class="real-tag">Kery James</span>
-      <span class="real-tag">Grand Corps Malade</span>
-      <span class="real-tag">Mounia Meddour</span>
-      <span class="real-tag">Amanda Sthers</span>
-      <span class="real-tag">Claude Zidi Jr</span>
-      <span class="real-tag">Andréa Bescond</span>
-      <span class="real-tag">Jan Kounen</span>
-      <span class="real-tag">Daniel Roby</span>
-      <span class="real-tag">Pablo Agüero</span>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ 06 · TÉMOIGNAGES ═══ -->
 <section id="temoignages" class="pad" style="background:var(--noir);color:var(--creme);border-top:3px solid var(--jaune)">
   <span class="lbl lbl-jaune rv">Leurs mots</span>
@@ -1736,7 +1763,7 @@ footer a:hover{color:var(--bleu)}
   <div class="sess-box rv d2">
     <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:var(--bleu);top:-120px;left:50%;transform:translateX(-50%);opacity:.18;filter:blur(4px);pointer-events:none"></div>
     <div style="position:relative;z-index:2">
-      <span class="sess-date">Session · <span>28 Septembre → 2 Octobre 2026</span> · Paris</span>
+      <span class="sess-date">Session · <span>9 Novembre → 13 Novembre 2026</span> · Paris</span>
       <div class="sess-price">850 €</div>
       <div class="sess-note">paiement sécurisé · photo de book incluse · sur candidature</div>
       <p class="sess-desc">Une semaine intensive au cœur du jeu cinéma avec Yasmina Pastural et une équipe de professionnels du cinéma. Groupe restreint.</p>
@@ -1875,7 +1902,7 @@ footer a:hover{color:var(--bleu)}
     <div class="prat-c">
       <div class="prat-e">📅</div>
       <div class="prat-tit">Dates & horaires</div>
-      <p class="prat-txt">Du lundi 28 septembre au vendredi 2 octobre 2026. Horaires précis communiqués une semaine avant le début.</p>
+      <p class="prat-txt">Du lundi 9 novembre au vendredi 13 novembre 2026. Horaires précis communiqués une semaine avant le début.</p>
     </div>
     <div class="prat-c">
       <div class="prat-e">📍</div>
@@ -2006,7 +2033,7 @@ footer a:hover{color:var(--bleu)}
       <div class="form-alert" id="mifalert" role="alert" aria-live="polite"></div>
       <label class="check-row">
         <input type="checkbox" id="mifcheck" required>
-        <span>J'ai pris connaissance du programme et des informations pratiques, et je souhaite candidater à la session du <strong>28 septembre au 2 octobre 2026</strong>.</span>
+        <span>J'ai pris connaissance du programme et des informations pratiques, et je souhaite candidater à la session du <strong>9 novembre au 13 novembre 2026</strong>.</span>
       </label>
 
       <!-- Submit -->
@@ -2201,7 +2228,7 @@ function doMISubmit(e){
     videoUrl:    document.getElementById('miflink')?.value.trim() || '',
     cvNom:       document.getElementById('mifcv')?.files?.[0]?.name || '',
     paiement:    document.querySelector('input[name=mipay]:checked')?.value || '1x',
-    session:     '28 septembre-2 octobre 2026',
+    session:     '9 novembre-13 novembre 2026',
     website:     document.getElementById('mifwebsite')?.value || ''
   };
 
@@ -2320,11 +2347,11 @@ const POSTER_MAP = {
   'Dans la brume': null,
   'Roqya': null,
   'Le Blond de la Casbah': null,
-  'Léo Mattéï': null,
+  'Léo Matteï': null,
   'La plus belle pour danser': null,
   'Yo Mama': null,
   'Y a pas de réseau': null,
-  'Maison de retraite 2': null,
+  'Maison de retraite 2': 'images/maison-de-retraite-2.jpg',   // autorisée
 };
 (function(){
   document.querySelectorAll('.aff[data-film]').forEach(function(a){
@@ -2333,7 +2360,17 @@ const POSTER_MAP = {
     var img=document.createElement('img');
     img.src=f;img.alt=a.dataset.film;img.loading='lazy';
     a.querySelector('.aff-img').prepend(img);
+    a.classList.add('has-poster');
   });
+  /* Cartes sans affiche : le titre rétrécit jusqu'à tenir dans la carte (quelle que soit la police chargée) */
+  function ajusterTitres(){
+    document.querySelectorAll('.aff-t').forEach(function(t){
+      var s=22;t.style.fontSize=s+'px';
+      while(t.scrollWidth>t.clientWidth+1&&s>12){s-=1;t.style.fontSize=s+'px';}
+    });
+  }
+  ajusterTitres();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(ajusterTitres);
 })();
 </script>
 <script>

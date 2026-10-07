@@ -4,249 +4,227 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Candidater — Yasmina Pastural Training</title>
-  <meta name="description" content="Candidatez au stage intensif de jeu cinéma avec Yasmina Pastural — 5 jours, du 28 septembre au 2 octobre 2026, Paris.">
+  <meta name="description" content="Candidatez au stage intensif de jeu cinéma avec Yasmina Pastural — 5 jours, du 9 novembre au 13 novembre 2026, Paris.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://js.stripe.com/v3/"></script>
   <style>
   :root{
-    /* page — blanc nacré */
-    --pearl:#F5F7FB; --white:#FFFFFF; --pearl-2:#EDF1F8;
-    --navy:#0B1230; --slate:#5B6478; --hair:#E3E8F2; --hair-2:#D3DAE9;
-    --roi:#1B3FCC; --roi-2:#2A56E8; --roi-soft:rgba(27,63,204,.08);
-
-    /* îlots noirs néon — bulle 850 € et vignettes des jours */
-    --dark:#0A0912; --dark-2:#110E1E; --dark-ink:#F4F2FF; --dark-muted:#9891B8;
-    --dark-line:rgba(255,255,255,.10);
-    --grad:linear-gradient(115deg,#4D7CFF 0%,#8B5CFF 48%,#C64BF5 100%);
-    --glow-v:0 0 30px rgba(139,92,255,.40);
-
-    --D:'Bricolage Grotesque',sans-serif;
-    --B:'Instrument Sans',system-ui,sans-serif;
-    --M:'JetBrains Mono',monospace;
-    --ease:cubic-bezier(.22,1,.36,1); --dur:200ms;
+    --jaune:#ffd400; --noir:#0c0b0a; --creme:#f3eee4; --papier:#fffbe0;
+    --gris:#a9a297; --gris-f:#6b6458; --texte2:#35302a; --clair:#cfc8bb;
+    --err:#c8103f;
+    --S:'Syne',sans-serif; --A:'Archivo',system-ui,sans-serif;
+    --r:4px; --ease:cubic-bezier(.22,1,.36,1); --dur:180ms;
+    --gut:clamp(1.15rem,4.5vw,3.5rem);
   }
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-  body{font-family:var(--B);color:var(--navy);line-height:1.6;
-    -webkit-font-smoothing:antialiased;overflow-x:hidden;
-    background:
-      radial-gradient(900px 480px at 10% 0%,rgba(124,92,255,.07),transparent 60%),
-      radial-gradient(760px 440px at 92% 6%,rgba(0,180,210,.06),transparent 58%),
-      linear-gradient(180deg,#FAFBFE 0%,var(--pearl) 40%,#FAFBFE 100%)}
-  ::selection{background:var(--roi);color:#fff}
-  :focus-visible{outline:2px solid var(--roi);outline-offset:3px}
+  body{font-family:var(--A);color:var(--noir);line-height:1.5;background:var(--noir);
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--noir);color:var(--jaune)}
+  :focus-visible{outline:3px solid var(--noir);outline-offset:3px}
   img{max-width:100%;display:block}
   a{color:inherit}
-  h1,h2,h3{font-family:var(--D);font-weight:800;letter-spacing:-.03em;line-height:.97;color:var(--navy)}
-
-  .pad{padding:clamp(3rem,6.5vw,6rem) clamp(1.15rem,5vw,4rem)}
-  .inner{max-width:1120px;margin:0 auto}
-  .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--B);font-weight:600;
-    font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--roi);
-    padding:8px 15px;border:1px solid var(--hair);border-radius:100px;background:var(--white);
-    box-shadow:0 1px 3px rgba(11,18,48,.05)}
-  .kicker::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--roi)}
-
-  /* ── Barre ── */
-  .topbar{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;
-    gap:1rem;padding:15px clamp(1.15rem,5vw,4rem);background:rgba(255,255,255,.86);
-    backdrop-filter:blur(14px);border-bottom:1px solid var(--hair)}
-  .logo{font-family:var(--D);font-weight:800;font-size:14px;text-transform:uppercase;
-    text-decoration:none;line-height:1.2;color:var(--navy)}
-  .logo b{display:block;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .back{font-family:var(--B);font-weight:600;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--slate);text-decoration:none;transition:color var(--dur) var(--ease)}
-  .back:hover{color:var(--navy)}
+  .inner{max-width:1128px;margin:0 auto}
 
   /* ── Hero ── */
-  .hero-grid{display:grid;grid-template-columns:1fr .9fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
-  @media(max-width:940px){.hero-grid{grid-template-columns:1fr}}
-  h1{font-size:clamp(3rem,8vw,5.8rem);margin:20px 0 16px}
-  .lede{font-size:clamp(15.5px,1.6vw,17.5px);line-height:1.65;color:var(--slate);max-width:44ch}
-  .cta{display:inline-flex;align-items:center;gap:10px;margin-top:26px;
-    font-family:var(--D);font-weight:700;font-size:15px;
-    padding:16px 28px;border-radius:100px;border:0;cursor:pointer;text-decoration:none;
-    background:var(--roi);color:#fff;box-shadow:0 10px 24px -10px rgba(27,63,204,.55);
-    transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),background var(--dur) var(--ease)}
-  .cta:hover{transform:translateY(-2px);background:var(--roi-2);
-    box-shadow:0 14px 30px -10px rgba(27,63,204,.6)}
+  .s-hero{background:var(--jaune)}
+  .top{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;
+    padding:22px var(--gut)}
+  .logo{font-family:var(--S);font-weight:800;font-size:17px;text-transform:uppercase;
+    letter-spacing:-.01em;text-decoration:none;line-height:1.2}
+  .back{font-size:14px;font-weight:700;text-decoration:none;border-bottom:2px solid var(--noir);padding-bottom:2px}
+  .back:hover{border-bottom-width:4px;padding-bottom:0}
+  .hero{padding:36px var(--gut) clamp(3rem,7vw,5.5rem)}
+  .hero-grid{display:flex;flex-wrap:wrap;gap:clamp(2rem,4.5vw,3.5rem);align-items:center}
+  .hero-txt{flex:1 1 520px;min-width:0;max-width:100%}
+  .hero-pic{flex:0 0 420px;max-width:100%}
+  @media(max-width:1000px){.hero-pic{flex:1 1 100%}}
+  .tag{display:inline-block;padding:9px 14px;background:var(--noir);color:var(--jaune);
+    font-family:var(--S);font-weight:800;font-size:12px;letter-spacing:.06em;text-transform:uppercase;line-height:1.35}
+  h1{margin:26px 0 0;font-family:var(--S);font-weight:800;font-size:clamp(2.9rem,8.2vw,5.5rem);
+    line-height:1.04;letter-spacing:-.005em;text-transform:uppercase}
+  .lede{margin-top:30px;max-width:520px;font-size:clamp(18px,1.9vw,21px);line-height:1.5;font-weight:500}
+  .cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:22px 28px;margin-top:38px}
+  .cta{display:inline-flex;align-items:center;padding:22px 38px;background:var(--noir);color:var(--jaune);
+    font-family:var(--S);font-weight:800;font-size:19px;text-decoration:none;border-radius:var(--r);
+    transition:transform var(--dur) var(--ease)}
+  .cta:hover{transform:translateY(-3px)}
+  .eur{font-family:var(--A);font-weight:700;font-variant-numeric:lining-nums tabular-nums;letter-spacing:-.02em;white-space:nowrap}
+  .cta-price{display:flex;flex-direction:column;line-height:1.2}
+  .cta-price .eur{font-size:34px}
+  .cta-sub{font-size:14px;font-weight:600;margin-top:2px}
+  .frame{aspect-ratio:6/5;overflow:hidden;border:3px solid var(--noir);background:#e9e4d8}
+  .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 62%;filter:grayscale(1) contrast(1.12)}
 
-  /* ── Îlot néon 1 : la bulle 850 € ── */
-  .price{border-radius:24px;padding:2px;background:var(--grad);box-shadow:var(--glow-v);
-    animation:breathe 5s ease-in-out infinite}
-  @keyframes breathe{
-    0%,100%{box-shadow:0 0 24px rgba(139,92,255,.34)}
-    50%{box-shadow:0 0 44px rgba(139,92,255,.52)}
-  }
-  .price-in{border-radius:22px;background:linear-gradient(180deg,var(--dark-2),var(--dark));
-    padding:clamp(1.6rem,3.4vw,2.4rem);color:var(--dark-ink)}
-  .price-amt{font-family:var(--D);font-weight:800;font-size:clamp(3.8rem,9vw,6rem);
-    line-height:.86;letter-spacing:-.045em}
-  .price-sub{font-family:var(--M);font-size:10.5px;letter-spacing:.13em;
-    text-transform:uppercase;color:var(--dark-muted);margin:14px 0 24px}
-  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  @media(max-width:420px){.price-grid{grid-template-columns:1fr}}
-  .pill{background:rgba(255,255,255,.05);border:1px solid var(--dark-line);border-radius:14px;
-    padding:14px 15px;transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease)}
-  .pill:hover{border-color:rgba(139,92,255,.55);background:rgba(139,92,255,.09)}
-  .pill b{display:block;font-family:var(--D);font-weight:700;font-size:15px;margin-bottom:3px;color:var(--dark-ink)}
-  .pill span{font-size:12.5px;line-height:1.45;color:var(--dark-muted)}
-  .price-note{margin-top:18px;padding-top:15px;border-top:1px solid var(--dark-line);
-    font-family:var(--M);font-size:10px;letter-spacing:.05em;color:var(--dark-muted)}
+  /* ── Bandeau ── */
+  .faits{background:var(--noir);padding:0 var(--gut)}
+  .faits-in{max-width:1128px;margin:0 auto;display:flex;flex-wrap:wrap}
+  .fait{flex:1 1 240px;padding:38px 28px 40px 0;margin-right:28px;border-right:1px solid rgba(243,238,228,.2)}
+  .fait:last-child{border-right:0;margin-right:0}
+  @media(max-width:700px){.fait{flex:1 1 100%;margin-right:0;border-right:0;padding:22px 0;
+    border-bottom:1px solid rgba(243,238,228,.2)}.fait:last-child{border-bottom:0}}
+  .fait b{display:block;font-family:var(--S);font-weight:800;font-size:21px;color:var(--jaune)}
+  .fait span{display:block;margin-top:8px;font-size:15px;line-height:1.5;color:var(--clair)}
 
-  /* ── Îlot néon 2 : les vignettes des jours ── */
-  h2{font-size:clamp(2.1rem,4.8vw,3.6rem)}
-  .sec-sub{font-size:15px;line-height:1.65;color:var(--slate);max-width:52ch;margin-top:12px}
-  .days{display:grid;grid-template-columns:repeat(auto-fit,minmax(208px,1fr));gap:14px;
-    margin-top:clamp(1.8rem,3.6vw,2.8rem)}
-  .day{position:relative;border-radius:18px;padding:24px 21px;background:var(--dark);
-    border:1px solid var(--dark-line);overflow:hidden;color:var(--dark-ink);
-    box-shadow:0 14px 34px -18px rgba(11,18,48,.35);
-    transition:transform var(--dur) var(--ease),border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
-  .day::after{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--c);
-    box-shadow:0 0 14px var(--c),0 0 30px var(--c)}
-  .day::before{content:'';position:absolute;left:0;right:0;top:0;height:56px;
-    background:linear-gradient(180deg,var(--c),transparent);opacity:.12;pointer-events:none}
-  .day:hover{transform:translateY(-4px);border-color:var(--c);
-    box-shadow:0 20px 44px -20px var(--c)}
-  .day-n{font-family:var(--M);font-weight:700;font-size:10px;letter-spacing:.15em;
-    color:var(--c);margin-bottom:14px;text-shadow:0 0 10px var(--c)}
-  .day-t{font-family:var(--D);font-weight:800;font-size:1.28rem;line-height:1.1;
-    letter-spacing:-.02em;margin-bottom:9px;color:var(--dark-ink)}
-  .day-d{font-size:13.5px;line-height:1.6;color:var(--dark-muted)}
-  .d1{--c:#4D7CFF} .d2{--c:#8B5CFF} .d3{--c:#00D6C2} .d4{--c:#C64BF5} .d5{--c:#3FA9FF}
+  /* ── Programme ── */
+  .s-prog{background:var(--creme);padding:clamp(3.5rem,8vw,6.5rem) var(--gut)}
+  .prog-grid{display:flex;flex-wrap:wrap;gap:clamp(2.5rem,5vw,4rem);align-items:flex-start}
+  .prog-main{flex:1 1 560px;min-width:0}
+  .label{display:flex;align-items:center;gap:12px;font-family:var(--S);font-weight:800;font-size:13px;
+    letter-spacing:.08em;text-transform:uppercase}
+  .label i{width:36px;height:4px;background:var(--jaune);border:1px solid var(--noir);display:inline-block}
+  h2{margin:18px 0 0;font-family:var(--S);font-weight:800;font-size:clamp(2.1rem,5vw,3.5rem);
+    line-height:1.1;letter-spacing:-.005em}
+  .jours{margin-top:44px;border-bottom:2px solid var(--noir)}
+  .jour{display:flex;gap:22px;padding:26px 0;border-top:2px solid var(--noir)}
+  .jour-n{flex:none;width:54px;height:54px;background:var(--noir);color:var(--jaune);display:inline-flex;
+    align-items:center;justify-content:center;font-family:var(--S);font-weight:800;font-size:20px}
+  .jour-t{font-family:var(--S);font-weight:800;font-size:clamp(19px,2.2vw,23px);line-height:1.15}
+  .jour-d{margin-top:8px;font-size:16.5px;line-height:1.6;color:var(--texte2)}
+  @media(max-width:560px){.jour{gap:16px}.jour-n{width:44px;height:44px;font-size:17px}}
+  .prog-pics{flex:0 1 400px;min-width:300px;display:flex;flex-direction:column;gap:40px;padding-bottom:14px}
+  @media(max-width:1000px){.prog-pics{flex:1 1 100%;min-width:0}}
+  .pic{overflow:hidden;border:3px solid var(--noir);box-shadow:12px 12px 0 var(--jaune)}
+  .pic img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1)}
+  .pic.p1{aspect-ratio:4/3}
+  .pic.p2{align-self:flex-end;width:78%;aspect-ratio:1/1}
+  .pic.p2 img{object-position:50% 55%}
+  .pic.p3{align-self:flex-start;width:90%;aspect-ratio:4/3}
+  .pic.p3 img{object-position:50% 62%}
+  @media(max-width:560px){.pic{box-shadow:8px 8px 0 var(--jaune)}.prog-pics{gap:30px;padding-right:8px}}
 
-  /* ── Formulaire — blanc, épuré, professionnel ── */
-  .sheet{max-width:820px;margin:0 auto;background:var(--white);border:1px solid var(--hair);
-    border-radius:20px;box-shadow:0 1px 2px rgba(11,18,48,.04),0 20px 50px -30px rgba(11,18,48,.18);
-    overflow:hidden}
-  .sheet-in{padding:clamp(1.5rem,3.4vw,2.6rem)}
+  /* ── Dossier + règlement ── */
+  .s-form{background:var(--noir);color:var(--creme);padding:clamp(3.5rem,8vw,6.5rem) var(--gut) clamp(4rem,8vw,7rem)}
+  .s-form h2{margin:0}
+  .sec-sub{margin-top:20px;max-width:640px;font-size:clamp(17px,1.8vw,19px);line-height:1.55;color:var(--clair)}
+  .sec-sub b{color:var(--jaune);font-weight:700}
+  .form-grid{display:flex;flex-wrap:wrap;gap:40px;margin-top:52px;align-items:flex-start}
+  .sheet{flex:1 1 640px;min-width:0;padding:clamp(1.4rem,4.4vw,3rem);background:#fff;color:var(--noir);border-radius:var(--r)}
 
-  fieldset{border:0;margin-bottom:2.1rem}
-  legend{display:flex;align-items:baseline;gap:11px;width:100%;margin-bottom:1.35rem;
-    padding-bottom:13px;border-bottom:1px solid var(--hair)}
-  .step-n{font-family:var(--M);font-weight:700;font-size:10.5px;letter-spacing:.08em;
-    color:var(--roi);background:var(--roi-soft);padding:4px 9px;border-radius:6px}
-  .step-t{font-family:var(--D);font-weight:700;font-size:1.1rem;letter-spacing:-.015em;color:var(--navy)}
+  fieldset{border:0;margin:0;padding:0;min-width:0}
+  .sep{height:2px;background:var(--noir);margin:44px 0}
+  legend{display:flex;align-items:center;gap:14px;width:100%;margin-bottom:26px;padding:0}
+  .step-n{width:34px;height:34px;background:var(--noir);color:var(--jaune);display:inline-flex;align-items:center;
+    justify-content:center;font-family:var(--S);font-weight:800;font-size:15px;flex:none}
+  .step-t{font-family:var(--S);font-weight:800;font-size:clamp(21px,3vw,26px)}
 
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  @media(max-width:560px){.row{grid-template-columns:1fr}}
-  .fg{margin-bottom:15px}
-  label{display:block;font-family:var(--B);font-weight:600;font-size:11px;letter-spacing:.08em;
-    text-transform:uppercase;color:var(--slate);margin-bottom:8px}
-  label .opt{font-weight:500;opacity:.75;text-transform:none;letter-spacing:.02em}
+  .row{display:flex;flex-wrap:wrap;gap:0 20px}
+  .row>.fg{flex:1 1 240px;min-width:0}
+  .fg{margin-bottom:20px}
+  .fg:last-child{margin-bottom:0}
+  label,.lab{display:block;font-family:var(--A);font-weight:700;font-size:14px;color:var(--noir);margin-bottom:8px}
+  label .opt,.lab .opt{font-weight:400;color:var(--gris-f)}
 
   input[type=text],input[type=email],input[type=tel],input[type=url],textarea{
-    width:100%;padding:13px 15px;border-radius:10px;border:1px solid var(--hair-2);
-    background:var(--white);font-family:var(--B);font-weight:500;font-size:15.5px;
-    color:var(--navy);line-height:1.5;
-    transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
-  input::placeholder,textarea::placeholder{color:#A2AABF}
-  input:hover,textarea:hover{border-color:#B9C2D6}
-  input:focus,textarea:focus{outline:none;border-color:var(--roi);
-    box-shadow:0 0 0 3px rgba(27,63,204,.10)}
+    width:100%;padding:14px 15px;border-radius:var(--r);border:2px solid var(--noir);
+    background:#fff;font-family:var(--A);font-weight:500;font-size:16px;color:var(--noir);line-height:1.5;
+    -webkit-appearance:none;appearance:none;transition:box-shadow var(--dur) var(--ease)}
+  input::placeholder,textarea::placeholder{color:#8a8478;font-weight:400}
+  input:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px var(--jaune)}
   textarea{resize:vertical;min-height:112px}
-  [aria-invalid="true"]{border-color:#D93A6B!important;box-shadow:0 0 0 3px rgba(217,58,107,.10)!important}
+  [aria-invalid="true"]{border-color:var(--err)!important;box-shadow:0 0 0 4px rgba(200,16,63,.18)!important}
 
-  .civ{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:290px}
+  .civ{display:inline-flex;border:2px solid var(--noir);border-radius:var(--r);overflow:hidden}
   .civ input{position:absolute;opacity:0;width:0;height:0}
-  .civ label{margin:0;cursor:pointer;padding:13px;border-radius:10px;border:1px solid var(--hair-2);
-    background:var(--white);text-align:center;font-family:var(--B);font-weight:600;font-size:14.5px;
-    letter-spacing:0;text-transform:none;color:var(--slate);transition:all var(--dur) var(--ease)}
-  .civ input:checked+label{color:#fff;border-color:var(--roi);background:var(--roi)}
-  .civ input:focus-visible+label{outline:2px solid var(--roi);outline-offset:3px}
+  .civ label{margin:0;cursor:pointer;padding:11px 30px;font-size:15px;font-weight:700;background:#fff;color:var(--noir);
+    transition:background var(--dur) var(--ease),color var(--dur) var(--ease)}
+  .civ label:hover{background:var(--papier)}
+  .civ input:checked+label{background:var(--noir);color:var(--jaune)}
+  .civ input:focus-visible+label{outline:3px solid var(--jaune);outline-offset:-3px}
 
-  .file{position:relative;border:1px dashed var(--hair-2);border-radius:11px;background:#FBFCFE;
-    padding:16px;display:flex;align-items:center;gap:13px;cursor:pointer;
-    transition:all var(--dur) var(--ease)}
-  .file:hover{border-color:var(--roi);background:#F7F9FE}
-  .file input{position:absolute;inset:0;opacity:0;cursor:pointer}
-  .file-ic{width:38px;height:38px;flex:none;border-radius:9px;background:var(--pearl-2);
-    display:grid;place-items:center;font-size:14px;color:var(--slate)}
-  .file-txt b{display:block;font-family:var(--B);font-weight:700;font-size:13.5px;color:var(--navy)}
-  .file-txt span{font-size:11.5px;color:var(--slate)}
-  .file.ok{border-style:solid;border-color:var(--roi);background:#F5F8FF}
-  .file.ok .file-ic{background:var(--roi);color:#fff}
+  .file{position:relative;display:flex;align-items:center;gap:12px;padding:14px;border:2px dashed var(--noir);
+    border-radius:var(--r);background:var(--papier);cursor:pointer;transition:background var(--dur) var(--ease)}
+  .file:hover{background:#fff3a8}
+  .file input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+  .file-txt{display:flex;align-items:center;gap:12px;min-width:0;flex-wrap:wrap}
+  .file-txt b{flex:none;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:9px 13px;
+    background:var(--noir);color:var(--jaune);border-radius:3px;font-family:var(--S);font-weight:800;font-size:12.5px}
+  .file-txt span{font-size:13px;line-height:1.4;color:var(--texte2)}
+  .file.ok{border-style:solid;background:#fff3a8}
+  .file:focus-within{outline:3px solid var(--noir);outline-offset:3px}
 
-  .hint{display:flex;justify-content:space-between;gap:12px;font-size:11.5px;
-    color:var(--slate);margin-top:7px}
-  .count{font-family:var(--M);font-size:10.5px;font-variant-numeric:tabular-nums;flex:none}
-  .count.near{color:var(--roi);font-weight:700}
-  .error{display:none;font-size:12.5px;font-weight:600;color:#D93A6B;margin-top:7px}
+  .hint{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--gris-f);margin-top:8px}
+  .count{font-variant-numeric:tabular-nums;flex:none}
+  .count.near{color:var(--err);font-weight:700}
+  .error{display:none;font-size:13.5px;font-weight:700;color:var(--err);margin-top:8px}
   .error.show{display:block}
   .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
-  /* ── Bloc règlement ── */
-  .pay{border:1px solid var(--hair);border-radius:14px;overflow:hidden;background:var(--white)}
-  .pay-top{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-    padding:16px 18px;background:#F8FAFD;border-bottom:1px solid var(--hair)}
-  .pay-top .l{font-family:var(--B);font-weight:600;font-size:10.5px;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--slate);display:block;margin-bottom:2px}
-  .pay-amt{font-family:var(--D);font-weight:800;font-size:1.8rem;letter-spacing:-.03em;color:var(--navy)}
-  .pay-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
-  .brands{display:flex;gap:6px}
-  .brands svg{height:22px;width:auto;border-radius:4px;display:block;
-    box-shadow:0 1px 2px rgba(11,18,48,.10)}
-  .pay-lock{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--slate)}
-  .pay-lock i{width:5px;height:5px;border-radius:50%;background:#18B26B;font-style:normal}
-  .pay-body{padding:18px;min-height:130px}
-  .pay-foot{padding:12px 18px;border-top:1px solid var(--hair);background:#F8FAFD;
-    font-size:11px;color:var(--slate);text-align:center}
-
-  .sk-row{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--hair);
-    border-radius:10px;background:var(--white);margin-bottom:8px}
-  .sk-dot{width:16px;height:16px;border-radius:50%;border:1px solid var(--hair-2);flex:none}
-  .sk-line{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--pearl-2),#F6F8FC,var(--pearl-2));
+  /* ── Règlement ── */
+  .pay-body{border:2px solid var(--noir);border-radius:var(--r);background:#fff;padding:16px;min-height:120px}
+  .sk-row{display:flex;align-items:center;gap:12px;padding:14px;border:2px solid var(--noir);border-radius:var(--r);
+    background:#fff;margin-bottom:8px}
+  .sk-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--noir);flex:none}
+  .sk-line{height:8px;border-radius:2px;background:linear-gradient(90deg,#e6e0d3,#f6f2e9,#e6e0d3);
     background-size:200% 100%;animation:sh 1.5s linear infinite}
   @keyframes sh{to{background-position:-200% 0}}
-  .sk-msg{font-size:11px;letter-spacing:.06em;text-transform:uppercase;
-    color:var(--slate);text-align:center;padding-top:6px}
+  .sk-msg{font-size:13px;font-weight:600;color:var(--gris-f);text-align:center;padding-top:6px}
+  .pay-note{margin-top:12px;font-size:13px;line-height:1.5;color:var(--texte2)}
 
-  .btn{width:100%;display:flex;align-items:center;justify-content:center;gap:11px;
-    font-family:var(--D);font-weight:700;font-size:15.5px;letter-spacing:-.01em;
-    padding:18px 24px;border-radius:12px;border:0;cursor:pointer;color:#fff;
-    background:var(--roi);box-shadow:0 10px 24px -10px rgba(27,63,204,.55);margin-top:22px;
-    transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),background var(--dur) var(--ease),opacity var(--dur) var(--ease)}
-  .btn:hover:not(:disabled){transform:translateY(-1px);background:var(--roi-2);
-    box-shadow:0 14px 30px -10px rgba(27,63,204,.6)}
-  .btn:disabled{cursor:progress;opacity:.55;box-shadow:none}
-  .spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;
+  .rgpd{margin-top:30px}
+  .rgpd-check{display:flex;align-items:flex-start;gap:12px;cursor:pointer;font-family:var(--A);font-size:15px;line-height:1.5;
+    color:var(--noir);font-weight:400;margin:0}
+  .rgpd-check input{flex:none;width:24px;height:24px;margin:0;cursor:pointer;-webkit-appearance:none;appearance:none;
+    border:2px solid var(--noir);border-radius:3px;background:#fff;transition:background var(--dur) var(--ease)}
+  .rgpd-check input:checked{background:var(--noir) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%23ffd400' stroke-width='3.2'/%3E%3C/svg%3E") center/100% no-repeat}
+  .rgpd-check a{color:var(--noir);text-decoration:underline;text-underline-offset:3px}
+  .rgpd-info{margin:14px 0 0 36px;font-size:13px;line-height:1.55;color:var(--gris-f)}
+  .rgpd .error{margin-left:36px}
+
+  .btn{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;height:68px;margin-top:34px;
+    font-family:var(--A);font-weight:700;font-size:19px;letter-spacing:.005em;border:0;border-radius:var(--r);cursor:pointer;
+    color:var(--jaune);background:var(--noir);
+    transition:transform var(--dur) var(--ease),opacity var(--dur) var(--ease),background var(--dur) var(--ease)}
+  .btn:hover:not(:disabled){transform:translateY(-2px)}
+  .btn:focus-visible{outline:3px solid var(--jaune);outline-offset:3px;box-shadow:0 0 0 6px var(--noir)}
+  .btn:disabled{cursor:progress;opacity:.65}
+  .btn .lock{flex:none}
+  .spin{width:18px;height:18px;border:3px solid rgba(255,212,0,.35);border-top-color:var(--jaune);
     border-radius:50%;animation:sp .7s linear infinite;display:none;flex:none}
   .btn.busy .spin{display:block}
+  .btn.busy .lock{display:none}
   @keyframes sp{to{transform:rotate(360deg)}}
-  .legal{font-size:11.5px;line-height:1.7;color:var(--slate);margin-top:14px;text-align:center}
+  .legal{font-size:13px;line-height:1.6;color:var(--gris-f);margin-top:14px;text-align:center}
 
-  /* ── Information et consentement ── */
-  .rgpd{margin-top:24px;padding:16px 18px;background:#F8FAFD;
-    border:1px solid var(--hair);border-radius:12px}
-  .rgpd-check{display:flex;align-items:flex-start;gap:11px;cursor:pointer;
-    font-size:13.5px;line-height:1.55;color:var(--navy);text-transform:none;
-    letter-spacing:0;font-weight:400;margin:0}
-  .rgpd-check input{flex:none;width:18px;height:18px;margin-top:1px;
-    accent-color:var(--roi);cursor:pointer}
-  .rgpd-check a{color:var(--roi)}
-  .rgpd-info{margin-top:11px;padding-top:11px;border-top:1px solid var(--hair);
-    font-size:11.5px;line-height:1.65;color:var(--slate)}
-  .rgpd .error{margin-top:9px}
+  .status{display:none;padding:18px 20px;margin-bottom:28px;font-size:15px;line-height:1.55;border-radius:var(--r);
+    border:2px solid var(--noir)}
+  .status.show{display:block}
+  .status strong{font-family:var(--S);font-weight:800;font-size:18px;display:block;margin-bottom:4px}
+  .status-ok{background:var(--jaune)}
+  .status-ko{background:#fff;border-color:var(--err)}
+  .status-ko strong{color:var(--err)}
+  .status-code{font-size:12px;opacity:.75;display:block;margin-top:8px}
+
+  /* ── Récapitulatif ── */
+  .recap{flex:0 1 360px;min-width:300px;padding:32px;background:var(--jaune);color:var(--noir);border-radius:var(--r);
+    position:sticky;top:24px}
+  @media(max-width:1000px){.recap{flex:1 1 100%;position:static;order:-1}}
+  .recap .k{font-family:var(--S);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .recap .t{margin-top:10px;font-family:var(--S);font-weight:800;font-size:24px;line-height:1.15}
+  .recap .d1{margin-top:8px;font-size:15.5px;font-weight:600}
+  .recap .d2{margin-top:2px;font-size:15.5px}
+  .recap hr{border:0;height:2px;background:var(--noir);margin:24px 0}
+  .incl{display:flex;flex-direction:column;gap:14px;list-style:none}
+  .incl li{display:flex;gap:12px;align-items:flex-start}
+  .incl .ck{flex:none;margin-top:1px;width:22px;height:22px;border-radius:50%;background:var(--noir);
+    display:inline-flex;align-items:center;justify-content:center}
+  .incl b{display:block;font-size:15.5px;font-weight:700}
+  .incl span{display:block;margin-top:2px;font-size:13.5px;line-height:1.45}
+  .recap .tot{font-size:14px;font-weight:700}
+  .recap .amt{margin-top:4px;font-size:clamp(2.6rem,5vw,3.25rem);line-height:1.05}
+  .recap .sec{margin-top:18px;display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600}
+  .recap .how{margin-top:8px;font-size:13.5px;line-height:1.45}
 
   /* ── Pied de page ── */
-  .site-foot{border-top:1px solid var(--hair);background:var(--white);
-    padding:26px clamp(1.15rem,5vw,4rem);text-align:center;font-size:13px;color:var(--slate)}
-  .site-foot a{color:var(--slate);text-decoration:none;margin:0 9px}
-  .site-foot a:hover{color:var(--roi)}
+  .site-foot{display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:space-between;padding:28px var(--gut);
+    background:var(--noir);border-top:1px solid rgba(243,238,228,.2);font-size:13.5px;color:var(--gris)}
+  .site-foot nav{display:flex;flex-wrap:wrap;gap:8px 24px}
+  .site-foot a{color:var(--creme);text-decoration:none}
+  .site-foot a:hover{color:var(--jaune)}
 
-  .status{display:none;padding:16px 18px;border-radius:12px;margin-bottom:20px;font-size:14.5px;line-height:1.55}
-  .status.show{display:block}
-  .status strong{font-family:var(--D);font-weight:700;font-size:15px;display:block;margin-bottom:4px}
-  .status-ok{background:#F0FAF5;border:1px solid #BFE8D2;color:var(--navy)}
-  .status-ok strong{color:#0E8A50}
-  .status-ko{background:#FDF1F5;border:1px solid #F2C4D2;color:var(--navy)}
-  .status-ko strong{color:#D93A6B}
-  .status-code{font-family:var(--M);font-size:10px;opacity:.75;display:block;margin-top:8px}
-
+  [hidden]{display:none!important}
   @media(prefers-reduced-motion:reduce){
     *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
     html{scroll-behavior:auto}
@@ -255,186 +233,161 @@
 </head>
 <body>
 
-<header class="topbar">
-  <a class="logo" href="index.html">Yasmina Pastural<b>Training</b></a>
-  <a class="back" href="index.html">← Retour au site</a>
-</header>
-
 <!-- ═══ HERO ═══ -->
-<section class="pad">
-  <div class="inner hero-grid">
-    <div>
-      <span class="kicker">28 septembre → 2 octobre 2026 · Paris</span>
-      <h1>Prenez<br>la <span class="grad">place</span>.</h1>
-      <p class="lede">Les groupes sont volontairement réduits. Déposez votre dossier et réglez votre session en une seule fois, ici même.</p>
-      <a href="#candidature" class="cta">Déposer mon dossier →</a>
-    </div>
+<div class="s-hero">
+  <header class="top">
+    <a class="logo" href="index.html">Yasmina Pastural Training</a>
+    <a class="back" href="index.html">← Retour au site</a>
+  </header>
 
-    <div class="price">
-      <div class="price-in">
-        <div class="price-amt grad">850 €</div>
-        <div class="price-sub">Session complète · 5 jours · groupe restreint</div>
-        <div class="price-grid">
-          <div class="pill"><b>5 jours pleins</b><span>Du lundi au vendredi, en studio à Paris</span></div>
-          <div class="pill"><b>Book photo</b><span>Séance individuelle avec un photographe</span></div>
-          <div class="pill"><b>Casting réel</b><span>Devant une directrice de casting en activité</span></div>
-          <div class="pill"><b>6 intervenants</b><span>Jeu, chant, yoga, préparation mentale</span></div>
+  <section class="hero">
+    <div class="inner hero-grid">
+      <div class="hero-txt">
+        <span class="tag">Stage intensif · Paris · 9 → 13 novembre 2026</span>
+        <h1>Prenez<br>la place.</h1>
+        <p class="lede">Une semaine intensive au cœur du jeu cinéma avec Yasmina Pastural et une équipe de professionnels du cinéma. Groupe restreint.</p>
+        <div class="cta-row">
+          <a href="#candidature" class="cta">Candidater →</a>
+          <div class="cta-price"><span class="eur">850&nbsp;€</span><span class="cta-sub">la session complète</span></div>
         </div>
-        <div class="price-note">◆ Règlement sécurisé plus bas sur cette page</div>
       </div>
+      <div class="hero-pic">
+        <div class="frame"><img src="images/face-a-face-studio.jpg" alt="Le groupe en studio, face à face, avant un exercice" width="1200" height="1000"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═══ CE QUI EST INCLUS ═══ -->
+<div class="faits">
+  <div class="faits-in">
+    <div class="fait"><b>5 jours</b><span>Du lundi au vendredi, en studio professionnel à Paris</span></div>
+    <div class="fait"><b>Séance photo incluse</b><span>Séance individuelle : portraits pros pour votre dossier artistique</span></div>
+    <div class="fait"><b>Casting réel</b><span>Le vendredi, scène devant un·e directeur·rice de casting</span></div>
+    <div class="fait"><b>14 participants maximum</b><span>Chaque stagiaire est suivi individuellement par Yasmina</span></div>
+  </div>
+</div>
+
+<!-- ═══ PROGRAMME ═══ -->
+<section class="s-prog">
+  <div class="inner prog-grid">
+    <div class="prog-main">
+      <div class="label"><i></i>Le programme</div>
+      <h2>Cinq jours,<br>cinq déclics.</h2>
+      <div class="jours">
+        <div class="jour"><span class="jour-n">01</span><div><div class="jour-t">Vous arrêtez de jouer</div>
+          <p class="jour-d">La première journée sert à faire tomber ce que vous croyez devoir montrer. On travaille sans texte, sans enjeu.</p></div></div>
+        <div class="jour"><span class="jour-n">02</span><div><div class="jour-t">La caméra cesse d'être un juge</div>
+          <p class="jour-d">Vous apprenez ce qu'elle voit vraiment, et ce qu'elle ne pardonne pas. Le corps et le souffle avant le texte.</p></div></div>
+        <div class="jour"><span class="jour-n">03</span><div><div class="jour-t">Vous habitez quelqu'un d'autre</div>
+          <p class="jour-d">Construire un personnage sans le plaquer sur soi. C'est la journée où la plupart des stagiaires basculent.</p></div></div>
+        <div class="jour"><span class="jour-n">04</span><div><div class="jour-t">Vous encaissez une direction</div>
+          <p class="jour-d">Être dirigé sans se perdre, refaire une prise autrement, tenir malgré la fatigue. Votre book se tourne le même jour.</p></div></div>
+        <div class="jour"><span class="jour-n">05</span><div><div class="jour-t">Vous passez pour de vrai</div>
+          <p class="jour-d">Un casting véritable, pas une simulation. Vous repartez avec un retour professionnel sur votre singularité.</p></div></div>
+      </div>
+    </div>
+    <div class="prog-pics">
+      <div class="pic p1"><img src="images/seance-photo-book.jpg" alt="Séance de travail face caméra avec Yasmina Pastural" loading="lazy"></div>
+      <div class="pic p2"><img src="images/impro.jpg" alt="Un stagiaire au clavier pendant un atelier, le groupe autour" loading="lazy"></div>
+      <div class="pic p3"><img src="images/pleniere-studio.jpg" alt="Le groupe en cercle dans la salle du studio" loading="lazy"></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CINQ JOURS ═══ -->
-<section class="pad" style="padding-top:0">
+<!-- ═══ DOSSIER + RÈGLEMENT ═══ -->
+<section class="s-form" id="candidature">
   <div class="inner">
-    <span class="kicker">Ce que vous en repartez</span>
-    <h2 style="margin-top:16px">Cinq jours, cinq <span class="grad">déclics</span>.</h2>
-    <div class="days">
-      <div class="day d1">
-        <div class="day-n">JOUR 01</div>
-        <div class="day-t">Vous arrêtez de jouer</div>
-        <p class="day-d">La première journée sert à faire tomber ce que vous croyez devoir montrer. On travaille sans texte, sans enjeu.</p>
-      </div>
-      <div class="day d2">
-        <div class="day-n">JOUR 02</div>
-        <div class="day-t">La caméra cesse d'être un juge</div>
-        <p class="day-d">Vous apprenez ce qu'elle voit vraiment, et ce qu'elle ne pardonne pas. Le corps et le souffle avant le texte.</p>
-      </div>
-      <div class="day d3">
-        <div class="day-n">JOUR 03</div>
-        <div class="day-t">Vous habitez quelqu'un d'autre</div>
-        <p class="day-d">Construire un personnage sans le plaquer sur soi. C'est la journée où la plupart des stagiaires basculent.</p>
-      </div>
-      <div class="day d4">
-        <div class="day-n">JOUR 04</div>
-        <div class="day-t">Vous encaissez une direction</div>
-        <p class="day-d">Être dirigé sans se perdre, refaire une prise autrement, tenir malgré la fatigue. Votre book se tourne le même jour.</p>
-      </div>
-      <div class="day d5">
-        <div class="day-n">JOUR 05</div>
-        <div class="day-t">Vous passez pour de vrai</div>
-        <p class="day-d">Un casting véritable, pas une simulation. Vous repartez avec un retour professionnel sur votre singularité.</p>
-      </div>
-    </div>
-  </div>
-</section>
+    <h2>Candidature et règlement</h2>
+    <p class="sec-sub">Renseignez vos coordonnées, joignez votre dossier, puis réglez la session en ligne. Tout se fait sur cette page.</p>
 
-<!-- ═══ CANDIDATURE ═══ -->
-<section class="pad" id="candidature" style="padding-top:0">
-  <div class="inner" style="text-align:center;margin-bottom:clamp(1.8rem,3.6vw,2.8rem)">
-    <span class="kicker">Dossier + règlement</span>
-    <h2 style="margin-top:16px">Tout se fait ici.</h2>
-    <p class="sec-sub" style="margin-left:auto;margin-right:auto">Cinq minutes suffisent. Votre dossier part chez Yasmina, votre place est réglée dans la foulée.</p>
-  </div>
+    <div class="form-grid">
+      <div class="sheet">
+        <div id="etat-ok" class="status status-ok">
+          <strong>Inscription confirmée</strong>
+          Votre place est réservée et votre dossier transmis à Yasmina. Le reçu part par e-mail — pensez à vérifier vos spams.
+        </div>
+        <div id="etat-ko" class="status status-ko"></div>
 
-  <div class="sheet">
-    <div class="sheet-in">
-      <div id="etat-ok" class="status status-ok">
-        <strong>Inscription confirmée</strong>
-        Votre place est réservée et votre dossier transmis à Yasmina. Le reçu part par e-mail — pensez à vérifier vos spams.
-      </div>
-      <div id="etat-ko" class="status status-ko"></div>
-
-      <form id="form" novalidate>
-        <fieldset>
-          <legend><span class="step-n">01</span><span class="step-t">Vous</span></legend>
-          <div class="fg">
-            <label>Civilité</label>
-            <div class="civ">
-              <input type="radio" name="civilite" id="civ-m" value="M" checked><label for="civ-m">M.</label>
-              <input type="radio" name="civilite" id="civ-mme" value="Mme"><label for="civ-mme">Mme</label>
-            </div>
-          </div>
-          <div class="row">
+        <form id="form" novalidate>
+          <fieldset>
+            <legend><span class="step-n">1</span><span class="step-t">Vos coordonnées</span></legend>
             <div class="fg">
-              <label for="f-prenom">Prénom</label>
-              <input type="text" id="f-prenom" name="prenom" required maxlength="100" autocomplete="given-name">
-              <div class="error" id="err-prenom"></div>
-            </div>
-            <div class="fg">
-              <label for="f-nom">Nom</label>
-              <input type="text" id="f-nom" name="nom" required maxlength="100" autocomplete="family-name">
-              <div class="error" id="err-nom"></div>
-            </div>
-          </div>
-          <div class="fg">
-            <label for="f-email">E-mail</label>
-            <input type="email" id="f-email" name="email" required maxlength="255" autocomplete="email" placeholder="prenom@exemple.fr">
-            <div class="error" id="err-email"></div>
-          </div>
-          <div class="row">
-            <div class="fg">
-              <label for="f-tel">Téléphone <span class="opt">facultatif</span></label>
-              <input type="tel" id="f-tel" name="telephone" maxlength="20" autocomplete="tel">
-            </div>
-            <div class="fg">
-              <label for="f-ville">Ville <span class="opt">facultatif</span></label>
-              <input type="text" id="f-ville" name="ville" maxlength="100" autocomplete="address-level2">
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend><span class="step-n">02</span><span class="step-t">Votre dossier</span></legend>
-          <div class="fg">
-            <label for="f-motiv">Pourquoi ce stage</label>
-            <textarea id="f-motiv" name="motivation" required maxlength="450" data-count
-              placeholder="Où vous en êtes, ce que vous venez débloquer…"></textarea>
-            <div class="hint"><span>Quelques phrases suffisent</span><span class="count"></span></div>
-            <div class="error" id="err-motivation"></div>
-          </div>
-          <div class="fg">
-            <label for="f-video">Vidéo de présentation <span class="opt">lien YouTube, Drive, Vimeo</span></label>
-            <input type="url" id="f-video" name="videoUrl" required placeholder="https://youtube.com/watch?v=...">
-            <div class="hint"><span>1 à 2 min · parlez de vous</span></div>
-            <div class="error" id="err-videoUrl"></div>
-          </div>
-          <div class="row">
-            <div class="fg">
-              <label for="f-cv">Votre CV</label>
-              <div class="file" id="w-cv">
-                <div class="file-ic" aria-hidden="true">↑</div>
-                <div class="file-txt"><b id="l-cv">Choisir un fichier</b><span>PDF · JPG · PNG — 2 Mo max</span></div>
-                <input type="file" id="f-cv" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" required>
-              </div>
-              <div class="error" id="err-cvFile"></div>
-            </div>
-            <div class="fg">
-              <label for="f-photo">Votre photo</label>
-              <div class="file" id="w-photo">
-                <div class="file-ic" aria-hidden="true">↑</div>
-                <div class="file-txt"><b id="l-photo">Choisir une photo</b><span>Portrait — redimensionnée seule</span></div>
-                <input type="file" id="f-photo" accept="image/jpeg,image/png,image/webp" required>
-              </div>
-              <div class="error" id="err-photoFile"></div>
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset style="margin-bottom:0">
-          <legend><span class="step-n">03</span><span class="step-t">Règlement</span></legend>
-          <div class="pay">
-            <div class="pay-top">
-              <div>
-                <span class="l">Montant à régler</span>
-                <span class="pay-amt">850,00 €</span>
-              </div>
-              <div class="pay-right">
-                <span class="brands" aria-hidden="true">
-                  <!-- CB -->
-                  <svg viewBox="0 0 46 30" width="46" height="30"><rect width="46" height="30" rx="4" fill="url(#gcb)"/><defs><linearGradient id="gcb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1B3FCC"/><stop offset="1" stop-color="#00A896"/></linearGradient></defs><text x="23" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" font-weight="bold" fill="#fff">CB</text></svg>
-                  <!-- Visa -->
-                  <svg viewBox="0 0 46 30" width="46" height="30"><rect width="46" height="30" rx="4" fill="#fff" stroke="#D8DFEE"/><text x="23" y="20" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" font-style="italic" fill="#1A1F71">VISA</text></svg>
-                  <!-- Mastercard -->
-                  <svg viewBox="0 0 46 30" width="46" height="30"><rect width="46" height="30" rx="4" fill="#fff" stroke="#D8DFEE"/><circle cx="19" cy="15" r="8" fill="#EB001B"/><circle cx="27" cy="15" r="8" fill="#F79E1B" fill-opacity=".9"/></svg>
-                  <!-- Apple Pay -->
-                  <svg viewBox="0 0 46 30" width="46" height="30"><rect width="46" height="30" rx="4" fill="#0A0A0A"/><text x="23" y="19.5" text-anchor="middle" font-family="-apple-system,'Helvetica Neue',Arial,sans-serif" font-size="11" font-weight="600" fill="#fff">&#63743; Pay</text></svg>
-                </span>
-                <span class="pay-lock"><i></i> Paiement sécurisé Stripe</span>
+              <span class="lab" id="lab-civ">Civilité</span>
+              <div class="civ" role="radiogroup" aria-labelledby="lab-civ">
+                <input type="radio" name="civilite" id="civ-m" value="M" checked><label for="civ-m">M.</label>
+                <input type="radio" name="civilite" id="civ-mme" value="Mme"><label for="civ-mme">Mme</label>
               </div>
             </div>
+            <div class="row">
+              <div class="fg">
+                <label for="f-prenom">Prénom</label>
+                <input type="text" id="f-prenom" name="prenom" required maxlength="100" autocomplete="given-name">
+                <div class="error" id="err-prenom"></div>
+              </div>
+              <div class="fg">
+                <label for="f-nom">Nom</label>
+                <input type="text" id="f-nom" name="nom" required maxlength="100" autocomplete="family-name">
+                <div class="error" id="err-nom"></div>
+              </div>
+            </div>
+            <div class="fg">
+              <label for="f-email">Adresse e-mail</label>
+              <input type="email" id="f-email" name="email" required maxlength="255" autocomplete="email">
+              <div class="error" id="err-email"></div>
+            </div>
+            <div class="row">
+              <div class="fg">
+                <label for="f-tel">Téléphone <span class="opt">facultatif</span></label>
+                <input type="tel" id="f-tel" name="telephone" maxlength="20" autocomplete="tel">
+              </div>
+              <div class="fg">
+                <label for="f-ville">Ville <span class="opt">facultatif</span></label>
+                <input type="text" id="f-ville" name="ville" maxlength="100" autocomplete="address-level2">
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="sep"></div>
+
+          <fieldset>
+            <legend><span class="step-n">2</span><span class="step-t">Votre candidature</span></legend>
+            <div class="fg">
+              <label for="f-motiv">Lettre de motivation</label>
+              <textarea id="f-motiv" name="motivation" required maxlength="450" data-count></textarea>
+              <div class="hint"><span>450 caractères maximum</span><span class="count"></span></div>
+              <div class="error" id="err-motivation"></div>
+            </div>
+            <div class="fg">
+              <label for="f-video">Vidéo de présentation</label>
+              <input type="url" id="f-video" name="videoUrl" required placeholder="https://">
+              <div class="hint"><span>Lien vers votre vidéo (YouTube, Vimeo, Google Drive…)</span></div>
+              <div class="error" id="err-videoUrl"></div>
+            </div>
+            <div class="row">
+              <div class="fg">
+                <label for="f-cv">CV</label>
+                <div class="file" id="w-cv">
+                  <div class="file-txt"><b id="l-cv">Choisir un fichier</b><span>PDF, JPG ou PNG · 2 Mo maximum</span></div>
+                  <input type="file" id="f-cv" accept=".pdf,.jpg,.jpeg,.png,application/pdf,image/jpeg,image/png" required>
+                </div>
+                <div class="error" id="err-cvFile"></div>
+              </div>
+              <div class="fg">
+                <label for="f-photo">Photo</label>
+                <div class="file" id="w-photo">
+                  <div class="file-txt"><b id="l-photo">Choisir une photo</b><span>JPG, PNG ou WebP</span></div>
+                  <input type="file" id="f-photo" accept="image/jpeg,image/png,image/webp" required>
+                </div>
+                <div class="error" id="err-photoFile"></div>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="sep"></div>
+
+          <fieldset>
+            <legend><span class="step-n">3</span><span class="step-t">Règlement</span></legend>
             <div class="pay-body">
               <div id="payment-element">
                 <div class="sk-row"><span class="sk-dot"></span><span class="sk-line" style="width:44%"></span></div>
@@ -443,58 +396,86 @@
                 <div class="sk-msg">Chargement des moyens de paiement…</div>
               </div>
             </div>
-            <div class="pay-foot">Vos coordonnées bancaires sont saisies directement chez Stripe — ce site ne les voit jamais</div>
+            <p class="pay-note" data-klarna>Si vous choisissez Klarna, vous êtes redirigé vers le site de Klarna pour finaliser, puis ramené sur cette page.</p>
+            <p class="pay-note">Le paiement est opéré par Stripe. Vos données bancaires sont saisies dans les champs sécurisés de Stripe et ne transitent pas par ce site.</p>
+            <div class="error" id="err-paiement"></div>
+          </fieldset>
+
+          <div class="hp" aria-hidden="true">
+            <label for="f-web">Ne pas remplir</label>
+            <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
           </div>
-          <div class="error" id="err-paiement"></div>
-        </fieldset>
 
-        <div class="hp" aria-hidden="true">
-          <label for="f-web">Ne pas remplir</label>
-          <input type="text" id="f-web" name="website" tabindex="-1" autocomplete="off">
-        </div>
+          <div class="rgpd">
+            <label class="rgpd-check" for="f-rgpd">
+              <input type="checkbox" id="f-rgpd" required>
+              <span>
+                J'ai lu la <a href="confidentialite.html" target="_blank" rel="noopener">politique de
+                confidentialité</a> et j'accepte que mon dossier soit traité pour l'examen de ma
+                candidature et l'organisation du stage.
+              </span>
+            </label>
+            <div class="error" id="err-rgpd"></div>
+            <p class="rgpd-info">
+              Vos pièces sont transmises à Yasmina Pastural et conservées 12 mois si votre
+              candidature n'est pas retenue, 3 ans après le stage si elle l'est. Le paiement est
+              opéré par Stripe ; aucune donnée bancaire n'atteint ce site. Vous pouvez à tout
+              moment demander l'accès, la rectification ou l'effacement de vos données.
+            </p>
+          </div>
 
-        <div class="rgpd">
-          <label class="rgpd-check" for="f-rgpd">
-            <input type="checkbox" id="f-rgpd" required>
-            <span>
-              J'ai lu la <a href="confidentialite.html" target="_blank" rel="noopener">politique de
-              confidentialité</a> et j'accepte que mon dossier soit traité pour l'examen de ma
-              candidature et l'organisation du stage.
-            </span>
-          </label>
-          <div class="error" id="err-rgpd"></div>
-          <p class="rgpd-info">
-            Vos pièces sont transmises à Yasmina Pastural et conservées 12 mois si votre
-            candidature n'est pas retenue, 3 ans après le stage si elle l'est. Le paiement est
-            opéré par Stripe ; aucune donnée bancaire n'atteint ce site. Vous pouvez à tout
-            moment demander l'accès, la rectification ou l'effacement de vos données.
-          </p>
-        </div>
+          <button type="submit" class="btn" id="btn">
+            <span class="spin" aria-hidden="true"></span>
+            <svg class="lock" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            <span id="btnTxt">Payer 850&nbsp;€ et candidater</span>
+          </button>
+          <p class="legal">En validant, votre dossier est transmis à Yasmina Pastural Training et le paiement est effectué.</p>
+        </form>
+      </div>
 
-        <button type="submit" class="btn" id="btn">
-          <span class="spin" aria-hidden="true"></span>
-          <span id="btnTxt">Payer 850 € et candidater</span>
-        </button>
-        <p class="legal">En validant, votre dossier est transmis à Yasmina Pastural Training et le règlement est encaissé</p>
-      </form>
+      <aside class="recap" aria-label="Récapitulatif">
+        <div class="k">Récapitulatif</div>
+        <div class="t">Stage intensif de jeu cinéma</div>
+        <div class="d1">Du 9 au 13 novembre 2026</div>
+        <div class="d2">Paris · groupe restreint</div>
+        <hr>
+        <ul class="incl">
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Séance photo individuelle</b><span>Comprise dans le tarif</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Casting le vendredi</b><span>Devant un·e directeur·rice de casting</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>14 participants maximum</b><span>Suivi individuel par Yasmina</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Lieu</b><span>Paris, studio professionnel. Adresse communiquée après confirmation</span></div></li>
+        </ul>
+        <hr>
+        <div class="tot">Total à régler</div>
+        <div class="amt eur">850&nbsp;€</div>
+        <div class="sec"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0c0b0a" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Paiement sécurisé par Stripe</div>
+        <div class="how" data-klarna hidden>Paiement en 3 ou 4 fois possible avec Klarna.</div>
+      </aside>
     </div>
   </div>
 </section>
 
 <footer class="site-foot">
-  <a href="index.html">Accueil</a>·
-  <a href="mentions-legales.html">Mentions légales</a>·
-  <a href="confidentialite.html">Confidentialité</a>·
-  <a href="mes-donnees.html">Mes données</a>·
-  <a href="#" data-cookies-open>Gérer mes cookies</a>
-  <div style="margin-top:10px">© 2026 Yasmina Pastural Training</div>
+  <nav aria-label="Pied de page">
+    <a href="index.html">Accueil</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="confidentialite.html">Confidentialité</a>
+    <a href="mes-donnees.html">Mes données</a>
+    <a href="#" data-cookies-open>Gérer mes cookies</a>
+  </nav>
+  <span>© 2026 Yasmina Pastural Training</span>
 </footer>
 
 <script src="consentement.js" defer></script>
 <script>
 // En ligne l'adresse relative suffit ; ouverte hors HTTP la page vise la production.
 var API = (/^https?:$/.test(location.protocol) ? '' : 'https://yptraining.vercel.app') + '/api/candidature';
-var LIBELLE = 'Payer 850 € et candidater';
+var LIBELLE = 'Payer 850\u00a0€ et candidater';
+/* Klarna : mettre false tant que Klarna n'est pas activé dans le dashboard Stripe
+   (Stripe ne l'affiche qu'une fois activé ; ce drapeau règle seulement les mentions de la page). */
+var KLARNA = true;
+document.querySelectorAll('[data-klarna]').forEach(function (e) { e.hidden = !KLARNA; });
+document.querySelectorAll('[data-klarna-off]').forEach(function (e) { e.hidden = KLARNA; });
 var MAX_OCTETS = 2 * 1024 * 1024;
 var fichiers = { cvFile: null, photoFile: null };
 var stripe = null, elements = null;
@@ -585,24 +566,28 @@ function echec(msg, code) {
     stripe = Stripe(cfg.publishableKey);
     elements = stripe.elements({
       mode: 'payment', amount: 85000, currency: 'eur',
+      fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap' }],
       appearance: {
-        theme: 'stripe',
+        theme: 'flat',
         variables: {
-          colorPrimary: '#1B3FCC', colorBackground: '#FFFFFF', colorText: '#0B1230',
-          colorTextSecondary: '#5B6478', colorDanger: '#D93A6B',
-          fontFamily: 'Instrument Sans, system-ui, sans-serif',
-          borderRadius: '10px', spacingUnit: '4.5px', fontSizeBase: '15px'
+          colorPrimary: '#0C0B0A', colorBackground: '#FFFFFF', colorText: '#0C0B0A',
+          colorTextSecondary: '#35302A', colorDanger: '#C8103F',
+          fontFamily: 'Archivo, system-ui, sans-serif',
+          borderRadius: '4px', spacingUnit: '4.5px', fontSizeBase: '15px', fontWeightMedium: '700'
         },
         rules: {
-          '.Tab, .AccordionItem': { border: '1px solid #E3E8F2', boxShadow: 'none', backgroundColor: '#FFFFFF' },
-          '.Tab:hover, .AccordionItem:hover': { borderColor: '#1B3FCC', backgroundColor: '#F8FAFE' },
-          '.Tab--selected, .AccordionItem--selected': {
-            borderColor: '#1B3FCC', backgroundColor: '#F5F8FF',
-            boxShadow: '0 0 0 3px rgba(27,63,204,.10)'
+          '.AccordionItem, .Tab': { border: '2px solid #0C0B0A', boxShadow: 'none', backgroundColor: '#FFFFFF' },
+          '.AccordionItem:hover, .Tab:hover': { borderColor: '#0C0B0A', backgroundColor: '#FFFBE0' },
+          '.AccordionItem--selected, .Tab--selected': {
+            borderColor: '#0C0B0A', backgroundColor: '#FFFBE0', boxShadow: 'none'
           },
-          '.Input': { border: '1px solid #D3DAE9', boxShadow: 'none', backgroundColor: '#FFFFFF' },
-          '.Input:focus': { borderColor: '#1B3FCC', boxShadow: '0 0 0 3px rgba(27,63,204,.10)' },
-          '.Label': { fontSize: '11px', letterSpacing: '.05em', color: '#5B6478' }
+          '.Input': { border: '2px solid #0C0B0A', boxShadow: 'none', backgroundColor: '#FFFFFF' },
+          '.Input:focus': { borderColor: '#0C0B0A', boxShadow: '0 0 0 4px #FFD400' },
+          '.Input--invalid': { borderColor: '#C8103F', boxShadow: '0 0 0 4px rgba(200,16,63,.18)' },
+          '.Label': { fontSize: '14px', fontWeight: '700', color: '#0C0B0A' },
+          '.RadioIcon': { width: '20px' },
+          '.RadioIconOuter': { stroke: '#0C0B0A', strokeWidth: '2' },
+          '.RadioIconInner': { fill: '#0C0B0A' }
         }
       }
     });
