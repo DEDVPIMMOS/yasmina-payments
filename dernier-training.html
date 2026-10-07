@@ -1186,8 +1186,22 @@ footer a:hover{color:var(--bleu)}
 #dcc-intro{max-width:62ch;margin-top:18px;font-size:15.5px;line-height:1.72;color:#4c4233}
 #dcc-liste{display:grid;gap:56px;background:var(--creme);padding:48px 40px 90px}
 @media(max-width:720px){#dcc-liste{padding:30px 22px 60px}}
-.dcc-carte{display:grid;grid-template-columns:1fr 1.3fr;gap:36px;align-items:center}
-@media(max-width:720px){.dcc-carte{grid-template-columns:1fr}}
+.dcc-carte{display:flex;flex-direction:column;gap:34px;max-width:1080px;margin:0 auto;width:100%}
+/* Rangée média : vidéo + photos. Vidéo verticale (9:16) à gauche, photos en grille 2x2
+   à droite, étirée à la hauteur de la vidéo. Sans photos : la vidéo seule, pleine largeur. */
+.dcc-media{display:grid;grid-template-columns:1fr;gap:34px;align-items:stretch}
+.dcc-media.avec-photos{grid-template-columns:auto 1fr}
+.dcc-video.dcc-video-vert{width:clamp(220px,25vw,300px);aspect-ratio:9/16}
+.dcc-photos{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:22px;min-height:0}
+.dcc-photo{position:relative;overflow:hidden;min-height:0;margin:0;
+  border:3px solid var(--noir);box-shadow:5px 5px 0 var(--bleu);background:#ece6d8}
+.dcc-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+@media(max-width:720px){
+  .dcc-media.avec-photos{grid-template-columns:1fr}
+  .dcc-video.dcc-video-vert{width:min(300px,100%);margin:0 auto}
+  .dcc-photos{gap:16px}
+  .dcc-photo{aspect-ratio:4/3}
+}
 .dcc-film{font-family:var(--F);font-style:italic;font-weight:300;
   font-size:clamp(22px,2.6vw,30px);line-height:1.15;color:var(--noir)}
 .dcc-realisation{margin-top:10px;font-family:var(--S);font-weight:800;font-size:11px;
@@ -1255,7 +1269,6 @@ button.dcc-video{cursor:pointer}
 <!-- ═══ DERNIER TRAINING COACHÉ — page isolée : données dans DCC_CASTINGS, style dans #dcc-styles ═══ -->
 <section id="dcc-hero">
   <h1 class="h2-ed rv">Dernier training<br><em>coaché.</em></h1>
-  <p id="dcc-intro" class="rv d1">Contenu à venir.</p>
 </section>
 
 <div id="dcc-liste" class="rv d2"></div>
@@ -1291,7 +1304,9 @@ rvs.forEach(el=>new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting
 
 /* Castings — ajouter une entrée = ajouter un objet à ce tableau, rien d'autre.
    titre/realisateur/role/date/texte optionnels (vide = non affiché),
-   youtube/couverture (système data-yt + COVER_MAP + consentement.js). */
+   youtube/couverture (système data-yt + COVER_MAP + consentement.js),
+   format: 'vertical' pour une vidéo 9:16 (sinon 16:9), photos: liste de fichiers
+   (affichées à droite de la vidéo, à sa hauteur ; vide = vidéo seule). */
 const COVER_MAP = {};
 const DCC_CASTINGS = [
   {
@@ -1300,9 +1315,16 @@ const DCC_CASTINGS = [
     role: '',
     date: '',
     texte: '',
-    youtube: '',
-    couverture: null,
-    exemple: true,
+    youtube: 'J9AHjFxYKHs',
+    couverture: 'images/couverture-semaine-vivante.jpg',
+    format: 'vertical',
+    photos: [
+      'images/dernier-training-1.jpg',
+      'images/dernier-training-2.jpg',
+      'images/dernier-training-3.jpg',
+      'images/dernier-training-4.jpg',
+    ],
+    exemple: false,
   },
 ];
 (function(){
@@ -1346,8 +1368,21 @@ const DCC_CASTINGS = [
       if(s.couverture){var img2=el('img','dcc-cover');img2.src=s.couverture;img2.alt='';img2.loading='lazy';video.appendChild(img2);}
     }
     if(s.exemple)video.appendChild(el('span','dcc-badge','Exemple'));
-    carte.appendChild(infos);
-    carte.appendChild(video);
+    if(s.format==='vertical')video.classList.add('dcc-video-vert');
+    var media=el('div','dcc-media');
+    media.appendChild(video);
+    if(s.photos&&s.photos.length){
+      media.classList.add('avec-photos');
+      var grille=el('div','dcc-photos');
+      s.photos.forEach(function(src){
+        var fig=el('figure','dcc-photo');
+        var im=el('img');im.src=src;im.alt='Photo du dernier training';im.loading='lazy';
+        fig.appendChild(im);grille.appendChild(fig);
+      });
+      media.appendChild(grille);
+    }
+    if(infos.children.length)carte.appendChild(infos);
+    carte.appendChild(media);
     liste.appendChild(carte);
   });
 })();
