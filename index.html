@@ -1222,7 +1222,7 @@ footer a:hover{color:var(--bleu)}
    « Dernières sorties » n'apparaît qu'une fois, comme titre de la section. */
 #dernieres-sorties{background:var(--creme);
   border-top:3px solid var(--noir);border-bottom:3px solid var(--noir)}
-#dernieres-sorties .ds-page-titre{color:var(--bleu);text-align:center}
+#dernieres-sorties .ds-page-titre{color:var(--bleu);text-align:left;font-family:var(--S);font-weight:800;font-style:normal;text-transform:uppercase;letter-spacing:-.005em;line-height:1;font-size:clamp(2.6rem,7vw,5rem)}
 #dernieres-sorties .ds-liste{display:grid;gap:56px;margin-top:40px}
 #dernieres-sorties .ds-carte{display:grid;grid-template-columns:160px 1fr 1.3fr;gap:30px;align-items:start}
 @media(max-width:900px){#dernieres-sorties .ds-carte{grid-template-columns:120px 1fr;}#dernieres-sorties .ds-video{grid-column:1/-1}}
@@ -1265,9 +1265,9 @@ footer a:hover{color:var(--bleu)}
 <nav id="nav">
   <span class="logo">Yasmina Pastural <b>Training</b></span>
   <div class="nav-links">
-    <a href="#dernieres-sorties" class="nav-link">Dernières sorties</a>
     <a href="#yasmina" class="nav-link">Yasmina</a>
     <a href="#filmo" class="nav-link">Filmographie</a>
+    <a href="#dernieres-sorties" class="nav-link">Films</a>
     <a href="#stage" class="nav-link">Le stage</a>
     <a href="#semaine" class="nav-link">La semaine</a>
     <a href="#presse" class="nav-link">Presse</a>
@@ -1280,9 +1280,9 @@ footer a:hover{color:var(--bleu)}
 </nav>
 
 <div class="mob" id="mob" aria-hidden="true">
-  <a href="#dernieres-sorties" onclick="closeMob()">Dernières sorties</a>
   <a href="#yasmina" onclick="closeMob()">Yasmina</a>
   <a href="#filmo" onclick="closeMob()">Filmographie</a>
+  <a href="#dernieres-sorties" onclick="closeMob()">Films</a>
   <a href="#stage" onclick="closeMob()">Le stage</a>
   <a href="#semaine" onclick="closeMob()">La semaine</a>
   <a href="#presse" onclick="closeMob()">Presse</a>
@@ -1319,14 +1319,14 @@ footer a:hover{color:var(--bleu)}
 <!-- MARQUEE ÉDITO -->
 <div class="marquee" aria-hidden="true">
   <div class="mq-track">
-    <span>Daniel Prévost <b>✦</b></span><span>Chantal Ladesou <b>✦</b></span>
+    <span>Rudi Rosenberg <b>✦</b></span><span>Daniel Prévost <b>✦</b></span><span>Chantal Ladesou <b>✦</b></span>
     <span>Kery James <b>✦</b></span><span>Grand Corps Malade <b>✦</b></span>
     <span>Mounia Meddour <b>✦</b></span><span>Amanda Sthers <b>✦</b></span>
     <span>Nicole Garcia <b>✦</b></span><span>Harvey Keitel <b>✦</b></span>
     <span>Sylvie Vartan <b>✦</b></span><span>Claude Zidi Jr <b>✦</b></span>
     <span>Leila Sy <b>✦</b></span><span>Jean Kounen <b>✦</b></span>
     <span>Alexandre Arcady <b>✦</b></span><span>Elie Wajeman <b>✦</b></span>
-    <span>Daniel Prévost <b>✦</b></span><span>Chantal Ladesou <b>✦</b></span>
+    <span>Rudi Rosenberg <b>✦</b></span><span>Daniel Prévost <b>✦</b></span><span>Chantal Ladesou <b>✦</b></span>
     <span>Kery James <b>✦</b></span><span>Grand Corps Malade <b>✦</b></span>
     <span>Mounia Meddour <b>✦</b></span><span>Amanda Sthers <b>✦</b></span>
     <span>Nicole Garcia <b>✦</b></span><span>Harvey Keitel <b>✦</b></span>
@@ -1335,13 +1335,6 @@ footer a:hover{color:var(--bleu)}
     <span>Alexandre Arcady <b>✦</b></span><span>Elie Wajeman <b>✦</b></span>
   </div>
 </div>
-
-<!-- ═══ DERNIÈRES SORTIES ═══ composant isolé : données dans DERNIERES_SORTIES (fin de fichier), style dans #ds-styles -->
-<section id="dernieres-sorties" class="pad">
-  <h2 class="h2-ed ds-page-titre rv">Dernières sorties</h2>
-  <div class="ds-liste rv d1" id="ds-liste"></div>
-  <p class="ds-lien rv d2"><a href="dernier-training.html">Dernier training →</a></p>
-</section>
 
 <!-- ═══ 03 · YASMINA ═══ -->
 <section id="yasmina" class="pad" style="background:var(--bleu);color:#fff;border-top:3px solid var(--noir);border-bottom:3px solid var(--noir);position:relative;overflow:hidden">
@@ -1456,6 +1449,7 @@ footer a:hover{color:var(--bleu)}
   <div class="real-sect rv d3">
     <span class="real-lbl">Réalisateurs</span>
     <div class="real-tags">
+      <span class="real-tag">Rudi Rosenberg</span>
       <span class="real-tag">Cédric Klapisch</span>
       <span class="real-tag">Lola Doillon</span>
       <span class="real-tag">Nicole Garcia</span>
@@ -1470,6 +1464,13 @@ footer a:hover{color:var(--bleu)}
       <span class="real-tag">Pablo Agüero</span>
     </div>
   </div>
+</section>
+
+<!-- ═══ DERNIÈRES SORTIES ═══ composant isolé : données dans DERNIERES_SORTIES (fin de fichier), style dans #ds-styles -->
+<section id="dernieres-sorties" class="pad">
+  <h2 class="h2-ed ds-page-titre rv">Films</h2>
+  <div class="ds-liste rv d1" id="ds-liste"></div>
+  <p class="ds-lien rv d2"><a href="dernier-training.html">Dernier training →</a></p>
 </section>
 
 <!-- ═══ 01 · LE STAGE ═══ -->
@@ -1494,6 +1495,51 @@ footer a:hover{color:var(--bleu)}
       <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
         <a href="candidater.html" class="btn btn-noir">Candidater →</a>
         <a href="#semaine" class="btn btn-white">Programme</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALERIE / BACKSTAGE ═══ -->
+<section id="galerie" style="background:var(--creme);color:var(--noir);border-top:3px solid var(--noir);border-bottom:3px solid var(--noir)">
+  <div class="gal-head">
+    <span class="lbl lbl-bleu rv">Dans les coulisses</span>
+    <h2 class="h2-ed rv d1">Une semaine <em>vivante.</em></h2>
+    <p class="rv d2" style="font-size:15px;line-height:1.72;color:#6a5e4a;max-width:52ch;margin-top:10px">Moments de travail, d'échange, de lâcher-prise, tels qu'ils se vivent vraiment.</p>
+    <div class="gal-tabs rv d3" role="tablist">
+      <button class="gal-tab on" role="tab" aria-selected="true" onclick="switchGal('backstage',this)">Vidéos</button>
+      <button class="gal-tab" role="tab" aria-selected="false" onclick="switchGal('photos',this)">Photos</button>
+    </div>
+  </div>
+
+  <div id="gal-photos" style="padding:0 0 28px;display:none">
+    <div class="gal-grid rv d4">
+      <div class="gi gt"><img src="images/face-a-face-studio.jpg" alt="Face-à-face collectif en studio" loading="lazy"></div>
+      <div class="gi gt"><img src="images/yoga-collectif.jpg" alt="Yoga collectif" loading="lazy"></div>
+      <div class="gi"><img src="images/direction-d-acteurs.jpg" alt="Direction d'acteurs" loading="lazy"></div>
+      <div class="gi"><img src="images/cohesion-du-groupe.jpg" alt="Cohésion du groupe" loading="lazy"></div>
+      <div class="gi gt"><img src="images/seance-photo-book.jpg" alt="Séance photo book" loading="lazy"></div>
+      <div class="gi"><img src="images/impro.jpg" alt="Impro" loading="lazy"></div>
+      <div class="gi"><img src="images/cercle-de-travail.jpg" alt="Cercle de travail" loading="lazy"></div>
+      <div class="gi gw"><img src="images/pleniere-studio.jpg" alt="Plénière studio" loading="lazy"></div>
+      <div class="gi"><img src="images/backstage.jpg" alt="Backstage" loading="lazy"></div>
+      <div class="gi"><img src="images/fin-de-stage.jpg" alt="Fin de stage" loading="lazy"></div>
+
+    </div>
+  </div>
+
+  <div id="gal-backstage" class="bs-pane">
+    <span class="bs-label">Sur le plateau</span>
+    <!-- Pour ajouter une vidéo : un bloc .gal-item avec son format dans --ar
+         (16/9 = 1.7778 · 9/16 = .5625 · 1/1 = 1) + son data-yt, et sa couverture dans COVER_MAP.
+         La rangée recalcule seule les proportions. -->
+    <div class="gal-rangee">
+      <div class="gal-item" style="--ar:1.7778">
+        <button class="gal-feat" type="button" data-yt="5cMvWxLaZ0Y" aria-label="Lire l'extrait d'acting"></button>
+        <p class="gal-feat-cap"><b>Acting&nbsp;·&nbsp;extrait brut</b> travail face caméra, en conditions réelles de tournage</p>
+      </div>
+      <div class="gal-item" style="--ar:.5625">
+        <button class="gal-feat" type="button" data-yt="J9AHjFxYKHs" aria-label="Lire la vidéo"></button>
       </div>
     </div>
   </div>
@@ -1648,51 +1694,6 @@ footer a:hover{color:var(--bleu)}
 
         <p class="itv-more">D'autres intervenants seront ajoutés au fil des sessions.</p>
 
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ GALERIE / BACKSTAGE ═══ -->
-<section id="galerie" style="background:var(--creme);color:var(--noir);border-top:3px solid var(--noir);border-bottom:3px solid var(--noir)">
-  <div class="gal-head">
-    <span class="lbl lbl-bleu rv">Dans les coulisses</span>
-    <h2 class="h2-ed rv d1">Une semaine <em>vivante.</em></h2>
-    <p class="rv d2" style="font-size:15px;line-height:1.72;color:#6a5e4a;max-width:52ch;margin-top:10px">Moments de travail, d'échange, de lâcher-prise, tels qu'ils se vivent vraiment.</p>
-    <div class="gal-tabs rv d3" role="tablist">
-      <button class="gal-tab on" role="tab" aria-selected="true" onclick="switchGal('backstage',this)">Vidéos</button>
-      <button class="gal-tab" role="tab" aria-selected="false" onclick="switchGal('photos',this)">Photos</button>
-    </div>
-  </div>
-
-  <div id="gal-photos" style="padding:0 0 28px;display:none">
-    <div class="gal-grid rv d4">
-      <div class="gi gt"><img src="images/face-a-face-studio.jpg" alt="Face-à-face collectif en studio" loading="lazy"></div>
-      <div class="gi gt"><img src="images/yoga-collectif.jpg" alt="Yoga collectif" loading="lazy"></div>
-      <div class="gi"><img src="images/direction-d-acteurs.jpg" alt="Direction d'acteurs" loading="lazy"></div>
-      <div class="gi"><img src="images/cohesion-du-groupe.jpg" alt="Cohésion du groupe" loading="lazy"></div>
-      <div class="gi gt"><img src="images/seance-photo-book.jpg" alt="Séance photo book" loading="lazy"></div>
-      <div class="gi"><img src="images/impro.jpg" alt="Impro" loading="lazy"></div>
-      <div class="gi"><img src="images/cercle-de-travail.jpg" alt="Cercle de travail" loading="lazy"></div>
-      <div class="gi gw"><img src="images/pleniere-studio.jpg" alt="Plénière studio" loading="lazy"></div>
-      <div class="gi"><img src="images/backstage.jpg" alt="Backstage" loading="lazy"></div>
-      <div class="gi"><img src="images/fin-de-stage.jpg" alt="Fin de stage" loading="lazy"></div>
-
-    </div>
-  </div>
-
-  <div id="gal-backstage" class="bs-pane">
-    <span class="bs-label">Sur le plateau</span>
-    <!-- Pour ajouter une vidéo : un bloc .gal-item avec son format dans --ar
-         (16/9 = 1.7778 · 9/16 = .5625 · 1/1 = 1) + son data-yt, et sa couverture dans COVER_MAP.
-         La rangée recalcule seule les proportions. -->
-    <div class="gal-rangee">
-      <div class="gal-item" style="--ar:1.7778">
-        <button class="gal-feat" type="button" data-yt="5cMvWxLaZ0Y" aria-label="Lire l'extrait d'acting"></button>
-        <p class="gal-feat-cap"><b>Acting&nbsp;·&nbsp;extrait brut</b> travail face caméra, en conditions réelles de tournage</p>
-      </div>
-      <div class="gal-item" style="--ar:.5625">
-        <button class="gal-feat" type="button" data-yt="J9AHjFxYKHs" aria-label="Lire la vidéo"></button>
       </div>
     </div>
   </div>
