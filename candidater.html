@@ -11,7 +11,7 @@
   <script src="https://js.stripe.com/v3/"></script>
   <style>
   :root{
-    --jaune:#ffd400; --noir:#0c0b0a; --creme:#f3eee4; --papier:#fffbe0;
+    --jaune:#ffd400; --rose:#ff4d97; --noir:#0c0b0a; --creme:#f3eee4; --papier:#ffeaf3;
     --gris:#a9a297; --gris-f:#6b6458; --texte2:#35302a; --clair:#cfc8bb;
     --err:#c8103f;
     --S:'Syne',sans-serif; --A:'Archivo',system-ui,sans-serif;
@@ -74,12 +74,12 @@
   .prog-main{flex:1 1 560px;min-width:0}
   .label{display:flex;align-items:center;gap:12px;font-family:var(--S);font-weight:800;font-size:13px;
     letter-spacing:.08em;text-transform:uppercase}
-  .label i{width:36px;height:4px;background:var(--jaune);border:1px solid var(--noir);display:inline-block}
+  .label i{width:36px;height:4px;background:var(--rose);border:1px solid var(--noir);display:inline-block}
   h2{margin:18px 0 0;font-family:var(--S);font-weight:800;font-size:clamp(2.1rem,5vw,3.5rem);
     line-height:1.1;letter-spacing:-.005em}
   .jours{margin-top:44px;border-bottom:2px solid var(--noir)}
   .jour{display:flex;gap:22px;padding:26px 0;border-top:2px solid var(--noir)}
-  .jour-n{flex:none;width:54px;height:54px;background:var(--noir);color:var(--jaune);display:inline-flex;
+  .jour-n{flex:none;width:54px;height:54px;background:var(--noir);color:var(--rose);display:inline-flex;
     align-items:center;justify-content:center;font-family:var(--S);font-weight:800;font-size:20px}
   .jour-k{font-family:var(--A);font-weight:700;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gris-f);margin-bottom:4px}
   .jour-t{font-family:var(--S);font-weight:800;font-size:clamp(19px,2.2vw,23px);line-height:1.15}
@@ -87,27 +87,27 @@
   @media(max-width:560px){.jour{gap:16px}.jour-n{width:44px;height:44px;font-size:17px}}
   .prog-pics{flex:0 1 400px;min-width:300px;display:flex;flex-direction:column;gap:40px;padding-bottom:14px}
   @media(max-width:1000px){.prog-pics{flex:1 1 100%;min-width:0}}
-  .pic{overflow:hidden;border:3px solid var(--noir);box-shadow:12px 12px 0 var(--jaune)}
+  .pic{overflow:hidden;border:3px solid var(--noir);box-shadow:12px 12px 0 var(--rose)}
   .pic img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.1)}
   .pic.p1{aspect-ratio:4/3}
   .pic.p2{align-self:flex-end;width:78%;aspect-ratio:1/1}
   .pic.p2 img{object-position:50% 55%}
   .pic.p3{align-self:flex-start;width:90%;aspect-ratio:4/3}
   .pic.p3 img{object-position:50% 62%}
-  @media(max-width:560px){.pic{box-shadow:8px 8px 0 var(--jaune)}.prog-pics{gap:30px;padding-right:8px}}
+  @media(max-width:560px){.pic{box-shadow:8px 8px 0 var(--rose)}.prog-pics{gap:30px;padding-right:8px}}
 
   /* ── Dossier + règlement ── */
   .s-form{background:var(--noir);color:var(--creme);padding:clamp(3.5rem,8vw,6.5rem) var(--gut) clamp(4rem,8vw,7rem)}
   .s-form h2{margin:0}
   .sec-sub{margin-top:20px;max-width:640px;font-size:clamp(17px,1.8vw,19px);line-height:1.55;color:var(--clair)}
-  .sec-sub b{color:var(--jaune);font-weight:700}
+  .sec-sub b{color:var(--rose);font-weight:700}
   .form-grid{display:flex;flex-wrap:wrap;gap:40px;margin-top:52px;align-items:flex-start}
   .sheet{flex:1 1 640px;min-width:0;padding:clamp(1.4rem,4.4vw,3rem);background:#fff;color:var(--noir);border-radius:var(--r)}
 
   fieldset{border:0;margin:0;padding:0;min-width:0}
   .sep{height:2px;background:var(--noir);margin:44px 0}
   legend{display:flex;align-items:center;gap:14px;width:100%;margin-bottom:26px;padding:0}
-  .step-n{width:34px;height:34px;background:var(--noir);color:var(--jaune);display:inline-flex;align-items:center;
+  .step-n{width:34px;height:34px;background:var(--noir);color:var(--rose);display:inline-flex;align-items:center;
     justify-content:center;font-family:var(--S);font-weight:800;font-size:15px;flex:none}
   .step-t{font-family:var(--S);font-weight:800;font-size:clamp(21px,3vw,26px)}
 
@@ -123,7 +123,7 @@
     background:#fff;font-family:var(--A);font-weight:500;font-size:16px;color:var(--noir);line-height:1.5;
     -webkit-appearance:none;appearance:none;transition:box-shadow var(--dur) var(--ease)}
   input::placeholder,textarea::placeholder{color:#8a8478;font-weight:400}
-  input:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px var(--jaune)}
+  input:focus,textarea:focus{outline:none;box-shadow:0 0 0 4px var(--rose)}
   textarea{resize:vertical;min-height:112px}
   [aria-invalid="true"]{border-color:var(--err)!important;box-shadow:0 0 0 4px rgba(200,16,63,.18)!important}
 
@@ -132,18 +132,18 @@
   .civ label{margin:0;cursor:pointer;padding:11px 30px;font-size:15px;font-weight:700;background:#fff;color:var(--noir);
     transition:background var(--dur) var(--ease),color var(--dur) var(--ease)}
   .civ label:hover{background:var(--papier)}
-  .civ input:checked+label{background:var(--noir);color:var(--jaune)}
-  .civ input:focus-visible+label{outline:3px solid var(--jaune);outline-offset:-3px}
+  .civ input:checked+label{background:var(--noir);color:var(--rose)}
+  .civ input:focus-visible+label{outline:3px solid var(--rose);outline-offset:-3px}
 
   .file{position:relative;display:flex;align-items:center;gap:12px;padding:14px;border:2px dashed var(--noir);
     border-radius:var(--r);background:var(--papier);cursor:pointer;transition:background var(--dur) var(--ease)}
-  .file:hover{background:#fff3a8}
+  .file:hover{background:#ffd3e5}
   .file input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
   .file-txt{display:flex;align-items:center;gap:12px;min-width:0;flex-wrap:wrap}
   .file-txt b{flex:none;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:9px 13px;
-    background:var(--noir);color:var(--jaune);border-radius:3px;font-family:var(--S);font-weight:800;font-size:12.5px}
+    background:var(--noir);color:var(--rose);border-radius:3px;font-family:var(--S);font-weight:800;font-size:12.5px}
   .file-txt span{font-size:13px;line-height:1.4;color:var(--texte2)}
-  .file.ok{border-style:solid;background:#fff3a8}
+  .file.ok{border-style:solid;background:#ffd3e5}
   .file:focus-within{outline:3px solid var(--noir);outline-offset:3px}
 
   .hint{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--gris-f);margin-top:8px}
@@ -169,20 +169,20 @@
     color:var(--noir);font-weight:400;margin:0}
   .rgpd-check input{flex:none;width:24px;height:24px;margin:0;cursor:pointer;-webkit-appearance:none;appearance:none;
     border:2px solid var(--noir);border-radius:3px;background:#fff;transition:background var(--dur) var(--ease)}
-  .rgpd-check input:checked{background:var(--noir) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%23ffd400' stroke-width='3.2'/%3E%3C/svg%3E") center/100% no-repeat}
+  .rgpd-check input:checked{background:var(--noir) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%23ff4d97' stroke-width='3.2'/%3E%3C/svg%3E") center/100% no-repeat}
   .rgpd-check a{color:var(--noir);text-decoration:underline;text-underline-offset:3px}
   .rgpd-info{margin:14px 0 0 36px;font-size:13px;line-height:1.55;color:var(--gris-f)}
   .rgpd .error{margin-left:36px}
 
   .btn{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;height:68px;margin-top:34px;
     font-family:var(--A);font-weight:700;font-size:19px;letter-spacing:.005em;border:0;border-radius:var(--r);cursor:pointer;
-    color:var(--jaune);background:var(--noir);
+    color:var(--rose);background:var(--noir);
     transition:transform var(--dur) var(--ease),opacity var(--dur) var(--ease),background var(--dur) var(--ease)}
   .btn:hover:not(:disabled){transform:translateY(-2px)}
-  .btn:focus-visible{outline:3px solid var(--jaune);outline-offset:3px;box-shadow:0 0 0 6px var(--noir)}
+  .btn:focus-visible{outline:3px solid var(--rose);outline-offset:3px;box-shadow:0 0 0 6px var(--noir)}
   .btn:disabled{cursor:progress;opacity:.65}
   .btn .lock{flex:none}
-  .spin{width:18px;height:18px;border:3px solid rgba(255,212,0,.35);border-top-color:var(--jaune);
+  .spin{width:18px;height:18px;border:3px solid rgba(255,77,151,.35);border-top-color:var(--rose);
     border-radius:50%;animation:sp .7s linear infinite;display:none;flex:none}
   .btn.busy .spin{display:block}
   .btn.busy .lock{display:none}
@@ -193,13 +193,13 @@
     border:2px solid var(--noir)}
   .status.show{display:block}
   .status strong{font-family:var(--S);font-weight:800;font-size:18px;display:block;margin-bottom:4px}
-  .status-ok{background:var(--jaune)}
+  .status-ok{background:var(--rose)}
   .status-ko{background:#fff;border-color:var(--err)}
   .status-ko strong{color:var(--err)}
   .status-code{font-size:12px;opacity:.75;display:block;margin-top:8px}
 
   /* ── Récapitulatif ── */
-  .recap{flex:0 1 360px;min-width:300px;padding:32px;background:var(--jaune);color:var(--noir);border-radius:var(--r);
+  .recap{flex:0 1 360px;min-width:300px;padding:32px;background:var(--rose);color:var(--noir);border-radius:var(--r);
     position:sticky;top:24px}
   @media(max-width:1000px){.recap{flex:1 1 100%;position:static;order:-1}}
   .recap .k{font-family:var(--S);font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
@@ -223,7 +223,7 @@
     background:var(--noir);border-top:1px solid rgba(243,238,228,.2);font-size:13.5px;color:var(--gris)}
   .site-foot nav{display:flex;flex-wrap:wrap;gap:8px 24px}
   .site-foot a{color:var(--creme);text-decoration:none}
-  .site-foot a:hover{color:var(--jaune)}
+  .site-foot a:hover{color:var(--rose)}
 
   [hidden]{display:none!important}
   @media(prefers-reduced-motion:reduce){
@@ -427,7 +427,7 @@
 
           <button type="submit" class="btn" id="btn">
             <span class="spin" aria-hidden="true"></span>
-            <svg class="lock" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            <svg class="lock" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff4d97" stroke-width="2.4" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
             <span id="btnTxt">Payer 850&nbsp;€ et candidater</span>
           </button>
           <p class="legal">En validant, votre dossier est transmis à Yasmina Pastural Training et le paiement est effectué.</p>
@@ -441,10 +441,10 @@
         <div class="d2">Paris · groupe restreint</div>
         <hr>
         <ul class="incl">
-          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Séance photo individuelle</b><span>Comprise dans le tarif</span></div></li>
-          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Casting le vendredi</b><span>Devant un·e directeur·rice de casting</span></div></li>
-          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>14 participants maximum</b><span>Suivi individuel par Yasmina</span></div></li>
-          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffd400" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Lieu</b><span>Paris, studio professionnel. Adresse communiquée après confirmation</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ff4d97" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Séance photo individuelle</b><span>Comprise dans le tarif</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ff4d97" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Casting le vendredi</b><span>Devant un·e directeur·rice de casting</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ff4d97" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>14 participants maximum</b><span>Suivi individuel par Yasmina</span></div></li>
+          <li><span class="ck"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ff4d97" stroke-width="3.4" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg></span><div><b>Lieu</b><span>Paris, studio professionnel. Adresse communiquée après confirmation</span></div></li>
         </ul>
         <hr>
         <div class="tot">Total à régler</div>
@@ -578,12 +578,12 @@ function echec(msg, code) {
         },
         rules: {
           '.AccordionItem, .Tab': { border: '2px solid #0C0B0A', boxShadow: 'none', backgroundColor: '#FFFFFF' },
-          '.AccordionItem:hover, .Tab:hover': { borderColor: '#0C0B0A', backgroundColor: '#FFFBE0' },
+          '.AccordionItem:hover, .Tab:hover': { borderColor: '#0C0B0A', backgroundColor: '#FFEAF3' },
           '.AccordionItem--selected, .Tab--selected': {
-            borderColor: '#0C0B0A', backgroundColor: '#FFFBE0', boxShadow: 'none'
+            borderColor: '#0C0B0A', backgroundColor: '#FFEAF3', boxShadow: 'none'
           },
           '.Input': { border: '2px solid #0C0B0A', boxShadow: 'none', backgroundColor: '#FFFFFF' },
-          '.Input:focus': { borderColor: '#0C0B0A', boxShadow: '0 0 0 4px #FFD400' },
+          '.Input:focus': { borderColor: '#0C0B0A', boxShadow: '0 0 0 4px #FF4D97' },
           '.Input--invalid': { borderColor: '#C8103F', boxShadow: '0 0 0 4px rgba(200,16,63,.18)' },
           '.Label': { fontSize: '14px', fontWeight: '700', color: '#0C0B0A' },
           '.RadioIcon': { width: '20px' },
