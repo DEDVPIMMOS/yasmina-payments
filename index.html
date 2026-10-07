@@ -454,6 +454,19 @@ nav.dark .nav-link.act{border-color:var(--jaune);color:var(--jaune)}
   text-transform:uppercase;color:var(--gris)}
 .gal-feat-cap b{color:var(--noir)}
 .gal-feat-cap::before{content:'';width:26px;height:3px;background:var(--rose);flex:none;align-self:center}
+/* Rangée de vidéos : même hauteur pour toutes, quel que soit leur format.
+   Chaque .gal-item déclare son format dans --ar (largeur/hauteur : 16/9 = 1.7778,
+   9/16 = .5625, 1/1 = 1). La largeur de chaque vidéo est proportionnelle à --ar,
+   donc les hauteurs sont identiques ; les vidéos ajoutées se répartissent seules
+   et passent à la ligne suivante quand la rangée est pleine. */
+.gal-rangee{display:flex;flex-wrap:wrap;justify-content:center;gap:34px;max-width:1080px;margin:26px auto 0;align-items:flex-start}
+.gal-item{flex:var(--ar) 1 calc(var(--ar) * 240px);max-width:calc(var(--ar) * 460px);min-width:0}
+.gal-item .gal-feat{max-width:none;margin:0;aspect-ratio:var(--ar)}
+.gal-item .gal-feat-cap{max-width:none;margin:16px 0 0}
+@media(max-width:720px){
+  .gal-rangee{flex-direction:column;align-items:stretch}
+  .gal-item{flex:none;width:100%;max-width:calc(var(--ar) * 533px);margin:0 auto}
+}
 .temo-vid.vert{aspect-ratio:9/16}
 .temo-vid.vert .temo-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
 .temo-c.temo-feat{background:#16140f}
@@ -1514,8 +1527,18 @@ footer a:hover{color:var(--bleu)}
 
   <div id="gal-backstage" class="bs-pane">
     <span class="bs-label">Sur le plateau</span>
-    <button class="gal-feat" type="button" data-yt="5cMvWxLaZ0Y" aria-label="Lire l'extrait d'acting"></button>
-    <p class="gal-feat-cap"><b>Acting&nbsp;·&nbsp;extrait brut</b> travail face caméra, en conditions réelles de tournage</p>
+    <!-- Pour ajouter une vidéo : un bloc .gal-item avec son format dans --ar
+         (16/9 = 1.7778 · 9/16 = .5625 · 1/1 = 1) + son data-yt, et sa couverture dans COVER_MAP.
+         La rangée recalcule seule les proportions. -->
+    <div class="gal-rangee">
+      <div class="gal-item" style="--ar:1.7778">
+        <button class="gal-feat" type="button" data-yt="5cMvWxLaZ0Y" aria-label="Lire l'extrait d'acting"></button>
+        <p class="gal-feat-cap"><b>Acting&nbsp;·&nbsp;extrait brut</b> travail face caméra, en conditions réelles de tournage</p>
+      </div>
+      <div class="gal-item" style="--ar:.5625">
+        <button class="gal-feat" type="button" data-yt="J9AHjFxYKHs" aria-label="Lire la vidéo"></button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2275,6 +2298,7 @@ const COVER_MAP = {
   '5cMvWxLaZ0Y': 'images/couverture-video-acting.png', // Sur le plateau · extrait acting
   'nVw1CNUJG68': 'images/couverture-interview-01.webp', // Témoignage · ITW1
   'klPA8eYbf48': 'images/couverture-interview-02.webp', // Témoignage · stagiaire
+  'J9AHjFxYKHs': 'images/couverture-semaine-vivante.jpg', // Sur le plateau · vidéo verticale
 };
 (function(){
   function embarquer(f,id){
